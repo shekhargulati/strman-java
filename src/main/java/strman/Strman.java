@@ -16,6 +16,10 @@ public interface Strman {
      * @return full string
      */
     static String append(final String value, final String... appends) throws IllegalArgumentException {
+        return appendArray(value, appends);
+    }
+
+    static String appendArray(String value, String[] appends) {
         if (value == null) {
             throw new IllegalArgumentException("'value' should be not null.");
         }
