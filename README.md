@@ -50,6 +50,7 @@ String result = at("foobar", 0);
 Returns array with strings between `start` and `end`.
 
 ```java
+import static strman.Strman.between;
 String[] parts = between("[abc][def]", "[", "]";
 // parts = ["abc","def"]
 ```
