@@ -1,7 +1,7 @@
 strman-java
 ------
 
-A Java string manipulation library without any dependencies. It is inspired by [dleitee/strman](https://github.com/dleitee/strman).
+A Java 8 string manipulation library without any dependencies. It is inspired by [dleitee/strman](https://github.com/dleitee/strman).
 
 
 ## Available Functions
@@ -31,4 +31,14 @@ import static strman.Strman.appendArray;
 String title = "s";
 String result = appendArray(title, new String[]{"tr","m","an"});
 // result = "strman"
+```
+
+## at(value, index)
+
+Gets the character at index.
+
+```java
+import static strman.Strman.at;
+String result = at("foobar", 0);
+// result = "f"
 ```

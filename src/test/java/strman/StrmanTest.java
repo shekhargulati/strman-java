@@ -2,10 +2,13 @@ package strman;
 
 import org.junit.Test;
 
+import java.util.Optional;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static strman.Strman.append;
 import static strman.Strman.appendArray;
+import static strman.Strman.at;
 
 public class StrmanTest {
 
@@ -28,11 +31,18 @@ public class StrmanTest {
         assertThat(appendArray("", new String[]{"foobar"}), equalTo("foobar"));
     }
 
-
     @Test(expected = IllegalArgumentException.class)
     public void appendArrayShouldThrowIllegalArgumentExceptionWhenValueIsNull() throws Exception {
         appendArray(null, new String[]{});
     }
 
-
+    @Test
+    public void shouldFindCharacterAtIndex() throws Exception {
+        assertThat(at("foobar", 0), equalTo(Optional.of("f")));
+        assertThat(at("foobar", 1), equalTo(Optional.of("o")));
+        assertThat(at("foobar", -1), equalTo(Optional.of("r")));
+        assertThat(at("foobar", -2), equalTo(Optional.of("a")));
+        assertThat(at("foobar", 10), equalTo(Optional.empty()));
+        assertThat(at("foobar", -10), equalTo(Optional.empty()));
+    }
 }
