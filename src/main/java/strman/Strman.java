@@ -21,7 +21,8 @@ public interface Strman {
 
     /**
      * Append an array of String to value
-     * @param value initial String
+     *
+     * @param value   initial String
      * @param appends an array of strings to append
      * @return full String
      */
