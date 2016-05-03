@@ -6,8 +6,9 @@ A Java 8 string manipulation library without any dependencies. It is inspired by
 
 ## Available Functions
 
-* [append](https://github.com/shekhargulati/strman-java)
-* [appendArray](https://github.com/shekhargulati/strman-java)
+* [append](https://github.com/shekhargulati/strman-java#appendvalue-strings)
+* [appendArray](https://github.com/shekhargulati/strman-java#appendarrayvalue-strings)
+* [at](https://github.com/shekhargulati/strman-java#atvalue-index)
 
 
 ## append(value, strings...)
