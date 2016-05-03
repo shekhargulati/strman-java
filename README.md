@@ -28,7 +28,7 @@ String result = append(title, "tr","m","an");
 
 This method will append all the values in `strings` array to the `value`.
 
-```
+```java
 import static strman.Strman.appendArray;
 String title = "s";
 String result = appendArray(title, new String[]{"tr","m","an"});
