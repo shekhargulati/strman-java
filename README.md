@@ -9,6 +9,7 @@ A Java 8 string manipulation library without any dependencies. It is inspired by
 * [append](https://github.com/shekhargulati/strman-java#appendvalue-strings)
 * [appendArray](https://github.com/shekhargulati/strman-java#appendarrayvalue-strings)
 * [at](https://github.com/shekhargulati/strman-java#atvalue-index)
+* [between](https://github.com/shekhargulati/strman-java#betweenvalue-start-end)
 
 
 ## append(value, strings...)
@@ -42,4 +43,13 @@ Gets the character at index.
 import static strman.Strman.at;
 String result = at("foobar", 0);
 // result = "f"
+```
+
+## between(value, start, end)
+
+Returns array with strings between `start` and `end`.
+
+```java
+String[] parts = between("[abc][def]", "[", "]";
+// parts = ["abc","def"]
 ```

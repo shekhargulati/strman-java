@@ -1,7 +1,9 @@
 package strman;
 
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.StringJoiner;
+import java.util.function.Supplier;
 
 /**
  * A String manipulation library without any dependencies
@@ -28,9 +30,7 @@ public interface Strman {
      * @return full String
      */
     static String appendArray(final String value, final String[] appends) {
-        if (value == null) {
-            throw new IllegalArgumentException("'value' should be not null.");
-        }
+        validate(value, () -> "'value' should be not null.");
         if (appends == null || appends.length == 0) {
             return value;
         }
@@ -59,5 +59,29 @@ public interface Strman {
             index = length + index;
         }
         return (index < length && index >= 0) ? Optional.of(String.valueOf(value.charAt(index))) : Optional.empty();
+    }
+
+    /**
+     * Returns an array with strings between start and end.
+     *
+     * @param value
+     * @param start
+     * @param end
+     * @return Array containing different parts between start and end.
+     */
+
+    static String[] between(final String value, final String start, final String end) {
+        validate(value, () -> "'value' should be not null.");
+        validate(start, () -> "'start' should be not null.");
+        validate(end, () -> "'end' should be not null.");
+
+        String[] parts = value.split(end);
+        return Arrays.stream(parts).map(subPart -> subPart.substring(subPart.indexOf(start) + start.length())).toArray(String[]::new);
+    }
+
+    static void validate(String value, Supplier<String> supplier) {
+        if (value == null) {
+            throw new IllegalArgumentException(supplier.get());
+        }
     }
 }

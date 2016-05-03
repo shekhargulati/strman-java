@@ -5,10 +5,9 @@ import org.junit.Test;
 import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.collection.IsArrayContainingInOrder.arrayContaining;
 import static org.junit.Assert.assertThat;
-import static strman.Strman.append;
-import static strman.Strman.appendArray;
-import static strman.Strman.at;
+import static strman.Strman.*;
 
 public class StrmanTest {
 
@@ -44,5 +43,12 @@ public class StrmanTest {
         assertThat(at("foobar", -2), equalTo(Optional.of("a")));
         assertThat(at("foobar", 10), equalTo(Optional.empty()));
         assertThat(at("foobar", -10), equalTo(Optional.empty()));
+    }
+
+    @Test
+    public void shouldReturnArrayWithStringsBetweenStartAndEnd() throws Exception {
+        assertThat(between("[abc][def]", "[", "]"), arrayContaining("abc", "def"));
+        assertThat(between("<span>foo</span>", "<span>", "</span>"), arrayContaining("foo"));
+        assertThat(between("<span>foo</span><span>bar</span>", "<span>", "</span>"), arrayContaining("foo", "bar"));
     }
 }
