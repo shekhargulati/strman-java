@@ -66,6 +66,16 @@ char[] result = chars(title);
 ```
 
 
+## collapseWhitespace(value)
+
+Replace consecutive whitespace characters with a single space.
+
+```java
+final String input = " foo    bar  ";
+final String result = collapseWhitespace(title);
+// result = "foo bar";
+```
+
 
 
 ## Other functions that can be added

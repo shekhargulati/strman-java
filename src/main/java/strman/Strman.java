@@ -3,6 +3,7 @@ package strman;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.StringJoiner;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
@@ -10,6 +11,10 @@ import java.util.function.Supplier;
  */
 public interface Strman {
 
+    Predicate<String> NULL_STRING_PREDICATE = str -> str == null;
+    Predicate<String> EMPTY_STRING_PREDICATE = str -> str.length() == 0;
+    Predicate<String> NULL_AND_EMPTY_STRING_PREDICATE = NULL_STRING_PREDICATE.and(EMPTY_STRING_PREDICATE);
+    String EMPTY_STRING = " ";
 
     /**
      * Appends Strings to value
@@ -30,7 +35,7 @@ public interface Strman {
      * @return full String
      */
     static String appendArray(final String value, final String[] appends) {
-        validate(value, () -> "'value' should be not null.");
+        validate(value, NULL_STRING_PREDICATE, () -> "'value' should be not null.");
         if (appends == null || appends.length == 0) {
             return value;
         }
@@ -71,18 +76,12 @@ public interface Strman {
      */
 
     static String[] between(final String value, final String start, final String end) {
-        validate(value, () -> "'value' should be not null.");
-        validate(start, () -> "'start' should be not null.");
-        validate(end, () -> "'end' should be not null.");
+        validate(value, NULL_STRING_PREDICATE, () -> "'value' should be not null.");
+        validate(start, NULL_STRING_PREDICATE, () -> "'start' should be not null.");
+        validate(end, NULL_STRING_PREDICATE, () -> "'end' should be not null.");
 
         String[] parts = value.split(end);
         return Arrays.stream(parts).map(subPart -> subPart.substring(subPart.indexOf(start) + start.length())).toArray(String[]::new);
-    }
-
-    static void validate(final String value, final Supplier<String> supplier) {
-        if (value == null) {
-            throw new IllegalArgumentException(supplier.get());
-        }
     }
 
     /**
@@ -96,12 +95,30 @@ public interface Strman {
          * The other implementation of this could be using String's split method
          * String[] chars = value.split("")
          */
-        validate(value, () -> "'value' should be not null.");
+        validate(value, NULL_STRING_PREDICATE, () -> "'value' should be not null.");
         int length = value.length();
         String[] result = new String[length];
         for (int i = 0; i < length; i++) {
             result[i] = at(value, i).get();
         }
         return result;
+    }
+
+
+    /**
+     * Replace consecutive whitespace characters with a single space.
+     *
+     * @param value input String
+     * @return collapsed String
+     */
+    static String collapseWhitespace(final String value) {
+        validate(value, NULL_STRING_PREDICATE, () -> "'value' should be not null.");
+        return value.trim().replaceAll("\\s\\s+", " ");
+    }
+
+    static void validate(String value, Predicate<String> predicate, final Supplier<String> supplier) {
+        if (predicate.test(value)) {
+            throw new IllegalArgumentException(supplier.get());
+        }
     }
 }
