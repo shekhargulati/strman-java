@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.collection.IsArrayContainingInOrder.arrayContaining;
+import static org.hamcrest.collection.IsArrayWithSize.emptyArray;
 import static org.junit.Assert.assertThat;
 import static strman.Strman.*;
 
@@ -50,5 +51,11 @@ public class StrmanTest {
         assertThat(between("[abc][def]", "[", "]"), arrayContaining("abc", "def"));
         assertThat(between("<span>foo</span>", "<span>", "</span>"), arrayContaining("foo"));
         assertThat(between("<span>foo</span><span>bar</span>", "<span>", "</span>"), arrayContaining("foo", "bar"));
+    }
+
+    @Test
+    public void betweenShouldReturnFullStringWhenStartAndEndDoesNotExist() throws Exception {
+        assertThat(between("[abc][def]", "{", "}"), arrayContaining("[abc][def]"));
+        assertThat(between("", "{", "}"), arrayContaining(""));
     }
 }
