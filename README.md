@@ -10,6 +10,9 @@ A Java 8 string manipulation library without any dependencies. It is inspired by
 * [appendArray](https://github.com/shekhargulati/strman-java#appendarrayvalue-strings)
 * [at](https://github.com/shekhargulati/strman-java#atvalue-index)
 * [between](https://github.com/shekhargulati/strman-java#betweenvalue-start-end)
+* [between](https://github.com/shekhargulati/strman-java#betweenvalue-start-end)
+* [chars](https://github.com/shekhargulati/strman-java#charsvalue)
+* [collapseWhitespace](https://github.com/shekhargulati/strman-java#collapsewhitespacevalue)
 
 
 ## append(value, strings...)
