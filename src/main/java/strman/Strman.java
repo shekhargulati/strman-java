@@ -18,7 +18,7 @@ public interface Strman {
      * @param appends an array of strings to append
      * @return full String
      */
-    static String append(final String value, final String... appends) throws IllegalArgumentException {
+    static String append(final String value, final String... appends) {
         return appendArray(value, appends);
     }
 
@@ -79,9 +79,29 @@ public interface Strman {
         return Arrays.stream(parts).map(subPart -> subPart.substring(subPart.indexOf(start) + start.length())).toArray(String[]::new);
     }
 
-    static void validate(String value, Supplier<String> supplier) {
+    static void validate(final String value, final Supplier<String> supplier) {
         if (value == null) {
             throw new IllegalArgumentException(supplier.get());
         }
+    }
+
+    /**
+     * Returns a String array consisting of the characters in the String.
+     *
+     * @param value input
+     * @return character array
+     */
+    static String[] chars(final String value) {
+        /**
+         * The other implementation of this could be using String's split method
+         * String[] chars = value.split("")
+         */
+        validate(value, () -> "'value' should be not null.");
+        int length = value.length();
+        String[] result = new String[length];
+        for (int i = 0; i < length; i++) {
+            result[i] = at(value, i).get();
+        }
+        return result;
     }
 }

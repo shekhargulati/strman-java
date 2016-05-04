@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.collection.IsArrayContainingInOrder.arrayContaining;
-import static org.hamcrest.collection.IsArrayWithSize.emptyArray;
 import static org.junit.Assert.assertThat;
 import static strman.Strman.*;
 
@@ -57,5 +56,11 @@ public class StrmanTest {
     public void betweenShouldReturnFullStringWhenStartAndEndDoesNotExist() throws Exception {
         assertThat(between("[abc][def]", "{", "}"), arrayContaining("[abc][def]"));
         assertThat(between("", "{", "}"), arrayContaining(""));
+    }
+
+    @Test
+    public void charsShouldReturnAllCharactersInString() throws Exception {
+        final String title = "title";
+        assertThat(chars(title), equalTo(new String[]{"t", "i", "t", "l", "e"}));
     }
 }

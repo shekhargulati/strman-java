@@ -54,3 +54,21 @@ import static strman.Strman.between;
 String[] parts = between("[abc][def]", "[", "]";
 // parts = ["abc","def"]
 ```
+
+## chars(value)
+
+Returns a String array consisting of the characters in the String.
+
+```java
+final String title = "title";
+char[] result = chars(title);
+// result = ["t", "i", "t", "l", "e"]
+```
+
+
+
+
+## Other functions that can be added
+
+1. head
+2. tail
