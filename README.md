@@ -79,6 +79,17 @@ final String result = collapseWhitespace(title);
 // result = "foo bar";
 ```
 
+## contains(value, needle, caseSensitive)
+
+Verifies that the needle is contained in value.
+
+```java
+boolean result = contains("foo bar", "bazz", false);
+// result = false
+
+boolean result = contains("foo bar", "FOO");
+// result = true
+```
 
 
 ## Other functions that can be added

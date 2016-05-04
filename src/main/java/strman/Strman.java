@@ -12,9 +12,7 @@ import java.util.function.Supplier;
 public interface Strman {
 
     Predicate<String> NULL_STRING_PREDICATE = str -> str == null;
-    Predicate<String> EMPTY_STRING_PREDICATE = str -> str.length() == 0;
-    Predicate<String> NULL_AND_EMPTY_STRING_PREDICATE = NULL_STRING_PREDICATE.and(EMPTY_STRING_PREDICATE);
-    String EMPTY_STRING = " ";
+    Supplier<String> NULL_STRING_MSG_SUPPLIER = () -> "'value' should be not null.";
 
     /**
      * Appends Strings to value
@@ -35,7 +33,7 @@ public interface Strman {
      * @return full String
      */
     static String appendArray(final String value, final String[] appends) {
-        validate(value, NULL_STRING_PREDICATE, () -> "'value' should be not null.");
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         if (appends == null || appends.length == 0) {
             return value;
         }
@@ -69,14 +67,14 @@ public interface Strman {
     /**
      * Returns an array with strings between start and end.
      *
-     * @param value
-     * @param start
-     * @param end
+     * @param value input
+     * @param start start
+     * @param end end
      * @return Array containing different parts between start and end.
      */
 
     static String[] between(final String value, final String start, final String end) {
-        validate(value, NULL_STRING_PREDICATE, () -> "'value' should be not null.");
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         validate(start, NULL_STRING_PREDICATE, () -> "'start' should be not null.");
         validate(end, NULL_STRING_PREDICATE, () -> "'end' should be not null.");
 
@@ -95,7 +93,7 @@ public interface Strman {
          * The other implementation of this could be using String's split method
          * String[] chars = value.split("")
          */
-        validate(value, NULL_STRING_PREDICATE, () -> "'value' should be not null.");
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         int length = value.length();
         String[] result = new String[length];
         for (int i = 0; i < length; i++) {
@@ -112,13 +110,42 @@ public interface Strman {
      * @return collapsed String
      */
     static String collapseWhitespace(final String value) {
-        validate(value, NULL_STRING_PREDICATE, () -> "'value' should be not null.");
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return value.trim().replaceAll("\\s\\s+", " ");
     }
+
 
     static void validate(String value, Predicate<String> predicate, final Supplier<String> supplier) {
         if (predicate.test(value)) {
             throw new IllegalArgumentException(supplier.get());
         }
+    }
+
+    /**
+     * Verifies that the needle is contained in the value. The search is case insensitive
+     *
+     * @param value to search
+     * @param needle to find
+     * @return true if found else false.
+     */
+    static boolean contains(final String value, final String needle) {
+        return contains(value, needle, false);
+    }
+
+    /**
+     *
+     * Verifies that the needle is contained in the value.
+     *
+     * @param value to search
+     * @param needle to find
+     * @param caseSensitive true or false
+     * @return true if found else false.
+     */
+    static boolean contains(final String value, final String needle, final boolean caseSensitive) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        if (caseSensitive) {
+            return value.indexOf(needle) > -1;
+        }
+        return value.toLowerCase().indexOf(needle.toLowerCase()) > -1;
     }
 }

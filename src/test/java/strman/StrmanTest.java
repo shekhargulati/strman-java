@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.collection.IsArrayContainingInOrder.arrayContaining;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 import static strman.Strman.*;
 
 public class StrmanTest {
@@ -80,5 +80,29 @@ public class StrmanTest {
     public void collapseWhitespace_shouldReplaceConsecutiveWhitespaceBetweenMultipleStrings() throws Exception {
         String input = " foo      bar      bazz     hello    world    ";
         assertThat(collapseWhitespace(input), equalTo("foo bar bazz hello world"));
+    }
+
+    @Test
+    public void containsWithCaseSensitiveFalse_shouldReturnTrueWhenStringContainsNeedle() throws Exception {
+        String[] fixture = {
+                "foo bar",
+                "bar foo",
+                "foobar",
+                "foo"
+        };
+
+        Arrays.stream(fixture).forEach(el -> assertTrue(contains(el, "FOO")));
+    }
+
+    @Test
+    public void containsWithCaseSensitiveTrue_shouldReturnTrueWhenStringContainsNeedle() throws Exception {
+        String[] fixture = {
+                "foo bar",
+                "bar foo",
+                "foobar",
+                "foo"
+        };
+
+        Arrays.stream(fixture).forEach(el -> assertFalse(contains(el, "FOO", true)));
     }
 }
