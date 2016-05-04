@@ -69,7 +69,7 @@ public interface Strman {
      *
      * @param value input
      * @param start start
-     * @param end end
+     * @param end   end
      * @return Array containing different parts between start and end.
      */
 
@@ -124,7 +124,7 @@ public interface Strman {
     /**
      * Verifies that the needle is contained in the value. The search is case insensitive
      *
-     * @param value to search
+     * @param value  to search
      * @param needle to find
      * @return true if found else false.
      */
@@ -133,11 +133,10 @@ public interface Strman {
     }
 
     /**
-     *
      * Verifies that the needle is contained in the value.
      *
-     * @param value to search
-     * @param needle to find
+     * @param value         to search
+     * @param needle        to find
      * @param caseSensitive true or false
      * @return true if found else false.
      */
@@ -147,5 +146,30 @@ public interface Strman {
             return value.indexOf(needle) > -1;
         }
         return value.toLowerCase().indexOf(needle.toLowerCase()) > -1;
+    }
+
+    /**
+     * Verifies that all needles are contained in value. The search is case insensitive
+     *
+     * @param value         input String to search
+     * @param needles       needles to find
+     * @return true if all needles are found else false.
+     */
+    static boolean containsAll(String value, String[] needles) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return Arrays.stream(needles).allMatch(needle -> contains(value, needle, false));
+    }
+
+    /**
+     * Verifies that all needles are contained in value
+     *
+     * @param value         input String to search
+     * @param needles       needles to find
+     * @param caseSensitive true or false
+     * @return true if all needles are found else false.
+     */
+    static boolean containsAll(String value, String[] needles, boolean caseSensitive) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return Arrays.stream(needles).allMatch(needle -> contains(value, needle, caseSensitive));
     }
 }

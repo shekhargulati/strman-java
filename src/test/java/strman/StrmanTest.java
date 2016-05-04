@@ -105,4 +105,27 @@ public class StrmanTest {
 
         Arrays.stream(fixture).forEach(el -> assertFalse(contains(el, "FOO", true)));
     }
+
+    @Test
+    public void containsAll_shouldReturnTrueOnlyWhenAllNeedlesAreContainedInValue() throws Exception {
+        String[] fixture = {
+                "foo bar",
+                "bar foo",
+                "foobar",
+        };
+
+        Arrays.stream(fixture).forEach(el -> assertTrue(containsAll(el, new String[]{"FOO", "bar"})));
+    }
+
+    @Test
+    public void containsAll_shouldReturnFalseOnlyWhenAllNeedlesAreNotContainedInValue() throws Exception {
+        String[] fixture = {
+                "foo bar",
+                "bar foo",
+                "foobar",
+        };
+
+        Arrays.stream(fixture).forEach(el -> assertFalse(containsAll(el, new String[]{"FOO", "bar"}, true)));
+    }
+
 }

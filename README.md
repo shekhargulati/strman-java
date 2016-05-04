@@ -84,12 +84,26 @@ final String result = collapseWhitespace(title);
 Verifies that the needle is contained in value.
 
 ```java
-boolean result = contains("foo bar", "bazz", false);
+boolean result = contains("foo bar", "BAR", true);
 // result = false
 
 boolean result = contains("foo bar", "FOO");
 // result = true
 ```
+
+## containsAll(value, needles, caseSensitive)
+
+Verifies that all needles are contained in value.
+
+```java
+ boolean result = containsAll("foo bar", new String[]{"FOO", "bar"});
+ // result = true
+ 
+ boolean result = containsAll("foo bar", new String[]{"FOO", "bar"}, true);
+ // result = false
+```
+
+   
 
 
 ## Other functions that can be added
