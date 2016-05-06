@@ -103,8 +103,16 @@ Verifies that all needles are contained in value.
  // result = false
 ```
 
+## containsAny(value, needles, caseSensitive)
    
+Verifies that one or more of needles are contained in value.
 
+```java
+String title = "foo bar";
+String needles = ["foo", "bar", "test"];
+String result = containsAny(title, needles, true);
+// result = true 
+```
 
 ## Other functions that can be added
 

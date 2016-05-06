@@ -151,11 +151,11 @@ public interface Strman {
     /**
      * Verifies that all needles are contained in value. The search is case insensitive
      *
-     * @param value         input String to search
-     * @param needles       needles to find
+     * @param value   input String to search
+     * @param needles needles to find
      * @return true if all needles are found else false.
      */
-    static boolean containsAll(String value, String[] needles) {
+    static boolean containsAll(final String value, final String[] needles) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Arrays.stream(needles).allMatch(needle -> contains(value, needle, false));
     }
@@ -168,8 +168,17 @@ public interface Strman {
      * @param caseSensitive true or false
      * @return true if all needles are found else false.
      */
-    static boolean containsAll(String value, String[] needles, boolean caseSensitive) {
+    static boolean containsAll(final String value, final String[] needles, final boolean caseSensitive) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Arrays.stream(needles).allMatch(needle -> contains(value, needle, caseSensitive));
+    }
+
+    static boolean containsAny(final String value, final String[] needles) {
+        return containsAny(value, needles, false);
+    }
+
+    static boolean containsAny(final String value, final String[] needles, final boolean caseSensitive) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return Arrays.stream(needles).anyMatch(needle -> contains(value, needle, caseSensitive));
     }
 }
