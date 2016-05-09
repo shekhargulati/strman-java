@@ -146,4 +146,52 @@ public class StrmanTest {
         };
         Arrays.stream(fixture).forEach(el -> assertFalse(containsAny(el, new String[]{"FOO", "BAR", "Test"}, true)));
     }
+
+    @Test
+    public void countSubstr_shouldCountSubStrCountCaseInsensitiveWithoutOverlapInValue() throws Exception {
+        assertThat(countSubstr("aaaAAAaaa", "aaa"), equalTo(3L));
+    }
+
+    @Test
+    public void countSubstr_shouldCountSubStrCountCaseSensitiveWithoutOverlapInValue() throws Exception {
+        assertThat(countSubstr("aaaAAAaaa", "aaa", true, false), equalTo(2L));
+    }
+
+    @Test
+    public void countSubstr_shouldCountSubStrCountCaseInsensitiveWithOverlapInValue() throws Exception {
+        assertThat(countSubstr("aaaAAAaaa", "aaa", false, true), equalTo(7L));
+    }
+
+    @Test
+    public void countSubstr_shouldCountSubStrCountCaseSensitiveWithOverlapInValue() throws Exception {
+        assertThat(countSubstr("aaaAAAaaa", "AAA", true, true), equalTo(1L));
+    }
+
+    @Test
+    public void countSubstrTestFixture_caseSensitiveTrueAndOverlappingFalse() throws Exception {
+        String[] fixture = {
+                "aaaaaAaaAA",
+                "faaaAAaaaaAA",
+                "aaAAaaaaafA",
+                "AAaaafaaaaAAAA"
+        };
+        Arrays.stream(fixture).forEach(el -> assertThat(countSubstr(el, "a", true, false), equalTo(7L)));
+    }
+
+    @Test
+    public void countSubstrTestFixture_caseSensitiveFalseAndOverlappingFalse() throws Exception {
+        String[] fixture = {
+                "aaaaaaa",
+                "faaaaaaa",
+                "aaaaaaaf",
+                "aaafaaaa"
+        };
+        Arrays.stream(fixture).forEach(el -> assertThat(countSubstr(el, "A"), equalTo(7L)));
+    }
+
+    @Test
+    public void countSubstrTestFixture_caseSensitiveTrueAndOverlappingTrue() throws Exception {
+        assertThat(countSubstr("aaa", "aa", true, true), equalTo(2L));
+    }
+
 }

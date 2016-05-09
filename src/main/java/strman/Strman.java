@@ -9,10 +9,10 @@ import java.util.function.Supplier;
 /**
  * A String manipulation library without any dependencies
  */
-public interface Strman {
+public abstract class Strman {
 
-    Predicate<String> NULL_STRING_PREDICATE = str -> str == null;
-    Supplier<String> NULL_STRING_MSG_SUPPLIER = () -> "'value' should be not null.";
+    private static final Predicate<String> NULL_STRING_PREDICATE = str -> str == null;
+    private static final Supplier<String> NULL_STRING_MSG_SUPPLIER = () -> "'value' should be not null.";
 
     /**
      * Appends Strings to value
@@ -21,7 +21,7 @@ public interface Strman {
      * @param appends an array of strings to append
      * @return full String
      */
-    static String append(final String value, final String... appends) {
+    public static String append(final String value, final String... appends) {
         return appendArray(value, appends);
     }
 
@@ -32,7 +32,7 @@ public interface Strman {
      * @param appends an array of strings to append
      * @return full String
      */
-    static String appendArray(final String value, final String[] appends) {
+    public static String appendArray(final String value, final String[] appends) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         if (appends == null || appends.length == 0) {
             return value;
@@ -53,7 +53,7 @@ public interface Strman {
      * @param index location
      * @return an Optional String if found else empty
      */
-    static Optional<String> at(final String value, int index) {
+    public static Optional<String> at(final String value, int index) {
         if (value == null || value.isEmpty()) {
             return Optional.empty();
         }
@@ -73,7 +73,7 @@ public interface Strman {
      * @return Array containing different parts between start and end.
      */
 
-    static String[] between(final String value, final String start, final String end) {
+    public static String[] between(final String value, final String start, final String end) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         validate(start, NULL_STRING_PREDICATE, () -> "'start' should be not null.");
         validate(end, NULL_STRING_PREDICATE, () -> "'end' should be not null.");
@@ -88,7 +88,7 @@ public interface Strman {
      * @param value input
      * @return character array
      */
-    static String[] chars(final String value) {
+    public static String[] chars(final String value) {
         /**
          * The other implementation of this could be using String's split method
          * String[] chars = value.split("")
@@ -109,13 +109,13 @@ public interface Strman {
      * @param value input String
      * @return collapsed String
      */
-    static String collapseWhitespace(final String value) {
+    public static String collapseWhitespace(final String value) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return value.trim().replaceAll("\\s\\s+", " ");
     }
 
 
-    static void validate(String value, Predicate<String> predicate, final Supplier<String> supplier) {
+    public static void validate(String value, Predicate<String> predicate, final Supplier<String> supplier) {
         if (predicate.test(value)) {
             throw new IllegalArgumentException(supplier.get());
         }
@@ -128,7 +128,7 @@ public interface Strman {
      * @param needle to find
      * @return true if found else false.
      */
-    static boolean contains(final String value, final String needle) {
+    public static boolean contains(final String value, final String needle) {
         return contains(value, needle, false);
     }
 
@@ -140,7 +140,7 @@ public interface Strman {
      * @param caseSensitive true or false
      * @return true if found else false.
      */
-    static boolean contains(final String value, final String needle, final boolean caseSensitive) {
+    public static boolean contains(final String value, final String needle, final boolean caseSensitive) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         if (caseSensitive) {
             return value.indexOf(needle) > -1;
@@ -155,7 +155,7 @@ public interface Strman {
      * @param needles needles to find
      * @return true if all needles are found else false.
      */
-    static boolean containsAll(final String value, final String[] needles) {
+    public static boolean containsAll(final String value, final String[] needles) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Arrays.stream(needles).allMatch(needle -> contains(value, needle, false));
     }
@@ -168,17 +168,73 @@ public interface Strman {
      * @param caseSensitive true or false
      * @return true if all needles are found else false.
      */
-    static boolean containsAll(final String value, final String[] needles, final boolean caseSensitive) {
+    public static boolean containsAll(final String value, final String[] needles, final boolean caseSensitive) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Arrays.stream(needles).allMatch(needle -> contains(value, needle, caseSensitive));
     }
 
-    static boolean containsAny(final String value, final String[] needles) {
+    /**
+     * Verifies that one or more of needles are contained in value. This is case insensitive
+     *
+     * @param value   input
+     * @param needles needles to search
+     * @return boolean true if any needle is found else false
+     */
+    public static boolean containsAny(final String value, final String[] needles) {
         return containsAny(value, needles, false);
     }
 
-    static boolean containsAny(final String value, final String[] needles, final boolean caseSensitive) {
+    /**
+     * Verifies that one or more of needles are contained in value.
+     *
+     * @param value         input
+     * @param needles       needles to search
+     * @param caseSensitive true or false
+     * @return boolean true if any needle is found else false
+     */
+    public static boolean containsAny(final String value, final String[] needles, final boolean caseSensitive) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Arrays.stream(needles).anyMatch(needle -> contains(value, needle, caseSensitive));
     }
+
+    /**
+     * Count the number of times substr appears in value
+     *
+     * @param value  input
+     * @param subStr to search
+     * @return count of times substring exists
+     */
+    public static long countSubstr(final String value, final String subStr) {
+        return countSubstr(value, subStr, false, false);
+    }
+
+    /**
+     * Count the number of times substr appears in value
+     *
+     * @param value input
+     * @param subStr search string
+     * @param caseSensitive whether search should be case sensitive
+     * @param allowOverlapping boolean to take into account overlapping
+     * @return count of times substring exists
+     */
+    public static long countSubstr(final String value, final String subStr, final boolean caseSensitive, boolean allowOverlapping) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return countSubstr(caseSensitive ? value : value.toLowerCase(), caseSensitive ? subStr : subStr.toLowerCase(), allowOverlapping, 0L);
+    }
+
+    private static long countSubstr(String value, String subStr, boolean allowOverlapping, long count) {
+        int position = value.indexOf(subStr);
+        if (position == -1) {
+            return count;
+        }
+        int offset;
+        if (!allowOverlapping) {
+            offset = position + subStr.length();
+        } else {
+            offset = position + 1;
+        }
+        return countSubstr(value.substring(offset), subStr, allowOverlapping, ++count);
+    }
+
+
 }
