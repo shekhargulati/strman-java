@@ -211,9 +211,9 @@ public abstract class Strman {
     /**
      * Count the number of times substr appears in value
      *
-     * @param value input
-     * @param subStr search string
-     * @param caseSensitive whether search should be case sensitive
+     * @param value            input
+     * @param subStr           search string
+     * @param caseSensitive    whether search should be case sensitive
      * @param allowOverlapping boolean to take into account overlapping
      * @return count of times substring exists
      */
@@ -221,6 +221,50 @@ public abstract class Strman {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return countSubstr(caseSensitive ? value : value.toLowerCase(), caseSensitive ? subStr : subStr.toLowerCase(), allowOverlapping, 0L);
     }
+
+    /**
+     * Test if value ends with search. The search is case sensitive.
+     *
+     * @param value  input string
+     * @param search string to search
+     * @return true or false
+     */
+    public static boolean endsWith(final String value, final String search) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return endsWith(value, search, value.length(), true);
+    }
+
+    /**
+     * Test if value ends with search.
+     *
+     * @param value         input string
+     * @param search        string to search
+     * @param caseSensitive true or false
+     * @return true or false
+     */
+    public static boolean endsWith(final String value, final String search, final boolean caseSensitive) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return endsWith(value, search, value.length(), caseSensitive);
+    }
+
+    /**
+     * Test if value ends with search.
+     *
+     * @param value         input string
+     * @param search        string to search
+     * @param position      position till which you want to search.
+     * @param caseSensitive true or false
+     * @return true or false
+     */
+    public static boolean endsWith(final String value, final String search, final int position, final boolean caseSensitive) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        int remainingLength = position - search.length();
+        if (caseSensitive) {
+            return value.indexOf(search, remainingLength) > -1;
+        }
+        return value.toLowerCase().indexOf(search.toLowerCase(), remainingLength) > -1;
+    }
+
 
     private static long countSubstr(String value, String subStr, boolean allowOverlapping, long count) {
         int position = value.indexOf(subStr);

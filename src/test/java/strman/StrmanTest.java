@@ -194,4 +194,40 @@ public class StrmanTest {
         assertThat(countSubstr("aaa", "aa", true, true), equalTo(2L));
     }
 
+    @Test
+    public void endsWith_caseSensitive_ShouldBeTrueWhenStringEndsWithSearchStr() throws Exception {
+        String[] fixture = {
+                "foo bar",
+                "bar"
+        };
+        Arrays.stream(fixture).forEach(el -> assertTrue(endsWith(el, "bar")));
+    }
+
+    @Test
+    public void endsWith_notCaseSensitive_ShouldBeTrueWhenStringEndsWithSearchStr() throws Exception {
+        String[] fixture = {
+                "foo bar",
+                "bar"
+        };
+        Arrays.stream(fixture).forEach(el -> assertTrue(endsWith(el, "BAR", false)));
+    }
+
+    @Test
+    public void endsWith_caseSensitiveAtPosition_ShouldBeTrueWhenStringEndsWithSearchStr() throws Exception {
+        String[] fixture = {
+                "foo barr",
+                "barr"
+        };
+        Arrays.stream(fixture).forEach(el -> assertTrue(endsWith(el, "bar", el.length() - 1, true)));
+    }
+
+    @Test
+    public void endsWith_notCaseSensitiveAtPosition_ShouldBeTrueWhenStringEndsWithSearchStr() throws Exception {
+        String[] fixture = {
+                "foo barr",
+                "barr"
+        };
+        Arrays.stream(fixture).forEach(el -> assertTrue(endsWith(el, "BAR", el.length() - 1, false)));
+    }
+
 }
