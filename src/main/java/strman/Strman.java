@@ -265,6 +265,34 @@ public abstract class Strman {
         return value.toLowerCase().indexOf(search.toLowerCase(), remainingLength) > -1;
     }
 
+    /**
+     * Ensures that the value begins with prefix. If it doesn't exist, it's prepended. It is case sensitive.
+     *
+     * @param value  input
+     * @param prefix prefix
+     * @return string with prefix if it was not present.
+     */
+    public static String ensureLeft(final String value, final String prefix) {
+        return ensureLeft(value, prefix, true);
+    }
+
+    /**
+     * Ensures that the value begins with prefix. If it doesn't exist, it's prepended.
+     *
+     * @param value         input
+     * @param prefix        prefix
+     * @param caseSensitive true or false
+     * @return string with prefix if it was not present.
+     */
+    public static String ensureLeft(final String value, final String prefix, final boolean caseSensitive) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        if (caseSensitive) {
+            return value.startsWith(prefix) ? value : prefix + value;
+        }
+        String _value = value.toLowerCase();
+        String _prefix = prefix.toLowerCase();
+        return _value.startsWith(_prefix) ? value : prefix + value;
+    }
 
     private static long countSubstr(String value, String subStr, boolean allowOverlapping, long count) {
         int position = value.indexOf(subStr);

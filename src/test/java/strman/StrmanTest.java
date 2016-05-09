@@ -230,4 +230,21 @@ public class StrmanTest {
         Arrays.stream(fixture).forEach(el -> assertTrue(endsWith(el, "BAR", el.length() - 1, false)));
     }
 
+    @Test
+    public void ensureLeft_shouldEnsureValueStartsWithFoo() throws Exception {
+        String[] fixture = {
+                "foobar",
+                "bar"
+        };
+
+        Arrays.stream(fixture).forEach(el -> assertThat(ensureLeft(el, "foo"), equalTo("foobar")));
+    }
+
+    @Test
+    public void ensureLeft_notCaseSensitive_shouldEnsureValueStartsWithFoo() throws Exception {
+        assertThat(ensureLeft("foobar", "FOO", false), equalTo("foobar"));
+        assertThat(ensureLeft("bar", "FOO", false), equalTo("FOObar"));
+    }
+
+
 }
