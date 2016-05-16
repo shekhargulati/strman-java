@@ -286,9 +286,18 @@ public class StrmanTest {
 
     @Test
     public void decDecode_shouldDecodeDecimalStringToString() throws Exception {
-        assertThat(decDecode("28450"),equalTo("漢"));
-        assertThat(decDecode("00065"),equalTo("A"));
-        assertThat(decDecode("00193"),equalTo("Á"));
-        assertThat(decDecode("0006500065"),equalTo("AA"));
+        assertThat(decDecode("28450"), equalTo("漢"));
+        assertThat(decDecode("00065"), equalTo("A"));
+        assertThat(decDecode("00193"), equalTo("Á"));
+        assertThat(decDecode("0006500065"), equalTo("AA"));
+    }
+
+    @Test
+    public void decEncode_shouldEncodeStringToDecimal() throws Exception {
+        assertThat(decEncode("漢"), equalTo("28450"));
+        assertThat(decEncode("A"), equalTo("00065"));
+        assertThat(decEncode("Á"), equalTo("00193"));
+        assertThat(decEncode("AA"), equalTo("0006500065"));
+
     }
 }

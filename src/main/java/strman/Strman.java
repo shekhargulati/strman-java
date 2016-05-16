@@ -346,7 +346,7 @@ public abstract class Strman {
     }
 
     /**
-     * Convert decimal unicode (16 digits) string to string chars
+     * Convert decimal unicode (5 digits) string to string chars
      *
      * @param value The value to decode
      * @return decoded String
@@ -357,6 +357,17 @@ public abstract class Strman {
                 .stream(value.split("(?<=\\G.{5})"))
                 .map(data -> String.valueOf(Character.toChars(Integer.parseInt(data))))
                 .collect(joining());
+    }
+
+    /**
+     * Convert string chars to decimal unicode (5 digits)
+     *
+     * @param value The value to encode
+     * @return Encoded value
+     */
+    public static String decEncode(final String value) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return value.chars().mapToObj(ch -> leftPad(Integer.toString(ch), "0", 5)).collect(joining());
     }
 
     public static String leftPad(final String value, final String pad, final int length) {
