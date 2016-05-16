@@ -302,7 +302,19 @@ public abstract class Strman {
      * @return decoded data
      */
     public static String base64Decode(final String value) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return new String(Base64.getDecoder().decode(value));
+    }
+
+    /**
+     * Encodes data with MIME base64.
+     *
+     * @param value The data to encode
+     * @return The encoded String
+     */
+    public static String base64Encode(final String value) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return Base64.getEncoder().encodeToString(value.getBytes());
     }
 
     private static long countSubstr(String value, String subStr, boolean allowOverlapping, long count) {

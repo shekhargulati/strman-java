@@ -253,6 +253,15 @@ public class StrmanTest {
         assertThat(base64Decode("YmFy"), equalTo("bar"));
         assertThat(base64Decode("YsOhciE="), equalTo("bár!"));
         assertThat(base64Decode("5ryi"), equalTo("漢"));
+    }
+
+    @Test
+    public void base64Encode_shouldEncodeAString() throws Exception {
+        assertThat(base64Encode("strman"), equalTo("c3RybWFu"));
+        assertThat(base64Encode("foo"), equalTo("Zm9v"));
+        assertThat(base64Encode("bar"), equalTo("YmFy"));
+        assertThat(base64Encode("bár!"), equalTo("YsOhciE="));
+        assertThat(base64Encode("漢"), equalTo("5ryi"));
 
     }
 }
