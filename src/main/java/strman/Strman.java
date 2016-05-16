@@ -345,7 +345,21 @@ public abstract class Strman {
         return value.chars().mapToObj(ch -> leftPad(Integer.toBinaryString(ch), "0", 16)).collect(joining());
     }
 
-    public static String leftPad(String value, String pad, int length) {
+    /**
+     * Convert decimal unicode (16 digits) string to string chars
+     *
+     * @param value The value to decode
+     * @return decoded String
+     */
+    public static String decDecode(final String value) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return Arrays
+                .stream(value.split("(?<=\\G.{5})"))
+                .map(data -> String.valueOf(Character.toChars(Integer.parseInt(data))))
+                .collect(joining());
+    }
+
+    public static String leftPad(final String value, final String pad, final int length) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         if (value.length() >= length) {
             return value;

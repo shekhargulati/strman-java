@@ -283,4 +283,12 @@ public class StrmanTest {
         assertThat(binEncode("Á"), equalTo("0000000011000001"));
         assertThat(binEncode("AA"), equalTo("00000000010000010000000001000001"));
     }
+
+    @Test
+    public void decDecode_shouldDecodeDecimalStringToString() throws Exception {
+        assertThat(decDecode("28450"),equalTo("漢"));
+        assertThat(decDecode("00065"),equalTo("A"));
+        assertThat(decDecode("00193"),equalTo("Á"));
+        assertThat(decDecode("0006500065"),equalTo("AA"));
+    }
 }
