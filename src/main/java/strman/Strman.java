@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.StringJoiner;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.joining;
 
@@ -329,8 +330,27 @@ public abstract class Strman {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Arrays
                 .stream(value.split("(?<=\\G.{16})"))
-                .map(data -> String.valueOf(Character.toChars(Integer.parseInt(data,2))))
+                .map(data -> String.valueOf(Character.toChars(Integer.parseInt(data, 2))))
                 .collect(joining());
+    }
+
+    /**
+     * Convert string chars to binary unicode (16 digits)
+     *
+     * @param value The value to encode
+     * @return String in binary format
+     */
+    public static String binEncode(final String value) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return value.chars().mapToObj(ch -> leftPad(Integer.toBinaryString(ch), "0", 16)).collect(joining());
+    }
+
+    public static String leftPad(String value, String pad, int length) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        if (value.length() >= length) {
+            return value;
+        }
+        return append(Stream.generate(() -> pad).limit(length - value.length()).collect(joining()), value);
     }
 
 
