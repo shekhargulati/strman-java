@@ -7,6 +7,8 @@ import java.util.StringJoiner;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+import static java.util.stream.Collectors.joining;
+
 /**
  * A String manipulation library without any dependencies
  */
@@ -316,6 +318,21 @@ public abstract class Strman {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Base64.getEncoder().encodeToString(value.getBytes());
     }
+
+    /**
+     * Convert binary unicode (16 digits) string to string chars
+     *
+     * @param value The value to decode
+     * @return The decoded String
+     */
+    public static String binDecode(final String value) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return Arrays
+                .stream(value.split("(?<=\\G.{16})"))
+                .map(data -> String.valueOf(Character.toChars(Integer.parseInt(data,2))))
+                .collect(joining());
+    }
+
 
     private static long countSubstr(String value, String subStr, boolean allowOverlapping, long count) {
         int position = value.indexOf(subStr);

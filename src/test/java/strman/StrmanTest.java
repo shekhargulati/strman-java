@@ -262,6 +262,18 @@ public class StrmanTest {
         assertThat(base64Encode("bar"), equalTo("YmFy"));
         assertThat(base64Encode("bár!"), equalTo("YsOhciE="));
         assertThat(base64Encode("漢"), equalTo("5ryi"));
+    }
+
+    @Test
+    public void binDecode_shouldDecodeABinaryStringToAValue() throws Exception {
+        assertThat(
+                binDecode("000000000111001100000000011101000000000001110010000000000110110100000000011000010000000001101110"),
+                equalTo("strman"));
+
+        assertThat(binDecode("0110111100100010"),equalTo("漢"));
+        assertThat(binDecode("0000000001000001"),equalTo("A"));
+        assertThat(binDecode("0000000011000001"),equalTo("Á"));
+        assertThat(binDecode("00000000010000010000000001000001"),equalTo("AA"));
 
     }
 }
