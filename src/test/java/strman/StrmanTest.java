@@ -246,5 +246,13 @@ public class StrmanTest {
         assertThat(ensureLeft("bar", "FOO", false), equalTo("FOObar"));
     }
 
+    @Test
+    public void base64Decode_shouldDecodeABase64DecodedValueToString() throws Exception {
+        assertThat(base64Decode("c3RybWFu"), equalTo("strman"));
+        assertThat(base64Decode("Zm9v"), equalTo("foo"));
+        assertThat(base64Decode("YmFy"), equalTo("bar"));
+        assertThat(base64Decode("YsOhciE="), equalTo("bár!"));
+        assertThat(base64Decode("5ryi"), equalTo("漢"));
 
+    }
 }

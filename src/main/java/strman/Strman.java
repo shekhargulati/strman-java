@@ -1,6 +1,7 @@
 package strman;
 
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Optional;
 import java.util.StringJoiner;
 import java.util.function.Predicate;
@@ -143,9 +144,9 @@ public abstract class Strman {
     public static boolean contains(final String value, final String needle, final boolean caseSensitive) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         if (caseSensitive) {
-            return value.indexOf(needle) > -1;
+            return value.contains(needle);
         }
-        return value.toLowerCase().indexOf(needle.toLowerCase()) > -1;
+        return value.toLowerCase().contains(needle.toLowerCase());
     }
 
     /**
@@ -292,6 +293,16 @@ public abstract class Strman {
         String _value = value.toLowerCase();
         String _prefix = prefix.toLowerCase();
         return _value.startsWith(_prefix) ? value : prefix + value;
+    }
+
+    /**
+     * Decodes data encoded with MIME base64
+     *
+     * @param value The data to decode
+     * @return decoded data
+     */
+    public static String base64Decode(final String value) {
+        return new String(Base64.getDecoder().decode(value));
     }
 
     private static long countSubstr(String value, String subStr, boolean allowOverlapping, long count) {
