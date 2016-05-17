@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -305,7 +304,27 @@ public class StrmanTest {
 
     @Test
     public void ensureRight_shouldEnsureStringEndsWithBar() throws Exception {
-        assertThat(Stream.of("foo", "foobar", "fooBAR").map(el -> ensureRight(el, "bar", false)).collect(toList()), hasItems("foobar", "foobar", "fooBAR"));
-        assertThat(Stream.of("foo", "foobar", "fooBAR").map(el -> ensureRight(el, "bar")).collect(toList()), hasItems("foobar", "foobar", "fooBARbar"));
+        final String[] fixture = {
+                "foo", "foobar", "fooBAR"
+        };
+        assertThat(Arrays.stream(fixture).map(el -> ensureRight(el, "bar", false)).collect(toList()), hasItems("foobar", "foobar", "fooBAR"));
+        assertThat(Arrays.stream(fixture).map(el -> ensureRight(el, "bar")).collect(toList()), hasItems("foobar", "foobar", "fooBARbar"));
+    }
+
+    @Test
+    public void first_shouldReturnFirstThreeCharsOfString() throws Exception {
+        final String[] fixture = {
+                "foo", "foobar"
+        };
+        Arrays.stream(fixture).forEach(el -> assertThat(first(el, 3), equalTo("foo")));
+    }
+
+    @Test
+    public void head_shouldReturnFirstCharOfString() throws Exception {
+        final String[] fixture = {
+                "foo", "foobar"
+        };
+
+        Arrays.stream(fixture).forEach(el -> assertThat(head(el), equalTo("f")));
     }
 }

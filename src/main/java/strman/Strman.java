@@ -373,8 +373,8 @@ public abstract class Strman {
     /**
      * Ensures that the value ends with suffix. If it doesn't, it's appended. This operation is case sensitive.
      *
-     * @param value         The input String
-     * @param suffix        The substr to be ensured to be right
+     * @param value  The input String
+     * @param suffix The substr to be ensured to be right
      * @return The string which is guarenteed to start with substr
      */
     public static String ensureRight(final String value, final String suffix) {
@@ -394,6 +394,28 @@ public abstract class Strman {
         return endsWith(value, suffix, caseSensitive) ? value : append(value, suffix);
     }
 
+    /**
+     * Returns the first n chars of String
+     *
+     * @param value The input String
+     * @param n     Number of chars to return
+     * @return The first n chars
+     */
+    public static String first(final String value, final int n) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return value.substring(0, n);
+    }
+
+    /**
+     * Return the first char of String
+     *
+     * @param value The input String
+     * @return The first char
+     */
+    public static String head(final String value) {
+        return first(value, 1);
+    }
+
     public static String leftPad(final String value, final String pad, final int length) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         if (value.length() >= length) {
@@ -401,7 +423,6 @@ public abstract class Strman {
         }
         return append(Stream.generate(() -> pad).limit(length - value.length()).collect(joining()), value);
     }
-
 
     private static long countSubstr(String value, String subStr, boolean allowOverlapping, long count) {
         int position = value.indexOf(subStr);
