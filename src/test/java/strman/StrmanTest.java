@@ -11,6 +11,7 @@ import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.collection.IsArrayContainingInOrder.arrayContaining;
 import static org.junit.Assert.*;
 import static strman.Strman.*;
+import static strman.Strman.format;
 
 public class StrmanTest {
 
@@ -326,5 +327,19 @@ public class StrmanTest {
         };
 
         Arrays.stream(fixture).forEach(el -> assertThat(head(el), equalTo("f")));
+    }
+
+    @Test
+    public void format_shouldFormatStringsToFooBar() throws Exception {
+        assertThat(format("{0} bar", "foo"), equalTo("foo bar"));
+        assertThat(format("foo {0}", "bar"), equalTo("foo bar"));
+        assertThat(format("foo {0}", "bar", "foo"), equalTo("foo bar"));
+        assertThat(format("{0} {1}", "foo", "bar"), equalTo("foo bar"));
+        assertThat(format("{1} {0}", "bar", "foo"), equalTo("foo bar"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void format_shouldThrowExceptionWhenValueDoesNotExist() throws Exception {
+        assertThat(format("{1} {0}"), equalTo("{1} {0}"));
     }
 }

@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.StringJoiner;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.joining;
@@ -414,6 +416,28 @@ public abstract class Strman {
      */
     public static String head(final String value) {
         return first(value, 1);
+    }
+
+    /**
+     * Formats a string using parameters
+     *
+     * @param value  The value to be formatted
+     * @param params Parameters to be described in the string
+     * @return The formatted string
+     */
+    public static String format(final String value, String... params) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        Pattern p = Pattern.compile("\\{(\\w+)\\}");
+        Matcher m = p.matcher(value);
+        String result = value;
+        while (m.find()) {
+            int paramNumber = Integer.parseInt(m.group(1));
+            if (params == null || paramNumber >= params.length) {
+                throw new IllegalArgumentException("params does not have value for " + m.group());
+            }
+            result = result.replace(m.group(), params[paramNumber]);
+        }
+        return result;
     }
 
     public static String leftPad(final String value, final String pad, final int length) {
