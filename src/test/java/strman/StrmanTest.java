@@ -4,8 +4,11 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.collection.IsArrayContainingInOrder.arrayContaining;
 import static org.junit.Assert.*;
 import static strman.Strman.*;
@@ -298,6 +301,11 @@ public class StrmanTest {
         assertThat(decEncode("A"), equalTo("00065"));
         assertThat(decEncode("Á"), equalTo("00193"));
         assertThat(decEncode("AA"), equalTo("0006500065"));
+    }
 
+    @Test
+    public void ensureRight_shouldEnsureStringEndsWithBar() throws Exception {
+        assertThat(Stream.of("foo", "foobar", "fooBAR").map(el -> ensureRight(el, "bar", false)).collect(toList()), hasItems("foobar", "foobar", "fooBAR"));
+        assertThat(Stream.of("foo", "foobar", "fooBAR").map(el -> ensureRight(el, "bar", true)).collect(toList()), hasItems("foobar", "foobar", "fooBARbar"));
     }
 }

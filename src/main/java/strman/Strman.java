@@ -370,6 +370,25 @@ public abstract class Strman {
         return value.chars().mapToObj(ch -> leftPad(Integer.toString(ch), "0", 5)).collect(joining());
     }
 
+    /**
+     * Ensures that the value ends with suffix. If it doesn't, it's appended.
+     *
+     * @param value         The input String
+     * @param suffix        The substr to be ensured to be right
+     * @param caseSensitive Use case (in-)sensitive matching for determining if value already ends with suffix
+     * @return
+     */
+    public static String ensureRight(final String value, final String suffix, boolean caseSensitive) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        boolean endsWith;
+        if (caseSensitive) {
+            endsWith = value.endsWith(suffix);
+        } else {
+            endsWith = value.toLowerCase().endsWith(suffix.toLowerCase());
+        }
+        return endsWith ? value : append(value, suffix);
+    }
+
     public static String leftPad(final String value, final String pad, final int length) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         if (value.length() >= length) {
