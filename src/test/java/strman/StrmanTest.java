@@ -306,6 +306,6 @@ public class StrmanTest {
     @Test
     public void ensureRight_shouldEnsureStringEndsWithBar() throws Exception {
         assertThat(Stream.of("foo", "foobar", "fooBAR").map(el -> ensureRight(el, "bar", false)).collect(toList()), hasItems("foobar", "foobar", "fooBAR"));
-        assertThat(Stream.of("foo", "foobar", "fooBAR").map(el -> ensureRight(el, "bar", true)).collect(toList()), hasItems("foobar", "foobar", "fooBARbar"));
+        assertThat(Stream.of("foo", "foobar", "fooBAR").map(el -> ensureRight(el, "bar")).collect(toList()), hasItems("foobar", "foobar", "fooBARbar"));
     }
 }
