@@ -358,4 +358,27 @@ public class StrmanTest {
         assertThat(hexEncode("Á"), equalTo("00c1"));
         assertThat(hexEncode("AA"), equalTo("00410041"));
     }
+
+    @Test
+    public void indexOf_shouldBeTrueWhenNeedleExists() throws Exception {
+        final String value = "foobar";
+        assertThat(indexOf(value, "f", 0, true), equalTo(0));
+        assertThat(indexOf(value, "o", 0, true), equalTo(1));
+        assertThat(indexOf(value, "b", 0, true), equalTo(3));
+        assertThat(indexOf(value, "a", 0, true), equalTo(4));
+        assertThat(indexOf(value, "r", 0, true), equalTo(5));
+        assertThat(indexOf(value, "t", 0, true), equalTo(-1));
+    }
+
+    @Test
+    public void indexOf_shouldBeTrueWhenNeedleExistCaseSensitive() throws Exception {
+        final String value = "foobar";
+        assertThat(indexOf(value, "F", 0, false), equalTo(0));
+        assertThat(indexOf(value, "O", 0, false), equalTo(1));
+        assertThat(indexOf(value, "B", 0, false), equalTo(3));
+        assertThat(indexOf(value, "A", 0, false), equalTo(4));
+        assertThat(indexOf(value, "R", 0, false), equalTo(5));
+        assertThat(indexOf(value, "T", 0, false), equalTo(-1));
+
+    }
 }

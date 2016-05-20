@@ -450,12 +450,44 @@ public abstract class Strman {
         return encode(value, 4, 16);
     }
 
+    /**
+     * The indexOf() method returns the index within the calling String of the first occurrence of the specified value, starting the search at fromIndex.
+     * Returns -1 if the value is not found.
+     *
+     * @param value         The input String
+     * @param needle        The search String
+     * @param offset        The offset to start searching from.
+     * @param caseSensitive boolean to indicate whether search should be case sensitive
+     * @return Returns position of first occurrence of needle.
+     */
+    public static int indexOf(final String value, final String needle, int offset, boolean caseSensitive) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        if (caseSensitive) {
+            return value.indexOf(needle, offset);
+        }
+        return value.toLowerCase().indexOf(needle.toLowerCase(), offset);
+    }
+
+
     public static String leftPad(final String value, final String pad, final int length) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         if (value.length() >= length) {
             return value;
         }
         return append(Stream.generate(() -> pad).limit(length - value.length()).collect(joining()), value);
+    }
+
+    public static String decode(final String value, int digits, int radix) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return Arrays
+                .stream(value.split("(?<=\\G.{" + digits + "})"))
+                .map(data -> String.valueOf(Character.toChars(Integer.parseInt(data, radix))))
+                .collect(joining());
+    }
+
+    public static String encode(String value, int digits, int radix) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return value.chars().mapToObj(ch -> leftPad(Integer.toString(ch, radix), "0", digits)).collect(joining());
     }
 
     private static long countSubstr(String value, String subStr, boolean allowOverlapping, long count) {
@@ -470,18 +502,5 @@ public abstract class Strman {
             offset = position + 1;
         }
         return countSubstr(value.substring(offset), subStr, allowOverlapping, ++count);
-    }
-
-    public static String decode(final String value, int digits, int radix) {
-        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        return Arrays
-                .stream(value.split("(?<=\\G.{" + digits + "})"))
-                .map(data -> String.valueOf(Character.toChars(Integer.parseInt(data, radix))))
-                .collect(joining());
-    }
-
-    public static String encode(String value, int digits, int radix) {
-        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        return value.chars().mapToObj(ch -> leftPad(Integer.toString(ch, radix), "0", digits)).collect(joining());
     }
 }
