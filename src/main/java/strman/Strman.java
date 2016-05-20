@@ -490,7 +490,7 @@ public abstract class Strman {
         if (index > value.length()) {
             return value;
         }
-        return value.substring(0, index) + substr + value.substring(index);
+        return append(value.substring(0, index), substr, value.substring(index));
     }
 
     public static String leftPad(final String value, final String pad, final int length) {
