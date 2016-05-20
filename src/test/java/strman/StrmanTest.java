@@ -379,6 +379,12 @@ public class StrmanTest {
         assertThat(indexOf(value, "A", 0, false), equalTo(4));
         assertThat(indexOf(value, "R", 0, false), equalTo(5));
         assertThat(indexOf(value, "T", 0, false), equalTo(-1));
+    }
 
+    @Test
+    public void inequal_shouldTestInequalityOfStrings() throws Exception {
+        assertThat(inequal("a", "b"), equalTo(true));
+        assertThat(inequal("a", "a"), equalTo(false));
+        assertThat(inequal("0", "1"), equalTo(true));
     }
 }

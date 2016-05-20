@@ -1,9 +1,6 @@
 package strman;
 
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Optional;
-import java.util.StringJoiner;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
@@ -466,6 +463,16 @@ public abstract class Strman {
             return value.indexOf(needle, offset);
         }
         return value.toLowerCase().indexOf(needle.toLowerCase(), offset);
+    }
+
+    /**
+     * Tests if two Strings are inequal
+     * @param first  The first String
+     * @param second The second String
+     * @return true if first and second are not equal false otherwise
+     */
+    public static boolean inequal(final String first, final String second) {
+        return !Objects.equals(first, second);
     }
 
 
