@@ -409,4 +409,17 @@ public class StrmanTest {
         assertThat(isLowerCase("Foo"), equalTo(false));
         assertThat(isLowerCase("foobarfooA"), equalTo(false));
     }
+
+    @Test
+    public void isUpperCase_shouldBeTrueWhenStringIsUpperCase() throws Exception {
+        assertThat(isUpperCase(""), equalTo(true));
+        assertThat(isUpperCase("FOO"), equalTo(true));
+        assertThat(isUpperCase("FOOBARFOO"), equalTo(true));
+    }
+
+    @Test
+    public void isUpperCase_shouldBeFalseWhenStringIsNotUpperCase() throws Exception {
+        assertThat(isUpperCase("Foo"), equalTo(false));
+        assertThat(isUpperCase("foobarfooA"), equalTo(false));
+    }
 }

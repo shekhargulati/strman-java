@@ -494,6 +494,17 @@ public abstract class Strman {
     }
 
     /**
+     * Verifies if String is uppercase
+     *
+     * @param value The input String
+     * @return true if String is uppercase false otherwise
+     */
+    public static boolean isUpperCase(final String value) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return Objects.equals(value, value.toUpperCase());
+    }
+
+    /**
      * Verifies if String is lower case
      *
      * @param value The input String
