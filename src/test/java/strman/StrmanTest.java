@@ -396,4 +396,17 @@ public class StrmanTest {
         assertThat(insert("foobar", "x", 6), equalTo("foobarx"));
         assertThat(insert("foo bar", "asadasd", 100), equalTo("foo bar"));
     }
+
+    @Test
+    public void isLowerCase_shouldBeTrueWhenStringIsLowerCase() throws Exception {
+        assertThat(isLowerCase(""), equalTo(true));
+        assertThat(isLowerCase("foo"), equalTo(true));
+        assertThat(isLowerCase("foobarfoo"), equalTo(true));
+    }
+
+    @Test
+    public void isLowerCase_shouldBeFalseWhenStringIsNotLowerCase() throws Exception {
+        assertThat(isLowerCase("Foo"), equalTo(false));
+        assertThat(isLowerCase("foobarfooA"), equalTo(false));
+    }
 }

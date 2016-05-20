@@ -493,6 +493,17 @@ public abstract class Strman {
         return append(value.substring(0, index), substr, value.substring(index));
     }
 
+    /**
+     * Verifies if String is lower case
+     *
+     * @param value The input String
+     * @return true if String is lowercase false otherwise
+     */
+    public static boolean isLowerCase(final String value) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return Objects.equals(value, value.toLowerCase());
+    }
+
     public static String leftPad(final String value, final String pad, final int length) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         if (value.length() >= length) {
