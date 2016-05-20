@@ -422,4 +422,12 @@ public class StrmanTest {
         assertThat(isUpperCase("Foo"), equalTo(false));
         assertThat(isUpperCase("foobarfooA"), equalTo(false));
     }
+
+    @Test
+    public void last_shouldReturnLastNChars() throws Exception {
+        assertThat(last("foo", 3), equalTo("foo"));
+        assertThat(last("foobarfoo", 3), equalTo("foo"));
+        assertThat(last("", 3), equalTo(""));
+        assertThat(last("f", 3), equalTo("f"));
+    }
 }

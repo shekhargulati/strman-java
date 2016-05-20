@@ -515,6 +515,21 @@ public abstract class Strman {
         return Objects.equals(value, value.toLowerCase());
     }
 
+    /**
+     * Return the last n chars of String
+     *
+     * @param value The input String
+     * @param n     Number of chars to return
+     * @return n Last characters
+     */
+    public static String last(final String value, int n) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        if (n > value.length()) {
+            return value;
+        }
+        return value.substring(value.length() - n);
+    }
+
     public static String leftPad(final String value, final String pad, final int length) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         if (value.length() >= length) {
