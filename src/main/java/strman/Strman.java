@@ -329,11 +329,7 @@ public abstract class Strman {
      * @return The decoded String
      */
     public static String binDecode(final String value) {
-        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        return Arrays
-                .stream(value.split("(?<=\\G.{16})"))
-                .map(data -> String.valueOf(Character.toChars(Integer.parseInt(data, 2))))
-                .collect(joining());
+        return decodeStringToFormat(value, 16, 2);
     }
 
     /**
@@ -354,11 +350,7 @@ public abstract class Strman {
      * @return decoded String
      */
     public static String decDecode(final String value) {
-        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        return Arrays
-                .stream(value.split("(?<=\\G.{5})"))
-                .map(data -> String.valueOf(Character.toChars(Integer.parseInt(data))))
-                .collect(joining());
+        return decodeStringToFormat(value, 5, 10);
     }
 
     /**
@@ -439,6 +431,25 @@ public abstract class Strman {
         }
         return result;
     }
+
+    /**
+     * Convert hexadecimal unicode (4 digits) string to string chars
+     *
+     * @param value The value to decode
+     * @return The decoded String
+     */
+    public static String hexDecode(final String value) {
+        return decodeStringToFormat(value, 4, 16);
+    }
+
+    private static String decodeStringToFormat(final String value, int digits, int radix) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return Arrays
+                .stream(value.split("(?<=\\G.{" + digits + "})"))
+                .map(data -> String.valueOf(Character.toChars(Integer.parseInt(data, radix))))
+                .collect(joining());
+    }
+
 
     public static String leftPad(final String value, final String pad, final int length) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
