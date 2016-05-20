@@ -387,4 +387,13 @@ public class StrmanTest {
         assertThat(inequal("a", "a"), equalTo(false));
         assertThat(inequal("0", "1"), equalTo(true));
     }
+
+    @Test
+    public void insert_shouldInsertStringAtIndex() throws Exception {
+        assertThat(insert("fbar", "oo", 1), equalTo("foobar"));
+        assertThat(insert("foo", "bar", 3), equalTo("foobar"));
+        assertThat(insert("foobar", "x", 5), equalTo("foobaxr"));
+        assertThat(insert("foobar", "x", 6), equalTo("foobarx"));
+        assertThat(insert("foo bar", "asadasd", 100), equalTo("foo bar"));
+    }
 }

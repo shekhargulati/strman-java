@@ -467,6 +467,7 @@ public abstract class Strman {
 
     /**
      * Tests if two Strings are inequal
+     *
      * @param first  The first String
      * @param second The second String
      * @return true if first and second are not equal false otherwise
@@ -475,6 +476,22 @@ public abstract class Strman {
         return !Objects.equals(first, second);
     }
 
+    /**
+     * Inserts 'substr' into the 'value' at the 'index' provided.
+     *
+     * @param value  The input String
+     * @param substr The String to insert
+     * @param index  The index to insert substr
+     * @return String with substr added
+     */
+    public static String insert(final String value, final String substr, final int index) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        validate(substr, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        if (index > value.length()) {
+            return value;
+        }
+        return value.substring(0, index) + substr + value.substring(index);
+    }
 
     public static String leftPad(final String value, final String pad, final int length) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
