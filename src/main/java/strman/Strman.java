@@ -530,9 +530,18 @@ public abstract class Strman {
         return value.substring(value.length() - n);
     }
 
+    /**
+     * Returns a new string of a given length such that the beginning of the string is padded.
+     *
+     * @param value  The input String
+     * @param pad    The pad
+     * @param length Length of the String we want
+     * @return Padded String
+     */
     public static String leftPad(final String value, final String pad, final int length) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        if (value.length() >= length) {
+        validate(pad, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        if (value.length() > length) {
             return value;
         }
         return append(Stream.generate(() -> pad).limit(length - value.length()).collect(joining()), value);
