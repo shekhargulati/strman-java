@@ -329,7 +329,7 @@ public abstract class Strman {
      * @return The decoded String
      */
     public static String binDecode(final String value) {
-        return decodeStringToFormat(value, 16, 2);
+        return decode(value, 16, 2);
     }
 
     /**
@@ -339,8 +339,7 @@ public abstract class Strman {
      * @return String in binary format
      */
     public static String binEncode(final String value) {
-        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        return value.chars().mapToObj(ch -> leftPad(Integer.toBinaryString(ch), "0", 16)).collect(joining());
+        return encode(value, 16, 2);
     }
 
     /**
@@ -350,7 +349,7 @@ public abstract class Strman {
      * @return decoded String
      */
     public static String decDecode(final String value) {
-        return decodeStringToFormat(value, 5, 10);
+        return decode(value, 5, 10);
     }
 
     /**
@@ -360,8 +359,7 @@ public abstract class Strman {
      * @return Encoded value
      */
     public static String decEncode(final String value) {
-        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        return value.chars().mapToObj(ch -> leftPad(Integer.toString(ch), "0", 5)).collect(joining());
+        return encode(value, 5, 10);
     }
 
     /**
@@ -439,17 +437,18 @@ public abstract class Strman {
      * @return The decoded String
      */
     public static String hexDecode(final String value) {
-        return decodeStringToFormat(value, 4, 16);
+        return decode(value, 4, 16);
     }
 
-    private static String decodeStringToFormat(final String value, int digits, int radix) {
-        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        return Arrays
-                .stream(value.split("(?<=\\G.{" + digits + "})"))
-                .map(data -> String.valueOf(Character.toChars(Integer.parseInt(data, radix))))
-                .collect(joining());
+    /**
+     * Convert string chars to hexadecimal unicode (4 digits)
+     *
+     * @param value The value to encode
+     * @return String in hexadecimal format.
+     */
+    public static String hexEncode(final String value) {
+        return encode(value, 4, 16);
     }
-
 
     public static String leftPad(final String value, final String pad, final int length) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
@@ -473,5 +472,16 @@ public abstract class Strman {
         return countSubstr(value.substring(offset), subStr, allowOverlapping, ++count);
     }
 
+    public static String decode(final String value, int digits, int radix) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return Arrays
+                .stream(value.split("(?<=\\G.{" + digits + "})"))
+                .map(data -> String.valueOf(Character.toChars(Integer.parseInt(data, radix))))
+                .collect(joining());
+    }
 
+    public static String encode(String value, int digits, int radix) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return value.chars().mapToObj(ch -> leftPad(Integer.toString(ch, radix), "0", digits)).collect(joining());
+    }
 }

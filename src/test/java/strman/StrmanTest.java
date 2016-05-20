@@ -350,4 +350,12 @@ public class StrmanTest {
         assertThat(hexDecode("00c1"), equalTo("Á"));
         assertThat(hexDecode("00410041"), equalTo("AA"));
     }
+
+    @Test
+    public void hexEncode_shouldEncodeStringToHexadecimalFormat() throws Exception {
+        assertThat(hexEncode("漢"), equalTo("6f22"));
+        assertThat(hexEncode("A"), equalTo("0041"));
+        assertThat(hexEncode("Á"), equalTo("00c1"));
+        assertThat(hexEncode("AA"), equalTo("00410041"));
+    }
 }
