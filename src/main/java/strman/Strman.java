@@ -1,6 +1,7 @@
 package strman;
 
 import java.util.*;
+import java.util.function.BiFunction;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
@@ -665,6 +666,35 @@ public abstract class Strman {
             throw new IllegalArgumentException("Input array should not be null");
         }
         return Arrays.stream(strings).filter(str -> str != null && !str.trim().isEmpty()).toArray(String[]::new);
+    }
+
+    /**
+     * Returns a new String with the prefix removed, if present. This is case sensitive.
+     *
+     * @param value  The input String
+     * @param prefix String to remove on left
+     * @return The String without prefix
+     */
+    public static String removeLeft(final String value, final String prefix) {
+        return removeLeft(value, prefix, true);
+    }
+
+    /**
+     * Returns a new String with the prefix removed, if present.
+     *
+     * @param value         The input String
+     * @param prefix        String to remove on left
+     * @param caseSensitive ensure case sensitivity
+     * @return The String without prefix
+     */
+    public static String removeLeft(final String value, final String prefix, final boolean caseSensitive) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        validate(prefix, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        BiFunction<String, String, String> fx = (f, s) -> f.startsWith(s) ? f.replace(s, "") : f;
+        if (caseSensitive) {
+            return fx.apply(value, prefix);
+        }
+        return fx.apply(value.toLowerCase(), prefix.toLowerCase());
     }
 
     public static String decode(final String value, final int digits, final int radix) {

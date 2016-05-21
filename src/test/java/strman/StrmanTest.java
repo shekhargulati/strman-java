@@ -504,4 +504,24 @@ public class StrmanTest {
         assertThat(removeEmptyStrings(new String[]{"aa", "", "   ", "bb", "cc", null}), arrayContaining("aa", "bb", "cc"));
         assertThat(removeEmptyStrings(new String[0]), emptyArray());
     }
+
+    @Test
+    public void removeLeft_shouldRemoveStringFromLeft() throws Exception {
+        final String[] fixture = {
+                "foobar",
+                "bar"
+        };
+
+        Arrays.stream(fixture).forEach(el -> assertThat(removeLeft(el, "foo"), equalTo("bar")));
+    }
+
+    @Test
+    public void removeLeft_shouldRemoveStringFromLeftCaseInSensitive() throws Exception {
+        final String[] fixture = {
+                "foobar",
+                "bar"
+        };
+
+        Arrays.stream(fixture).forEach(el -> assertThat(removeLeft(el, "FOO", false), equalTo("bar")));
+    }
 }
