@@ -118,12 +118,6 @@ public abstract class Strman {
     }
 
 
-    public static void validate(String value, Predicate<String> predicate, final Supplier<String> supplier) {
-        if (predicate.test(value)) {
-            throw new IllegalArgumentException(supplier.get());
-        }
-    }
-
     /**
      * Verifies that the needle is contained in the value. The search is case insensitive
      *
@@ -547,7 +541,21 @@ public abstract class Strman {
         return append(Stream.generate(() -> pad).limit(length - value.length()).collect(joining()), value);
     }
 
-    public static String decode(final String value, int digits, int radix) {
+    /**
+     * Checks whether Object is String
+     *
+     * @param value The input String
+     * @return true if Object is a String false otherwise
+     */
+    public static boolean isString(Object value) {
+        if (Objects.isNull(value)) {
+            throw new IllegalArgumentException("value can't be null");
+        }
+        return value instanceof String;
+    }
+
+
+    public static String decode(final String value, final int digits, final int radix) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Arrays
                 .stream(value.split("(?<=\\G.{" + digits + "})"))
@@ -555,9 +563,15 @@ public abstract class Strman {
                 .collect(joining());
     }
 
-    public static String encode(String value, int digits, int radix) {
+    public static String encode(final String value, final int digits, final int radix) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return value.chars().mapToObj(ch -> leftPad(Integer.toString(ch, radix), "0", digits)).collect(joining());
+    }
+
+    private static void validate(String value, Predicate<String> predicate, final Supplier<String> supplier) {
+        if (predicate.test(value)) {
+            throw new IllegalArgumentException(supplier.get());
+        }
     }
 
     private static long countSubstr(String value, String subStr, boolean allowOverlapping, long count) {
