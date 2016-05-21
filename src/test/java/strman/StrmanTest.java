@@ -571,4 +571,13 @@ public class StrmanTest {
         };
         Arrays.stream(fixture).forEach(el -> assertThat(removeSpaces(el), equalTo("foobar")));
     }
+
+    @Test
+    public void repeat_shouldRepeatAStringNTimes() throws Exception {
+        assertThat(repeat("1", 1), equalTo("1"));
+        assertThat(repeat("1", 2), equalTo("11"));
+        assertThat(repeat("1", 3), equalTo("111"));
+        assertThat(repeat("1", 4), equalTo("1111"));
+        assertThat(repeat("1", 5), equalTo("11111"));
+    }
 }

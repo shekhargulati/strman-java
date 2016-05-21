@@ -744,6 +744,18 @@ public abstract class Strman {
         return value.replaceAll("\\s", "");
     }
 
+    /**
+     * Returns a repeated string given a multiplier.
+     *
+     * @param value      The input String
+     * @param multiplier Number of repeats
+     * @return The String repeated
+     */
+    public static String repeat(final String value, final int multiplier) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return Stream.generate(() -> value).limit(multiplier).collect(joining());
+    }
+
     public static String decode(final String value, final int digits, final int radix) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Arrays
