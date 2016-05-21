@@ -602,7 +602,16 @@ public abstract class Strman {
         return value.toLowerCase().lastIndexOf(needle.toLowerCase(), offset);
     }
 
-
+    /**
+     * Removes all spaces on left
+     *
+     * @param value The input String
+     * @return String without left border spaces
+     */
+    public static String leftTrim(final String value) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return value.replaceAll("^\\s+", "");
+    }
 
     public static String decode(final String value, final int digits, final int radix) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
