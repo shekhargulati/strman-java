@@ -829,7 +829,7 @@ public abstract class Strman {
             return value;
         }
 
-        String[] words = value.split("\\W+");
+        String[] words = words(value);
         StringJoiner result = new StringJoiner(" ");
         int spaceCount = 0;
         for (String word : words) {
@@ -841,6 +841,29 @@ public abstract class Strman {
             }
         }
         return append(result.toString(), filler);
+    }
+
+    /**
+     * Alias to String split function. Defined only for completeness.
+     *
+     * @param value The input String
+     * @param regex The delimiting regular expression
+     * @return String Array
+     */
+    public static String[] split(final String value, final String regex) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return value.split(regex);
+    }
+
+    /**
+     * Splits a String to words
+     *
+     * @param value The input String
+     * @return Words Array
+     */
+    public static String[] words(final String value) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return value.split("\\W+");
     }
 
     public static String decode(final String value, final int digits, final int radix) {
