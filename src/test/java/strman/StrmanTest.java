@@ -580,4 +580,16 @@ public class StrmanTest {
         assertThat(repeat("1", 4), equalTo("1111"));
         assertThat(repeat("1", 5), equalTo("11111"));
     }
+
+    @Test
+    public void replace_shouldReplaceAllOccurrencesOfString() throws Exception {
+        assertThat(replace("foo bar", "foo", "bar", true), equalTo("bar bar"));
+        assertThat(replace("foo bar foo", "foo", "bar", true), equalTo("bar bar bar"));
+    }
+
+    @Test
+    public void replace_shouldReplaceAllOccurrencesOfStringCaseSensitive() throws Exception {
+        assertThat(replace("FOO bar", "foo", "bar", false), equalTo("bar bar"));
+        assertThat(replace("FOO bar foo", "foo", "bar", false), equalTo("bar bar bar"));
+    }
 }
