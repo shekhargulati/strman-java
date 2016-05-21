@@ -690,7 +690,7 @@ public abstract class Strman {
     public static String removeLeft(final String value, final String prefix, final boolean caseSensitive) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         validate(prefix, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        BiFunction<String, String, String> fx = (f, s) -> f.startsWith(s) ? f.replace(s, "") : f;
+        BiFunction<String, String, String> fx = (f, s) -> f.startsWith(s) ? f.replaceFirst(s, "") : f;
         if (caseSensitive) {
             return fx.apply(value, prefix);
         }
@@ -706,6 +706,31 @@ public abstract class Strman {
     public static String removeNonWords(final String value) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return value.replaceAll("[^\\w]+", "");
+    }
+
+    /**
+     * Returns a new string with the 'suffix' removed, if present. Search is case sensitive.
+     *
+     * @param value  The input String
+     * @param suffix The suffix to remove
+     * @return The String without suffix!
+     */
+    public static String removeRight(final String value, final String suffix) {
+        return removeRight(value, suffix, true);
+    }
+
+    /**
+     * Returns a new string with the 'suffix' removed, if present.
+     *
+     * @param value         The input String
+     * @param suffix        The suffix to remove
+     * @param caseSensitive whether search should be case sensitive or not
+     * @return The String without suffix!
+     */
+    public static String removeRight(final String value, final String suffix, final boolean caseSensitive) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        validate(suffix, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return endsWith(value, suffix, caseSensitive) ? value.substring(0, value.toLowerCase().lastIndexOf(suffix.toLowerCase())) : value;
     }
 
     public static String decode(final String value, final int digits, final int radix) {

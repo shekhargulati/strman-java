@@ -513,6 +513,8 @@ public class StrmanTest {
         };
 
         Arrays.stream(fixture).forEach(el -> assertThat(removeLeft(el, "foo"), equalTo("bar")));
+        assertThat(removeLeft("barfoo", "foo"), equalTo("barfoo"));
+        assertThat(removeLeft("foofoo", "foo"), equalTo("foo"));
     }
 
     @Test
@@ -535,5 +537,27 @@ public class StrmanTest {
         };
 
         Arrays.stream(fixture).forEach(el -> assertThat(removeNonWords(el), equalTo("foobar")));
+    }
+
+    @Test
+    public void removeRight_shouldRemoveStringFromRight() throws Exception {
+        final String[] fixture = {
+                "foobar",
+                "foo"
+        };
+
+        Arrays.stream(fixture).forEach(el -> assertThat(removeRight(el, "bar"), equalTo("foo")));
+        assertThat(removeRight("barfoo", "bar"), equalTo("barfoo"));
+        assertThat(removeRight("barbar", "bar"), equalTo("bar"));
+    }
+
+    @Test
+    public void removeRight_shouldRemoveStringFromRightCaseInSensitive() throws Exception {
+        final String[] fixture = {
+                "foobar",
+                "foo"
+        };
+
+        Arrays.stream(fixture).forEach(el -> assertThat(removeRight(el, "BAR", false), equalTo("foo")));
     }
 }
