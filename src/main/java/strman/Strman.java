@@ -801,6 +801,17 @@ public abstract class Strman {
         return append(value, repeat(pad, length - value.length()));
     }
 
+    /**
+     * Remove all spaces on right.
+     *
+     * @param value The String
+     * @return String without right boarders spaces.
+     */
+    public static String rightTrim(final String value) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return value.replaceAll("\\s+$", "");
+    }
+
     public static String decode(final String value, final int digits, final int radix) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Arrays
