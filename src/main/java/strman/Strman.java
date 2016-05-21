@@ -774,6 +774,17 @@ public abstract class Strman {
         return value.toLowerCase().replace(search.toLowerCase(), newValue);
     }
 
+    /**
+     * Reverse the input String
+     *
+     * @param value The input String
+     * @return Reversed String
+     */
+    public static String reverse(final String value) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return new StringBuilder(value).reverse().toString();
+    }
+
     public static String decode(final String value, final int digits, final int radix) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Arrays
