@@ -624,6 +624,36 @@ public abstract class Strman {
         return value.length();
     }
 
+    /**
+     * Return a new String starting with prepends
+     *
+     * @param value    The input String
+     * @param prepends Strings to prepend
+     * @return The prepended String
+     */
+    public static String prepend(final String value, final String... prepends) {
+        return prependArray(value, prepends);
+    }
+
+    /**
+     * Return a new String starting with prepends
+     *
+     * @param value    The input String
+     * @param prepends Strings to prepend
+     * @return The prepended String
+     */
+    public static String prependArray(final String value, final String[] prepends) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        if (prepends == null || prepends.length == 0) {
+            return value;
+        }
+        StringJoiner joiner = new StringJoiner("");
+        for (String prepend : prepends) {
+            joiner.add(prepend);
+        }
+        return joiner.toString() + value;
+    }
+
     public static String decode(final String value, final int digits, final int radix) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Arrays

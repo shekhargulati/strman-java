@@ -481,4 +481,21 @@ public class StrmanTest {
         assertThat(leftTrim("     strman"), equalTo("strman"));
         assertThat(leftTrim("     strman  "), equalTo("strman  "));
     }
+
+    @Test
+    public void prepend_shouldPrependStrings() throws Exception {
+        assertThat(prepend("r", "f", "o", "o", "b", "a"), equalTo("foobar"));
+        assertThat(prepend("foobar"), equalTo("foobar"));
+        assertThat(prepend("", "foobar"), equalTo("foobar"));
+        assertThat(prepend("bar", "foo"), equalTo("foobar"));
+    }
+
+    @Test
+    public void prependArray_shouldPrependStrings() throws Exception {
+        assertThat(prependArray("r", new String[]{"f", "o", "o", "b", "a"}), equalTo("foobar"));
+        assertThat(prependArray("foobar", new String[0]), equalTo("foobar"));
+        assertThat(prependArray("", new String[]{"foobar"}), equalTo("foobar"));
+        assertThat(prependArray("bar", new String[]{"foo"}), equalTo("foobar"));
+    }
+
 }
