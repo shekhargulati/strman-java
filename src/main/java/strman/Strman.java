@@ -866,6 +866,25 @@ public abstract class Strman {
         return value.split("\\W+");
     }
 
+    /**
+     * Truncate the unsecured form string, cutting the independent string of required position.
+     *
+     * @param value  Value will be truncated unsecurely.
+     * @param length Size of the returned string.
+     * @param filler Value that will be added to the end of the return string. Example: '...'
+     * @return String truncated unsafely.
+     */
+    public static String truncate(final String value, final int length, final String filler) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        if (length == 0) {
+            return "";
+        }
+        if (length >= value.length()) {
+            return value;
+        }
+        return append(value.substring(0, length - filler.length()), filler);
+    }
+
     public static String decode(final String value, final int digits, final int radix) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Arrays
