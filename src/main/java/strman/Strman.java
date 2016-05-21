@@ -613,6 +613,17 @@ public abstract class Strman {
         return value.replaceAll("^\\s+", "");
     }
 
+    /**
+     * Returns length of String. Delegates to java.lang.String length method.
+     *
+     * @param value The input String
+     * @return Length of the String
+     */
+    public static int length(final String value) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return value.length();
+    }
+
     public static String decode(final String value, final int digits, final int radix) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Arrays
