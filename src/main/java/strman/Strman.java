@@ -542,7 +542,7 @@ public abstract class Strman {
         if (value.length() > length) {
             return value;
         }
-        return append(Stream.generate(() -> pad).limit(length - value.length()).collect(joining()), value);
+        return append(repeat(pad, length - value.length()), value);
     }
 
     /**
@@ -783,6 +783,22 @@ public abstract class Strman {
     public static String reverse(final String value) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return new StringBuilder(value).reverse().toString();
+    }
+
+    /**
+     * Returns a new string of a given length such that the ending of the string is padded.
+     *
+     * @param value  The input String
+     * @param length Max length of String.
+     * @param pad    Character to repeat
+     * @return Right padded String
+     */
+    public static String rightPad(final String value, String pad, final int length) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        if (value.length() > length) {
+            return value;
+        }
+        return append(value, repeat(pad, length - value.length()));
     }
 
     public static String decode(final String value, final int digits, final int radix) {
