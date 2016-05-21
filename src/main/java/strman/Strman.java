@@ -654,6 +654,19 @@ public abstract class Strman {
         return joiner.toString() + value;
     }
 
+    /**
+     * Remove empty Strings from string array
+     *
+     * @param strings Array of String to be cleaned
+     * @return Array of String without empty Strings
+     */
+    public static String[] removeEmptyStrings(String[] strings) {
+        if (Objects.isNull(strings)) {
+            throw new IllegalArgumentException("Input array should not be null");
+        }
+        return Arrays.stream(strings).filter(str -> str != null && !str.trim().isEmpty()).toArray(String[]::new);
+    }
+
     public static String decode(final String value, final int digits, final int radix) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Arrays

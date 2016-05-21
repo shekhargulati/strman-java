@@ -9,6 +9,7 @@ import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.collection.IsArrayContainingInOrder.arrayContaining;
+import static org.hamcrest.collection.IsArrayWithSize.emptyArray;
 import static org.junit.Assert.*;
 import static strman.Strman.*;
 import static strman.Strman.format;
@@ -498,4 +499,9 @@ public class StrmanTest {
         assertThat(prependArray("bar", new String[]{"foo"}), equalTo("foobar"));
     }
 
+    @Test
+    public void removeEmptyStrings_shouldRemoveEmptyStrings() throws Exception {
+        assertThat(removeEmptyStrings(new String[]{"aa", "", "   ", "bb", "cc", null}), arrayContaining("aa", "bb", "cc"));
+        assertThat(removeEmptyStrings(new String[0]), emptyArray());
+    }
 }
