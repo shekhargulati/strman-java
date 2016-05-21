@@ -619,4 +619,19 @@ public class StrmanTest {
         assertThat(rightTrim("   strman"), equalTo("   strman"));
         assertThat(rightTrim("strman"), equalTo("strman"));
     }
+
+    @Test
+    public void safeTruncate_shouldSafelyTruncateStrings() throws Exception {
+        assertThat(safeTruncate("foo bar", 0, "."), equalTo(""));
+        assertThat(safeTruncate("foo bar", 4, "."), equalTo("foo."));
+        assertThat(safeTruncate("foo bar", 3, "."), equalTo("."));
+        assertThat(safeTruncate("foo bar", 2, "."), equalTo("."));
+        assertThat(safeTruncate("foo bar", 7, "."), equalTo("foo bar"));
+        assertThat(safeTruncate("foo bar", 8, "."), equalTo("foo bar"));
+        assertThat(safeTruncate("A Javascript string manipulation library.", 16, "..."), equalTo("A Javascript..."));
+        assertThat(safeTruncate("A Javascript string manipulation library.", 15, "..."), equalTo("A Javascript..."));
+        assertThat(safeTruncate("A Javascript string manipulation library.", 14, "..."), equalTo("A..."));
+        assertThat(safeTruncate("A Javascript string manipulation library.", 13, "..."), equalTo("A..."));
+
+    }
 }

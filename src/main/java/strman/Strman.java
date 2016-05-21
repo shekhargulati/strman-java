@@ -812,6 +812,37 @@ public abstract class Strman {
         return value.replaceAll("\\s+$", "");
     }
 
+    /**
+     * Truncate the string securely, not cutting a word in half. It always returns the last full word.
+     *
+     * @param value  The input String
+     * @param length Max size of the truncated String
+     * @param filler String that will be added to the end of the return string. Example: '...'
+     * @return The truncated String
+     */
+    public static String safeTruncate(final String value, final int length, final String filler) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        if (length == 0) {
+            return "";
+        }
+        if (length >= value.length()) {
+            return value;
+        }
+
+        String[] words = value.split("\\W+");
+        StringJoiner result = new StringJoiner(" ");
+        int spaceCount = 0;
+        for (String word : words) {
+            if (result.length() + word.length() + filler.length() + spaceCount > length) {
+                break;
+            } else {
+                result.add(word);
+                spaceCount++;
+            }
+        }
+        return append(result.toString(), filler);
+    }
+
     public static String decode(final String value, final int digits, final int radix) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Arrays
