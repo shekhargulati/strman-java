@@ -17,6 +17,9 @@ public abstract class Strman {
     private static final Predicate<String> NULL_STRING_PREDICATE = str -> str == null;
     private static final Supplier<String> NULL_STRING_MSG_SUPPLIER = () -> "'value' should be not null.";
 
+    private Strman() {
+    }
+
     /**
      * Appends Strings to value
      *
@@ -547,12 +550,58 @@ public abstract class Strman {
      * @param value The input String
      * @return true if Object is a String false otherwise
      */
-    public static boolean isString(Object value) {
+    public static boolean isString(final Object value) {
         if (Objects.isNull(value)) {
             throw new IllegalArgumentException("value can't be null");
         }
         return value instanceof String;
     }
+
+    /**
+     * This method returns the index within the calling String object of the last occurrence of the specified value, searching backwards from the offset.
+     * Returns -1 if the value is not found. The search starts from the end and case sensitive.
+     *
+     * @param value  The input String
+     * @param needle The search String
+     * @return Return position of the last occurrence of 'needle'.
+     */
+    public static int lastIndexOf(final String value, final String needle) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return lastIndexOf(value, needle, value.length(), true);
+    }
+
+    /**
+     * This method returns the index within the calling String object of the last occurrence of the specified value, searching backwards from the offset.
+     * Returns -1 if the value is not found. The search starts from the end and case sensitive.
+     *
+     * @param value  The input String
+     * @param needle The search String
+     * @return Return position of the last occurrence of 'needle'.
+     */
+    public static int lastIndexOf(final String value, final String needle, boolean caseSensitive) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return lastIndexOf(value, needle, value.length(), caseSensitive);
+    }
+
+    /**
+     * This method returns the index within the calling String object of the last occurrence of the specified value, searching backwards from the offset.
+     * Returns -1 if the value is not found.
+     *
+     * @param value         The input String
+     * @param needle        The search String
+     * @param offset        The index to start search from
+     * @param caseSensitive whether search should be case sensitive
+     * @return Return position of the last occurrence of 'needle'.
+     */
+    public static int lastIndexOf(final String value, final String needle, final int offset, final boolean caseSensitive) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        validate(needle, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        if (caseSensitive) {
+            return value.lastIndexOf(needle, offset);
+        }
+        return value.toLowerCase().lastIndexOf(needle.toLowerCase(), offset);
+    }
+
 
 
     public static String decode(final String value, final int digits, final int radix) {

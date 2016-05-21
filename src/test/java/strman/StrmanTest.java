@@ -453,4 +453,26 @@ public class StrmanTest {
         assertTrue(isString("string"));
         assertTrue(isString(""));
     }
+
+    @Test
+    public void lastIndexOf_shouldFindIndexOfNeedle() throws Exception {
+        final String value = "foobarfoobar";
+        assertThat(lastIndexOf(value, "f"), equalTo(6));
+        assertThat(lastIndexOf(value, "o"), equalTo(8));
+        assertThat(lastIndexOf(value, "b"), equalTo(9));
+        assertThat(lastIndexOf(value, "a"), equalTo(10));
+        assertThat(lastIndexOf(value, "r"), equalTo(11));
+        assertThat(lastIndexOf(value, "t"), equalTo(-1));
+    }
+
+    @Test
+    public void lastIndexOf_shouldFindIndexOfNeedleCaseInsensitive() throws Exception {
+        final String value = "foobarfoobar";
+        assertThat(lastIndexOf(value, "F", false), equalTo(6));
+        assertThat(lastIndexOf(value, "O", false), equalTo(8));
+        assertThat(lastIndexOf(value, "B", false), equalTo(9));
+        assertThat(lastIndexOf(value, "A", false), equalTo(10));
+        assertThat(lastIndexOf(value, "R", false), equalTo(11));
+        assertThat(lastIndexOf(value, "T", false), equalTo(-1));
+    }
 }
