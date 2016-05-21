@@ -733,6 +733,17 @@ public abstract class Strman {
         return endsWith(value, suffix, caseSensitive) ? value.substring(0, value.toLowerCase().lastIndexOf(suffix.toLowerCase())) : value;
     }
 
+    /**
+     * Remove all spaces and replace for value.
+     *
+     * @param value The input String
+     * @return String without spaces
+     */
+    public static String removeSpaces(final String value) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return value.replaceAll("\\s", "");
+    }
+
     public static String decode(final String value, final int digits, final int radix) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Arrays

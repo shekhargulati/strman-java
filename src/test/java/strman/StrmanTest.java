@@ -560,4 +560,15 @@ public class StrmanTest {
 
         Arrays.stream(fixture).forEach(el -> assertThat(removeRight(el, "BAR", false), equalTo("foo")));
     }
+
+    @Test
+    public void removeSpaces_shouldRemoveSpacesInTheString() throws Exception {
+        final String[] fixture = {
+                "foo bar",
+                "foo bar ",
+                " foo bar",
+                " foo bar "
+        };
+        Arrays.stream(fixture).forEach(el -> assertThat(removeSpaces(el), equalTo("foobar")));
+    }
 }
