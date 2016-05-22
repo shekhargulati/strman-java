@@ -711,6 +711,15 @@ public class StrmanTest {
     @Test
     public void transliterate_shouldTransliterateTheText() throws Exception {
         assertThat(transliterate("fóõ bár"), equalTo("foo bar"));
+    }
 
+    @Test
+    public void surround_shouldSurrondStringWithPrefixAndSuffix() throws Exception {
+        assertThat(surround("foo", "bar", null), equalTo("barfoobar"));
+        assertThat(surround("shekhar", "***", null), equalTo("***shekhar***"));
+        assertThat(surround("", ">", null), equalTo(">>"));
+        assertThat(surround("bar", "", null), equalTo("bar"));
+        assertThat(surround("f", null, null), equalTo("f"));
+        assertThat(surround("div", "<", ">"), equalTo("<div>"));
     }
 }

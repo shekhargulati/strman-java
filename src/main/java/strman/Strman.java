@@ -961,6 +961,22 @@ public abstract class Strman {
         return result;
     }
 
+
+    /**
+     * Surrounds a 'value' with the given 'prefix' and 'suffix'.
+     *
+     * @param value  The input String
+     * @param prefix prefix. If suffix is null then prefix is used
+     * @param suffix suffix
+     * @return The String with surround substrs!
+     */
+    public static String surround(final String value, final String prefix, final String suffix) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        String _prefix = Optional.ofNullable(prefix).orElse("");
+        return append(_prefix, value, Optional.ofNullable(suffix).orElse(_prefix));
+    }
+
+
     public static String decode(final String value, final int digits, final int radix) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Arrays
