@@ -1,5 +1,30 @@
-package strman;
+/*
+ *
+ *  * The MIT License
+ *  *
+ *  * Copyright 2016 Shekhar Gulati <shekhargulati84@gmail.com>.
+ *  *
+ *  * Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  * of this software and associated documentation files (the "Software"), to deal
+ *  * in the Software without restriction, including without limitation the rights
+ *  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  * copies of the Software, and to permit persons to whom the Software is
+ *  * furnished to do so, subject to the following conditions:
+ *  *
+ *  * The above copyright notice and this permission notice shall be included in
+ *  * all copies or substantial portions of the Software.
+ *  *
+ *  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ *  * THE SOFTWARE.
+ *
+ */
 
+package strman;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -118,7 +143,7 @@ public class StrmanTest {
                 "foobar",
         };
 
-        Arrays.stream(fixture).forEach(el -> assertTrue(containsAll(el, new String[]{"FOO", "bar"})));
+        Arrays.stream(fixture).forEach(el -> assertTrue(containsAll(el, new String[]{"foo", "bar"})));
     }
 
     @Test
@@ -153,12 +178,12 @@ public class StrmanTest {
 
     @Test
     public void countSubstr_shouldCountSubStrCountCaseInsensitiveWithoutOverlapInValue() throws Exception {
-        assertThat(countSubstr("aaaAAAaaa", "aaa"), equalTo(3L));
+        assertThat(countSubstr("aaaAAAaaa", "aaa", false, false), equalTo(3L));
     }
 
     @Test
     public void countSubstr_shouldCountSubStrCountCaseSensitiveWithoutOverlapInValue() throws Exception {
-        assertThat(countSubstr("aaaAAAaaa", "aaa", true, false), equalTo(2L));
+        assertThat(countSubstr("aaaAAAaaa", "aaa"), equalTo(2L));
     }
 
     @Test
@@ -190,7 +215,7 @@ public class StrmanTest {
                 "aaaaaaaf",
                 "aaafaaaa"
         };
-        Arrays.stream(fixture).forEach(el -> assertThat(countSubstr(el, "A"), equalTo(7L)));
+        Arrays.stream(fixture).forEach(el -> assertThat(countSubstr(el, "A", false, false), equalTo(7L)));
     }
 
     @Test
