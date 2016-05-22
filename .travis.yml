@@ -1,0 +1,7 @@
+language: java
+install: ./gradlew assemble -x :signArchives
+script: ./gradlew clean build -x :signArchives
+jdk:
+  - oraclejdk8
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
