@@ -1,4 +1,4 @@
-strman-java
+strman-java [![Build Status](https://travis-ci.org/shekhargulati/strman-java.svg?branch=master)](https://travis-ci.org/shekhargulati/strman-java) [![codecov.io](https://codecov.io/github/shekhargulati/strman-java/coverage.svg?branch=master)](https://codecov.io/github/shekhargulati/strman-java?branch=master) [![License](https://img.shields.io/:license-mit-blue.svg)](./LICENSE.txt)
 ------
 
 A Java 8 library for working with String. It is inspired by [dleitee/strman](https://github.com/dleitee/strman).
