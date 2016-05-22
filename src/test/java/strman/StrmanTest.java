@@ -740,4 +740,10 @@ public class StrmanTest {
 
         assertThat(toCamelCase("c"), equalTo("c"));
     }
+
+    @Test
+    public void toDeCamelCase_shouldDeCamelCaseAString() throws Exception {
+        assertThat(toDecamelize("camelCase", null), equalTo("camel case"));
+        assertThat(toDecamelize("camelCase", "_"), equalTo("camel_case"));
+    }
 }

@@ -1011,6 +1011,18 @@ public abstract class Strman {
         return last(value, value.length() - 1);
     }
 
+    /**
+     * Decamelize String
+     *
+     * @param value The input String
+     * @return String decamelized.
+     */
+    public static String toDecamelize(final String value, final String chr) {
+        String camelCasedString = toCamelCase(value);
+        String[] words = camelCasedString.split("(?=\\p{Upper})");
+        return Arrays.stream(words).map(w -> w.toLowerCase()).collect(joining(Optional.ofNullable(chr).orElse(" ")));
+    }
+
     public static String decode(final String value, final int digits, final int radix) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Arrays
