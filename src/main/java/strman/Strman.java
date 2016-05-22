@@ -885,6 +885,18 @@ public abstract class Strman {
         return append(value.substring(0, length - filler.length()), filler);
     }
 
+    /**
+     * Converts all HTML entities to applicable characters.
+     *
+     * @param encodedHtml The encoded HTML
+     * @return The decoded HTML
+     */
+    public static String htmlDecode(final String encodedHtml) {
+        validate(encodedHtml, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        String[] entities = encodedHtml.split("&\\W+;");
+        return Arrays.stream(entities).map(e -> HtmlEntities.decodedEntities.get(e)).collect(joining());
+    }
+
     public static String decode(final String value, final int digits, final int radix) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Arrays

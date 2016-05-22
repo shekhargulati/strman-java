@@ -646,4 +646,12 @@ public class StrmanTest {
         assertThat(truncate("A Javascript string manipulation library.", 15, "..."), equalTo("A Javascript..."));
         assertThat(truncate("A Javascript string manipulation library.", 14, "..."), equalTo("A Javascrip..."));
     }
+
+    @Test
+    public void htmlDecode_shouldDecodeToHtml() throws Exception {
+        assertThat(htmlDecode("&aacute;"), equalTo("\u00E1"));
+        assertThat(htmlDecode("&SHcy;"), equalTo("Ш"));
+        assertThat(htmlDecode("&ZHcy;"), equalTo("Ж"));
+        assertThat(htmlDecode("&boxdl;"), equalTo("┐"));
+    }
 }
