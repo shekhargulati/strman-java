@@ -6,12 +6,12 @@ import java.util.Arrays;
 import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.hasItems;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.collection.IsArrayContainingInOrder.arrayContaining;
 import static org.hamcrest.collection.IsArrayWithSize.emptyArray;
 import static org.junit.Assert.*;
 import static strman.Strman.*;
+import static strman.Strman.endsWith;
 import static strman.Strman.format;
 
 public class StrmanTest {
@@ -662,5 +662,14 @@ public class StrmanTest {
         assertThat(htmlEncode("Ш"), equalTo("&SHcy;"));
         assertThat(htmlEncode("Ж"), equalTo("&ZHcy;"));
         assertThat(htmlEncode("┐"), equalTo("&boxdl;"));
+    }
+
+    @Test
+    public void shuffle_shouldShuffleAString() throws Exception {
+        assertThat(shuffle("shekhar"), not(equalTo("shekhar")));
+        assertThat(shuffle("strman"), not(equalTo("strman")));
+        assertThat(shuffle(""), equalTo(""));
+        assertThat(shuffle("s"), equalTo("s"));
+
     }
 }

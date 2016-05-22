@@ -96,17 +96,8 @@ public abstract class Strman {
      * @return character array
      */
     public static String[] chars(final String value) {
-        /**
-         * The other implementation of this could be using String's split method
-         * String[] chars = value.split("")
-         */
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        int length = value.length();
-        String[] result = new String[length];
-        for (int i = 0; i < length; i++) {
-            result[i] = at(value, i).get();
-        }
-        return result;
+        return value.split("");
     }
 
 
@@ -906,6 +897,25 @@ public abstract class Strman {
     public static String htmlEncode(final String html) {
         validate(html, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return html.chars().mapToObj(c -> "\\u" + String.format("%04x", c).toUpperCase()).map(e -> HtmlEntities.encodedEntities.get(e)).collect(joining());
+    }
+
+    /**
+     * It returns a string with its characters in random order.
+     *
+     * @param value The input String
+     * @return The shuffled String
+     */
+    public static String shuffle(final String value) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        String[] chars = chars(value);
+        Random random = new Random();
+        for (int i = 0; i < chars.length; i++) {
+            int r = random.nextInt(chars.length);
+            String tmp = chars[i];
+            chars[i] = chars[r];
+            chars[r] = tmp;
+        }
+        return Arrays.stream(chars).collect(joining());
     }
 
     public static String decode(final String value, final int digits, final int radix) {
