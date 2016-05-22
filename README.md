@@ -174,7 +174,7 @@ Decodes data encoded with MIME base64
 ```java
 import static strman.base64Decode
 base64Decode("c3RybWFu")
-// result => "strma"
+// result => "strman"
 ```
 
 ## base64Encode
