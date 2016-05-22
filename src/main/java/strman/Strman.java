@@ -976,6 +976,40 @@ public abstract class Strman {
         return append(_prefix, value, Optional.ofNullable(suffix).orElse(_prefix));
     }
 
+    /**
+     * Transform to camelCase
+     *
+     * @param value The input String
+     * @return String in camelCase.
+     */
+    public static String toCamelCase(final String value) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        String str = toStudlyCase(value);
+        return str.substring(0, 1).toLowerCase() + str.substring(1);
+    }
+
+    /**
+     * Transform to StudlyCaps.
+     *
+     * @param value The input String
+     * @return String in StudlyCaps.
+     */
+    public static String toStudlyCase(final String value) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        String[] words = collapseWhitespace(value.trim()).split("\\s*(_|-|\\s)\\s*");
+        return Arrays.stream(words).filter(w -> !w.trim().isEmpty()).map(w -> head(w).toUpperCase() + tail(w)).collect(joining());
+    }
+
+    /**
+     * Return tail of the String
+     *
+     * @param value The input String
+     * @return String tail
+     */
+    public static String tail(final String value) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return last(value, value.length() - 1);
+    }
 
     public static String decode(final String value, final int digits, final int radix) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);

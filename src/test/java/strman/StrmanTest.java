@@ -714,12 +714,30 @@ public class StrmanTest {
     }
 
     @Test
-    public void surround_shouldSurrondStringWithPrefixAndSuffix() throws Exception {
+    public void surround_shouldSurroundStringWithPrefixAndSuffix() throws Exception {
         assertThat(surround("foo", "bar", null), equalTo("barfoobar"));
         assertThat(surround("shekhar", "***", null), equalTo("***shekhar***"));
         assertThat(surround("", ">", null), equalTo(">>"));
         assertThat(surround("bar", "", null), equalTo("bar"));
         assertThat(surround("f", null, null), equalTo("f"));
         assertThat(surround("div", "<", ">"), equalTo("<div>"));
+    }
+
+    @Test
+    public void toCamelCase_shouldConvertStringToCamelCase() throws Exception {
+        String[] fixture = {
+                "CamelCase",
+                "camelCase",
+                "Camel case",
+                "Camel  case",
+                "camel Case",
+                "camel-case",
+                "-camel--case",
+                "camel_case",
+                "     camel_case",
+        };
+        Arrays.stream(fixture).forEach(el -> assertThat(String.format("toCameCase(%s) should be camelCase", el), toCamelCase(el), equalTo("camelCase")));
+
+        assertThat(toCamelCase("c"), equalTo("c"));
     }
 }
