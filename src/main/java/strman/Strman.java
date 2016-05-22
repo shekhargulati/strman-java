@@ -918,6 +918,19 @@ public abstract class Strman {
         return Arrays.stream(chars).collect(joining());
     }
 
+    /**
+     * Alias of substring method
+     *
+     * @param value The input String
+     * @param begin Start of slice.
+     * @param end   End of slice.
+     * @return The String sliced!
+     */
+    public static String slice(final String value, int begin, int end) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return value.substring(begin, end);
+    }
+
     public static String decode(final String value, final int digits, final int radix) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Arrays
