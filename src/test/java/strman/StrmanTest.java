@@ -743,7 +743,37 @@ public class StrmanTest {
 
     @Test
     public void toDeCamelCase_shouldDeCamelCaseAString() throws Exception {
-        assertThat(toDecamelize("camelCase", null), equalTo("camel case"));
+        String[] fixture = {
+                "deCamelize",
+                "de-Camelize",
+                "de camelize",
+                "de  camelize",
+                "de Camelize",
+                "de-camelize",
+                "-de--camelize",
+                "de_camelize",
+                "     de_camelize"
+        };
+
+        Arrays.stream(fixture).forEach(el -> assertThat(String.format("toDecamelize(%s) should be de-camelize", el), toDecamelize(el, null), equalTo("de camelize")));
+
         assertThat(toDecamelize("camelCase", "_"), equalTo("camel_case"));
+    }
+
+    @Test
+    public void toKebabCase_shouldKebabCaseAString() throws Exception {
+        String[] fixture = {
+                "deCamelize",
+                "de-Camelize",
+                "de camelize",
+                "de  camelize",
+                "de Camelize",
+                "de-camelize",
+                "-de--camelize",
+                "de_camelize",
+                "     de_camelize"
+        };
+
+        Arrays.stream(fixture).forEach(el -> assertThat(String.format("toKebabCase(%s) should be de-camelize", el), toKebabCase(el), equalTo("de-camelize")));
     }
 }

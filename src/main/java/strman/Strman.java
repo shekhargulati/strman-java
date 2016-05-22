@@ -1023,6 +1023,16 @@ public abstract class Strman {
         return Arrays.stream(words).map(w -> w.toLowerCase()).collect(joining(Optional.ofNullable(chr).orElse(" ")));
     }
 
+    /**
+     * Transform to kebab-case.
+     *
+     * @param value The input String
+     * @return String in kebab-case.
+     */
+    public static String toKebabCase(final String value) {
+        return toDecamelize(value, "-");
+    }
+
     public static String decode(final String value, final int digits, final int radix) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Arrays
