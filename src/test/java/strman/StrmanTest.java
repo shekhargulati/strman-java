@@ -654,4 +654,13 @@ public class StrmanTest {
         assertThat(htmlDecode("&ZHcy;"), equalTo("Ж"));
         assertThat(htmlDecode("&boxdl;"), equalTo("┐"));
     }
+
+    @Test
+    public void htmlEncode_shouldBeEncodedToHtmlEntities() throws Exception {
+        assertThat(htmlEncode("á"), equalTo("&aacute;"));
+        assertThat(htmlEncode("áéíóú"), equalTo("&aacute;&eacute;&iacute;&oacute;&uacute;"));
+        assertThat(htmlEncode("Ш"), equalTo("&SHcy;"));
+        assertThat(htmlEncode("Ж"), equalTo("&ZHcy;"));
+        assertThat(htmlEncode("┐"), equalTo("&boxdl;"));
+    }
 }

@@ -897,6 +897,17 @@ public abstract class Strman {
         return Arrays.stream(entities).map(e -> HtmlEntities.decodedEntities.get(e)).collect(joining());
     }
 
+    /**
+     * Convert all applicable characters to HTML entities.
+     *
+     * @param html The HTML to encode
+     * @return The encoded data
+     */
+    public static String htmlEncode(final String html) {
+        validate(html, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return html.chars().mapToObj(c -> "\\u" + String.format("%04x", c).toUpperCase()).map(e -> HtmlEntities.encodedEntities.get(e)).collect(joining());
+    }
+
     public static String decode(final String value, final int digits, final int radix) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Arrays
