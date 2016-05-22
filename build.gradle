@@ -3,7 +3,6 @@ plugins {
 }
 
 group 'com.shekhargulati'
-version '0.1.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'maven'
