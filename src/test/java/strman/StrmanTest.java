@@ -776,4 +776,23 @@ public class StrmanTest {
 
         Arrays.stream(fixture).forEach(el -> assertThat(String.format("toKebabCase(%s) should be de-camelize", el), toKebabCase(el), equalTo("de-camelize")));
     }
+
+    @Test
+    public void toSnakeCase_shouldSnakeCaseAString() throws Exception {
+        String[] fixture = {
+                "deCamelize",
+                "de-Camelize",
+                "de camelize",
+                "de  camelize",
+                "de Camelize",
+                "de-camelize",
+                "-de--camelize",
+                "de_camelize",
+                "     de_camelize"
+        };
+
+        Arrays.stream(fixture).forEach(el -> assertThat(String.format("toSnakeCase(%s) should be de_camelize", el), toSnakeCase(el), equalTo("de_camelize")));
+    }
+
+
 }

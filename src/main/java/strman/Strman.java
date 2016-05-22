@@ -1033,6 +1033,16 @@ public abstract class Strman {
         return toDecamelize(value, "-");
     }
 
+    /**
+     * Transform to snake_case.
+     *
+     * @param value The input String
+     * @return String in snake_case.
+     */
+    public static String toSnakeCase(final String value) {
+        return toDecamelize(value, "_");
+    }
+
     public static String decode(final String value, final int digits, final int radix) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Arrays
