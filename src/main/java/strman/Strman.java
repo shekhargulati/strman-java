@@ -593,8 +593,9 @@ public abstract class Strman {
      * This method returns the index within the calling String object of the last occurrence of the specified value, searching backwards from the offset.
      * Returns -1 if the value is not found. The search starts from the end and case sensitive.
      *
-     * @param value  The input String
-     * @param needle The search String
+     * @param value         The input String
+     * @param needle        The search String
+     * @param caseSensitive true or false
      * @return Return position of the last occurrence of 'needle'.
      */
     public static int lastIndexOf(final String value, final String needle, boolean caseSensitive) {
@@ -971,7 +972,7 @@ public abstract class Strman {
     }
 
     /**
-     * Remove all non valid characters. Example: change á => a or ẽ => e.
+     * Remove all non valid characters.
      *
      * @param value The input String
      * @return String without non valid characters.
@@ -1042,6 +1043,7 @@ public abstract class Strman {
      * Decamelize String
      *
      * @param value The input String
+     * @param chr string to use
      * @return String decamelized.
      */
     public static String toDecamelize(final String value, final String chr) {
