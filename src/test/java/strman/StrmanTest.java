@@ -670,6 +670,47 @@ public class StrmanTest {
         assertThat(shuffle("strman"), not(equalTo("strman")));
         assertThat(shuffle(""), equalTo(""));
         assertThat(shuffle("s"), equalTo("s"));
+    }
+
+    @Test
+    public void slugify_shouldBeFooBar() throws Exception {
+        String[] fixture = {
+                "foo bar",
+                "foo bar.",
+                "foo bar ",
+                " foo bar",
+                " foo bar ",
+                "foo------bar",
+                "fóõ bár",
+                "foo ! bar",
+                "foo ~~ bar",
+                "foo     bar",
+                "FOO     bar"
+        };
+
+        Arrays.stream(fixture).forEach(el -> assertThat(String.format("slugify(%s) should be foo-bar ", el), slugify(el), equalTo("foo-bar")));
+    }
+
+    @Test
+    public void slugify_shouldBeFooAndBar() throws Exception {
+        String[] fixture = {
+                "foo&bar",
+                "foo&bar.",
+                "foo&bar ",
+                " foo&bar",
+                " foo&bar ",
+                "foo&bar",
+                "fóõ-and---bár",
+                "foo  &    bar",
+                "FOO  &   bar"
+        };
+
+        Arrays.stream(fixture).forEach(el -> assertThat(String.format("slugify(%s) should be foo-and-bar ", el), slugify(el), equalTo("foo-and-bar")));
+    }
+
+    @Test
+    public void transliterate_shouldTransliterateTheText() throws Exception {
+        assertThat(transliterate("fóõ bár"), equalTo("foo bar"));
 
     }
 }

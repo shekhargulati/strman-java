@@ -931,6 +931,36 @@ public abstract class Strman {
         return value.substring(begin, end);
     }
 
+    /**
+     * Convert a String to a slug
+     *
+     * @param value The value to slugify
+     * @return The slugified value
+     */
+    public static String slugify(final String value) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        String transliterated = transliterate(collapseWhitespace(value.trim().toLowerCase()));
+        return Arrays.stream(words(transliterated.replace("&", "-and-"))).collect(joining("-"));
+    }
+
+    /**
+     * Remove all non valid characters. Example: change á => a or ẽ => e.
+     *
+     * @param value The input String
+     * @return String without non valid characters.
+     */
+    public static String transliterate(final String value) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        String result = value;
+        Set<Map.Entry<String, List<String>>> entries = Ascii.ascii.entrySet();
+        for (Map.Entry<String, List<String>> entry : entries) {
+            for (String ch : entry.getValue()) {
+                result = result.replace(ch, entry.getKey());
+            }
+        }
+        return result;
+    }
+
     public static String decode(final String value, final int digits, final int radix) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return Arrays
