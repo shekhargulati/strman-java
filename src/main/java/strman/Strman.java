@@ -528,7 +528,12 @@ public abstract class Strman {
      */
     public static boolean isUpperCase(final String value) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        return Objects.equals(value, value.toUpperCase());
+        for (int i = 0; i < value.length(); i++) {
+            if (Character.isLowerCase(value.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -539,7 +544,12 @@ public abstract class Strman {
      */
     public static boolean isLowerCase(final String value) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        return Objects.equals(value, value.toLowerCase());
+        for (int i = 0; i < value.length(); i++) {
+            if (Character.isUpperCase(value.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
