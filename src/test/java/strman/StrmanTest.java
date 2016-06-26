@@ -25,6 +25,7 @@
  */
 
 package strman;
+
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -827,4 +828,21 @@ public class StrmanTest {
     }
 
 
+    @Test
+    public void removeLeft_shouldNotLowercaseWhenCaseInsensitive() throws Exception {
+        String result = removeLeft("This HAS A THIS IN FRONT", "THIS ", false);
+        assertThat(result, is("HAS A THIS IN FRONT"));
+    }
+
+    @Test
+    public void replace_shouldNotLowercaseWhenCaseInsensitive() throws Exception {
+        String result = replace("One and two and THREE and Four", "and", "&", false);
+        assertThat(result, is("One & two & THREE & Four"));
+    }
+
+    @Test
+    public void removeRight_shouldNotLowercaseWhenCaseInsensitive() throws Exception {
+        String result = removeRight("Remove the END at the end", " END", false);
+        assertThat(result, is("Remove the END at the"));
+    }
 }
