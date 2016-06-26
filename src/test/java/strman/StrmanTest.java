@@ -819,5 +819,12 @@ public class StrmanTest {
         Arrays.stream(fixture).forEach(el -> assertThat(String.format("toSnakeCase(%s) should be de_camelize", el), toSnakeCase(el), equalTo("de_camelize")));
     }
 
+    @Test
+    public void unequal_shouldTestInequalityOfStrings() throws Exception {
+        assertThat(unequal("a", "b"), equalTo(true));
+        assertThat(unequal("a", "a"), equalTo(false));
+        assertThat(unequal("0", "1"), equalTo(true));
+    }
+
 
 }

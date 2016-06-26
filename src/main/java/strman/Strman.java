@@ -488,6 +488,18 @@ public abstract class Strman {
      * @param second The second String
      * @return true if first and second are not equal false otherwise
      */
+    public static boolean unequal(final String first, final String second) {
+        return !Objects.equals(first, second);
+    }
+
+    /**
+     * Tests if two Strings are inequal
+     *
+     * @param first  The first String
+     * @param second The second String
+     * @return true if first and second are not equal false otherwise
+     * @deprecated  use unequal instead
+     */
     public static boolean inequal(final String first, final String second) {
         return !Objects.equals(first, second);
     }
@@ -1043,7 +1055,7 @@ public abstract class Strman {
      * Decamelize String
      *
      * @param value The input String
-     * @param chr string to use
+     * @param chr   string to use
      * @return String decamelized.
      */
     public static String toDecamelize(final String value, final String chr) {
