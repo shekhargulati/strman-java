@@ -26,6 +26,7 @@
 
 package strman;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -800,7 +801,8 @@ public class StrmanTest {
                 "     de_camelize"
         };
 
-        Arrays.stream(fixture).forEach(el -> assertThat(String.format("toKebabCase(%s) should be de-camelize", el), toKebabCase(el), equalTo("de-camelize")));
+        Arrays.stream(fixture).forEach(el ->
+                assertThat(String.format("toKebabCase(%s) should be de-camelize", el), toKebabCase(el), equalTo("de-camelize")));
     }
 
     @Test
@@ -844,5 +846,43 @@ public class StrmanTest {
     public void removeRight_shouldNotLowercaseWhenCaseInsensitive() throws Exception {
         String result = removeRight("Remove the END at the end", " END", false);
         assertThat(result, is("Remove the END at the"));
+    }
+
+    @Test
+    public void transliterate_shouldDeburrTheString() throws Exception {
+        String result = transliterate("déjà vu");
+        assertThat(result, is(equalTo("deja vu")));
+    }
+
+    @Ignore
+    public void htmlEncode_shouldConvertCharactersToTheirHtmlEntities() throws Exception {
+        String result = htmlEncode("fred, barney, & pebbles");
+        assertThat(result, is(equalTo("fred, barney, &amp; pebbles")));
+    }
+
+    @Ignore
+    public void kebabCase_shouldConvertAStringToKebabCase() throws Exception {
+        String[] input = {
+                "Foo Bar",
+                "fooBar",
+                "__FOO_BAR__"
+        };
+
+        Arrays.stream(input).forEach(el ->
+                assertThat(String.format("%s should be foo-bar", el), toKebabCase(el), is(equalTo("foo-bar"))));
+
+    }
+
+    @Ignore
+    public void snakeCase_shouldConvertAStringToSnakecase() throws Exception {
+        String[] input = {
+                "Foo Bar",
+                "fooBar",
+                "--FOO-BAR--"
+        };
+
+        Arrays.stream(input).forEach(el ->
+                assertThat(String.format("%s should be foo_bar", el), toSnakeCase(el), is(equalTo("foo_bar"))));
+
     }
 }

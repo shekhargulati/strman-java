@@ -944,7 +944,11 @@ public abstract class Strman {
      */
     public static String htmlEncode(final String html) {
         validate(html, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        return html.chars().mapToObj(c -> "\\u" + String.format("%04x", c).toUpperCase()).map(e -> HtmlEntities.encodedEntities.get(e)).collect(joining());
+        return html
+                .chars()
+                .mapToObj(c -> "\\u" + String.format("%04x", c).toUpperCase())
+                .map(HtmlEntities.encodedEntities::get)
+                .collect(joining());
     }
 
     /**
