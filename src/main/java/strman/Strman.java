@@ -1109,6 +1109,28 @@ public abstract class Strman {
         return value.chars().mapToObj(ch -> leftPad(Integer.toString(ch, radix), "0", digits)).collect(joining());
     }
 
+
+    /**
+     * Join concatenates all the elements of the strings array into a single String. The separator string is placed between elements in the resulting string.
+     *
+     * @param strings   The input array to concatenate
+     * @param separator The separator to use
+     * @return Concatenated String
+     */
+    public static String join(final String[] strings, final String separator) {
+        if (strings == null) {
+            throw new IllegalArgumentException("Input array 'strings' can't be null");
+        }
+        if (separator == null) {
+            throw new IllegalArgumentException("separator can't be null");
+        }
+        StringJoiner joiner = new StringJoiner(separator);
+        for (String el : strings) {
+            joiner.add(el);
+        }
+        return joiner.toString();
+    }
+
     private static void validate(String value, Predicate<String> predicate, final Supplier<String> supplier) {
         if (predicate.test(value)) {
             throw new IllegalArgumentException(supplier.get());

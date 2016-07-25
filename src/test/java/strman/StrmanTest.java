@@ -411,9 +411,9 @@ public class StrmanTest {
 
     @Test
     public void inequal_shouldTestInequalityOfStrings() throws Exception {
-        assertThat(inequal("a", "b"), equalTo(true));
-        assertThat(inequal("a", "a"), equalTo(false));
-        assertThat(inequal("0", "1"), equalTo(true));
+        assertThat(unequal("a", "b"), equalTo(true));
+        assertThat(unequal("a", "a"), equalTo(false));
+        assertThat(unequal("0", "1"), equalTo(true));
     }
 
     @Test
@@ -884,5 +884,32 @@ public class StrmanTest {
         Arrays.stream(input).forEach(el ->
                 assertThat(String.format("%s should be foo_bar", el), toSnakeCase(el), is(equalTo("foo_bar"))));
 
+    }
+
+    @Test
+    public void join_shouldJoinArrayOfStringIntoASingleString() throws Exception {
+        String[] strings = {
+                "hello",
+                "world",
+                "123"
+        };
+        assertThat(join(strings, ";"), is(equalTo("hello;world;123")));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void join_shouldThrowIllegalArgumentExceptionWhenSeparatorIsNull() throws Exception {
+        String[] strings = {
+                "hello",
+                "world",
+                "123"
+        };
+
+        join(strings, null);
+    }
+
+    @Test
+    public void join_shouldReturnEmptyStringWhenInputArrayIsEmpty() throws Exception {
+        String[] emptyArray = {};
+        assertThat(join(emptyArray, ","), is(equalTo("")));
     }
 }
