@@ -1117,7 +1117,7 @@ public abstract class Strman {
      * @param separator The separator to use
      * @return Concatenated String
      */
-    public static String join(final String[] strings, final String separator) {
+    public static String join(final String[] strings, final String separator) throws IllegalArgumentException {
         if (strings == null) {
             throw new IllegalArgumentException("Input array 'strings' can't be null");
         }
@@ -1129,6 +1129,39 @@ public abstract class Strman {
             joiner.add(el);
         }
         return joiner.toString();
+    }
+
+    /**
+     * Converts the first character of string to upper case and the remaining to lower case.
+     *
+     * @param input The string to capitalize
+     * @return The capitalized string
+     */
+    public static String capitalize(final String input) throws IllegalArgumentException {
+        if (input == null) {
+            throw new IllegalArgumentException("input can't be null");
+        }
+        if (input.length() == 0) {
+            return "";
+        }
+        return head(input).toUpperCase() + tail(input).toLowerCase();
+    }
+
+    /**
+     * Converts the first character of string to lower case.
+     *
+     * @param input The string to convert
+     * @return The converted string
+     * @throws IllegalArgumentException
+     */
+    public static String lowerFirst(final String input) throws IllegalArgumentException {
+        if (input == null) {
+            throw new IllegalArgumentException("input can't be null");
+        }
+        if (input.length() == 0) {
+            return "";
+        }
+        return head(input).toLowerCase() + tail(input);
     }
 
     private static void validate(String value, Predicate<String> predicate, final Supplier<String> supplier) {

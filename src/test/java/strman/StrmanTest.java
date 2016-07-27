@@ -912,4 +912,21 @@ public class StrmanTest {
         String[] emptyArray = {};
         assertThat(join(emptyArray, ","), is(equalTo("")));
     }
+
+    @Test
+    public void capitalize_shouldCapitalizeFirstCharacterOfString() throws Exception {
+        String[] strings = {
+                "FRED",
+                "fRED",
+                "fred"
+        };
+        Arrays.stream(strings).forEach(el -> assertThat(String.format("%s should be Fred", el), capitalize(el), equalTo("Fred")));
+    }
+
+    @Test
+    public void lowerFirst_shouldLowercasedFirstCharacterOfString() throws Exception {
+        assertThat(lowerFirst("FRED"),is(equalTo("fRED")));
+        assertThat(lowerFirst("fred"),is(equalTo("fred")));
+        assertThat(lowerFirst("Fred"),is(equalTo("fred")));
+    }
 }
