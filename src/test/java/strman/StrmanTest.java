@@ -942,4 +942,10 @@ public class StrmanTest {
     public void isEnclosedBetween_shouldThrowIllegalArgumentExceptionWhenEncloserIsNull() throws Exception {
         assertThat(isEnclosedBetween("shekhar", null), is(false));
     }
+
+    @Test
+    public void words_shouldConvertTextToWords() throws Exception {
+        final String line = "This is a string, with words!";
+        assertThat(words(line), is(new String[]{"This", "is", "a", "string", "with", "words"}));
+    }
 }
