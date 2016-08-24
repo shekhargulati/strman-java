@@ -925,8 +925,21 @@ public class StrmanTest {
 
     @Test
     public void lowerFirst_shouldLowercasedFirstCharacterOfString() throws Exception {
-        assertThat(lowerFirst("FRED"),is(equalTo("fRED")));
-        assertThat(lowerFirst("fred"),is(equalTo("fred")));
-        assertThat(lowerFirst("Fred"),is(equalTo("fred")));
+        assertThat(lowerFirst("FRED"), is(equalTo("fRED")));
+        assertThat(lowerFirst("fred"), is(equalTo("fred")));
+        assertThat(lowerFirst("Fred"), is(equalTo("fred")));
+    }
+
+    @Test
+    public void isEnclosedBetween_shouldChekcWhetherStringIsEnclosed() throws Exception {
+        assertThat(isEnclosedBetween("{{shekhar}}", "{{", "}}"), is(true));
+        assertThat(isEnclosedBetween("shekhar", "{{", "}}"), is(false));
+        assertThat(isEnclosedBetween("*shekhar*", "*"), is(true));
+        assertThat(isEnclosedBetween("shekhar", "*"), is(false));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void isEnclosedBetween_shouldThrowIllegalArgumentExceptionWhenEncloserIsNull() throws Exception {
+        assertThat(isEnclosedBetween("shekhar", null), is(false));
     }
 }
