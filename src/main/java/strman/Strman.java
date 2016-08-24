@@ -1178,8 +1178,9 @@ public abstract class Strman {
     /**
      * Verifies whether String is enclosed by encloser
      *
-     * @param input        The input String
-     * @param leftEncloser String which encloses input String
+     * @param input         The input String
+     * @param leftEncloser  String which encloses input String at left start
+     * @param rightEncloser String which encloses input String at the right end
      * @return true if enclosed false otherwise
      */
     public static boolean isEnclosedBetween(final String input, final String leftEncloser, String rightEncloser) {
