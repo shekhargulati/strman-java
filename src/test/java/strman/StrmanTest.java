@@ -345,7 +345,7 @@ public class StrmanTest {
         final String[] fixture = {
                 "foo", "foobar"
         };
-        Arrays.stream(fixture).forEach(el -> assertThat(first(el, 3), equalTo("foo")));
+        Arrays.stream(fixture).forEach(el -> assertThat(first(el, 3), equalTo(Optional.of("foo"))));
     }
 
     @Test
@@ -354,7 +354,7 @@ public class StrmanTest {
                 "foo", "foobar"
         };
 
-        Arrays.stream(fixture).forEach(el -> assertThat(head(el), equalTo("f")));
+        Arrays.stream(fixture).forEach(el -> assertThat(head(el), equalTo(Optional.of("f"))));
     }
 
     @Test
@@ -947,5 +947,15 @@ public class StrmanTest {
     public void words_shouldConvertTextToWords() throws Exception {
         final String line = "This is a string, with words!";
         assertThat(words(line), is(new String[]{"This", "is", "a", "string", "with", "words"}));
+    }
+
+    @Test
+    public void upperFirst_shouldConvertFirstCharToUpperCase() throws Exception {
+        assertThat(upperFirst("fred"), is("Fred"));
+    }
+
+    @Test
+    public void upperFirst_shouldReturnSameStringIfFirstCharIsUpperCase() throws Exception {
+        assertThat(upperFirst("FRED"), is("FRED"));
     }
 }

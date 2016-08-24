@@ -405,9 +405,8 @@ public abstract class Strman {
      * @param n     Number of chars to return
      * @return The first n chars
      */
-    public static String first(final String value, final int n) {
-        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        return value.substring(0, n);
+    public static Optional<String> first(final String value, final int n) {
+        return Optional.ofNullable(value).filter(v -> !v.isEmpty()).map(v -> v.substring(0, n));
     }
 
     /**
@@ -416,7 +415,7 @@ public abstract class Strman {
      * @param value The input String
      * @return The first char
      */
-    public static String head(final String value) {
+    public static Optional<String> head(final String value) {
         return first(value, 1);
     }
 
@@ -1049,7 +1048,10 @@ public abstract class Strman {
     public static String toStudlyCase(final String value) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         String[] words = collapseWhitespace(value.trim()).split("\\s*(_|-|\\s)\\s*");
-        return Arrays.stream(words).filter(w -> !w.trim().isEmpty()).map(w -> head(w).toUpperCase() + tail(w)).collect(joining());
+        return Arrays.stream(words)
+                .filter(w -> !w.trim().isEmpty())
+                .map(Strman::upperFirst)
+                .collect(joining());
     }
 
     /**
@@ -1058,9 +1060,8 @@ public abstract class Strman {
      * @param value The input String
      * @return String tail
      */
-    public static String tail(final String value) {
-        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        return last(value, value.length() - 1);
+    public static Optional<String> tail(final String value) {
+        return Optional.ofNullable(value).filter(v -> !v.isEmpty()).map(v -> last(v, v.length() - 1));
     }
 
     /**
@@ -1144,7 +1145,11 @@ public abstract class Strman {
         if (input.length() == 0) {
             return "";
         }
-        return head(input).toUpperCase() + tail(input).toLowerCase();
+        return head(input)
+                .map(String::toUpperCase)
+                .map(h ->
+                        tail(input).map(t -> h + t.toLowerCase()).orElse(h))
+                .get();
     }
 
     /**
@@ -1161,7 +1166,12 @@ public abstract class Strman {
         if (input.length() == 0) {
             return "";
         }
-        return head(input).toLowerCase() + tail(input);
+
+        return head(input)
+                .map(String::toLowerCase)
+                .map(h ->
+                        tail(input).map(t -> h + t).orElse(h))
+                .get();
     }
 
     /**
@@ -1194,6 +1204,22 @@ public abstract class Strman {
             throw new IllegalArgumentException("rightEncloser can't be null");
         }
         return input.startsWith(leftEncloser) && input.endsWith(rightEncloser);
+    }
+
+    /**
+     * Converts the first character of string to upper case.
+     *
+     * @param input The string to convert.
+     * @return Returns the converted string.
+     */
+    public static String upperFirst(String input) {
+        if (input == null) {
+            throw new IllegalArgumentException("input can't be null");
+        }
+        return head(input)
+                .map(String::toUpperCase)
+                .map(h -> tail(input).map(t -> h + t).orElse(h))
+                .get();
     }
 
     private static void validate(String value, Predicate<String> predicate, final Supplier<String> supplier) {
