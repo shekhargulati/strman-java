@@ -958,4 +958,20 @@ public class StrmanTest {
     public void upperFirst_shouldReturnSameStringIfFirstCharIsUpperCase() throws Exception {
         assertThat(upperFirst("FRED"), is("FRED"));
     }
+
+    @Test
+    public void trimStart_shouldRemoveAllWhitespaceAtStart() throws Exception {
+        assertThat(trimStart("   abc   "), is(Optional.of("abc   ")));
+        assertThat(trimStart("abc   "), is(Optional.of("abc   ")));
+        assertThat(trimStart("abc"), is(Optional.of("abc")));
+        assertThat(trimStart(""), is(Optional.empty()));
+        assertThat(trimStart(null), is(Optional.empty()));
+    }
+
+    @Test
+    public void trimStart_shouldRemoveSpecialCharactersAtStart() throws Exception {
+        assertThat(trimStart("-_-abc-_-", "_", "-"), is(Optional.of("abc-_-")));
+        assertThat(trimStart("-_-!abc-_-", "_", "-", "!"), is(Optional.of("abc-_-")));
+        assertThat(trimStart("-_-#abc-_-", "_", "-", "!", "#"), is(Optional.of("abc-_-")));
+    }
 }

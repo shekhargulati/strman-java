@@ -1222,6 +1222,37 @@ public abstract class Strman {
                 .get();
     }
 
+    /**
+     * Removes leading whitespace from string.
+     *
+     * @param input The string to trim.
+     * @return Returns the trimmed string.
+     */
+    public static Optional<String> trimStart(final String input) {
+        return Optional.ofNullable(input)
+                .filter(v -> !v.isEmpty())
+                .map(Strman::leftTrim);
+    }
+
+
+    /**
+     * Removes leading whitespace from string.
+     *
+     * @param input The string to trim.
+     * @param chars The characters to trim.
+     *
+     * @return Returns the trimmed string.
+     */
+    public static Optional<String> trimStart(final String input, String... chars) {
+        return Optional.ofNullable(input)
+                .filter(v -> !v.isEmpty())
+                .map(v -> {
+                    String pattern = String.format("^[%s]+", join(chars, "\\"));
+                    return v.replaceAll(pattern, "");
+                });
+    }
+
+
     private static void validate(String value, Predicate<String> predicate, final Supplier<String> supplier) {
         if (predicate.test(value)) {
             throw new IllegalArgumentException(supplier.get());
