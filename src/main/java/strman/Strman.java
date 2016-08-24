@@ -1236,7 +1236,7 @@ public abstract class Strman {
 
 
     /**
-     * Removes leading whitespace from string.
+     * Removes leading characters from string.
      *
      * @param input The string to trim.
      * @param chars The characters to trim.
@@ -1248,6 +1248,36 @@ public abstract class Strman {
                 .filter(v -> !v.isEmpty())
                 .map(v -> {
                     String pattern = String.format("^[%s]+", join(chars, "\\"));
+                    return v.replaceAll(pattern, "");
+                });
+    }
+
+    /**
+     * Removes trailing whitespace from string.
+     *
+     * @param input The string to trim.
+     * @return Returns the trimmed string.
+     */
+    public static Optional<String> trimEnd(final String input) {
+        return Optional.ofNullable(input)
+                .filter(v -> !v.isEmpty())
+                .map(Strman::rightTrim);
+    }
+
+
+    /**
+     * Removes trailing characters from string.
+     *
+     * @param input The string to trim.
+     * @param chars The characters to trim.
+     *
+     * @return Returns the trimmed string.
+     */
+    public static Optional<String> trimEnd(final String input, String... chars) {
+        return Optional.ofNullable(input)
+                .filter(v -> !v.isEmpty())
+                .map(v -> {
+                    String pattern = String.format("[%s]+$", join(chars, "\\"));
                     return v.replaceAll(pattern, "");
                 });
     }

@@ -974,4 +974,20 @@ public class StrmanTest {
         assertThat(trimStart("-_-!abc-_-", "_", "-", "!"), is(Optional.of("abc-_-")));
         assertThat(trimStart("-_-#abc-_-", "_", "-", "!", "#"), is(Optional.of("abc-_-")));
     }
+
+    @Test
+    public void trimEnd_shouldRemoveAllTrailingWhitespace() throws Exception {
+        assertThat(trimEnd("   abc   "), is(Optional.of("   abc")));
+        assertThat(trimEnd("abc   "), is(Optional.of("abc")));
+        assertThat(trimEnd("abc"), is(Optional.of("abc")));
+        assertThat(trimEnd(""), is(Optional.empty()));
+        assertThat(trimEnd(null), is(Optional.empty()));
+    }
+
+    @Test
+    public void trimEnd_shouldRemoveAllTrailingSpecialCharacters() throws Exception {
+        assertThat(trimEnd("-_-abc-_-", "_", "-"), is(Optional.of("-_-abc")));
+        assertThat(trimEnd("-_-abc!-_-", "_", "-", "!"), is(Optional.of("-_-abc")));
+        assertThat(trimEnd("-_-abc#-_-", "_", "-", "!", "#"), is(Optional.of("-_-abc")));
+    }
 }
