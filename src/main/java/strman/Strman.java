@@ -1282,6 +1282,29 @@ public abstract class Strman {
                 });
     }
 
+    /**
+     * Escapes characters in a String
+     *
+     * @param input The string to trim.
+     * @param chars The characters to escape.
+     *
+     * @return Returns the escaped string.
+     */
+    public static String escape(final String input,final String ... chars){
+        String escaped = input;
+        String completed ="";
+        String val;
+        for(String i : chars){
+            for(int j = 0; j<i.length(); j++){
+                val = i.substring(j, j + 1);
+                if(!completed.contains(val)) {
+                    escaped = replace(escaped,val, "\\" + val, true);
+                }
+                completed+=val;
+            }
+        }
+        return escaped;
+    }
 
     private static void validate(String value, Predicate<String> predicate, final Supplier<String> supplier) {
         if (predicate.test(value)) {
