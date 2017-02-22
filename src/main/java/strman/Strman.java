@@ -1291,6 +1291,9 @@ public abstract class Strman {
      * @return Returns the escaped string.
      */
     public static String escape(final String input,final String ... chars){
+        if(input==null) {
+            throw new IllegalArgumentException("input can't be null");
+        }
         String escaped = input;
         String completed ="";
         String val;
