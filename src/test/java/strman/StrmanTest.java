@@ -996,5 +996,11 @@ public class StrmanTest {
         assertThat(escape("/a  ; b'c, ", "/"," ", ";","'"), equalTo("\\/a\\ \\ \\;\\ b\\'c,\\ "));
         assertThat(escape("   abc   "," "), equalTo("\\ \\ \\ abc\\ \\ \\ "));
         assertThat(escape("a '  b ' ' c", " '"), equalTo("a\\ \\'\\ \\ b\\ \\'\\ \\'\\ c"));
+
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void escape_shouldThrowIllegalArgumentExceptionWhenValueIsNull() throws Exception {
+        escape(null,";");
+        escape("abc",null);
     }
 }
