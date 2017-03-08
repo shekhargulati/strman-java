@@ -993,9 +993,10 @@ public class StrmanTest {
 
     @Test
     public void escape_shouldEscapeAllSpecifiedCharacters() throws Exception {
-        assertThat(escape("/a  ; b'c, ", "/"," ", ";","'"), equalTo("\\/a\\ \\ \\;\\ b\\'c,\\ "));
+        assertThat(escape("/a  ; b'c, ", "/"," ", ";","'"," "), equalTo("\\/a\\ \\ \\;\\ b\\'c,\\ "));
         assertThat(escape("   abc   "," "), equalTo("\\ \\ \\ abc\\ \\ \\ "));
         assertThat(escape("a '  b ' ' c", " '"), equalTo("a\\ \\'\\ \\ b\\ \\'\\ \\'\\ c"));
+        assertThat(escape("abc", " ; ,"), equalTo("abc"));
 
     }
     @Test(expected = IllegalArgumentException.class)
