@@ -1292,13 +1292,11 @@ public abstract class Strman {
      */
     public static String escape(final String input,final String ... chars){
         validate(input, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        if(chars == null){
-            throw new IllegalArgumentException("input can't be null");
-        }
         String escaped = input;
         String completed ="";
         String val;
         for(String i : chars){
+            validate(input, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
             for(int j = 0; j<i.length(); j++){
                 val = i.substring(j, j + 1);
                 if(!completed.contains(val)) {
