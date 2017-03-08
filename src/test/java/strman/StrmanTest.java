@@ -990,4 +990,18 @@ public class StrmanTest {
         assertThat(trimEnd("-_-abc!-_-", "_", "-", "!"), is(Optional.of("-_-abc")));
         assertThat(trimEnd("-_-abc#-_-", "_", "-", "!", "#"), is(Optional.of("-_-abc")));
     }
+
+    @Test
+    public void escape_shouldEscapeAllSpecifiedCharacters() throws Exception {
+        assertThat(escape("/a  ; b'c, ", "/"," ", ";","'"," "), equalTo("\\/a\\ \\ \\;\\ b\\'c,\\ "));
+        assertThat(escape("   abc   "," "), equalTo("\\ \\ \\ abc\\ \\ \\ "));
+        assertThat(escape("a '  b ' ' c", " '"), equalTo("a\\ \\'\\ \\ b\\ \\'\\ \\'\\ c"));
+        assertThat(escape("abc", " ; ,"), equalTo("abc"));
+
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void escape_shouldThrowIllegalArgumentExceptionWhenValueIsNull() throws Exception {
+        escape(null,";");
+        escape("abc",null);
+    }
 }
