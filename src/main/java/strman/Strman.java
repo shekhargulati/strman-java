@@ -175,7 +175,7 @@ public abstract class Strman {
      */
     public static boolean containsAll(final String value, final String[] needles) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        return Arrays.stream(needles).allMatch(needle -> contains(value, needle, true));
+        return Arrays.stream(needles).allMatch(needle -> contains(value, needle, false));
     }
 
     /**
