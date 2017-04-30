@@ -34,6 +34,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import static java.util.function.Function.identity;
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.joining;
 
 /**
@@ -87,7 +90,7 @@ public abstract class Strman {
      * @return an Optional String if found else empty
      */
     public static Optional<String> at(final String value, int index) {
-        if (value == null || value.isEmpty()) {
+        if (isNullOrEmpty(value)) {
             return Optional.empty();
         }
         int length = value.length();
@@ -95,6 +98,10 @@ public abstract class Strman {
             index = length + index;
         }
         return (index < length && index >= 0) ? Optional.of(String.valueOf(value.charAt(index))) : Optional.empty();
+    }
+
+    private static boolean isNullOrEmpty(String input) {
+        return input == null || input.isEmpty();
     }
 
     /**
@@ -1301,5 +1308,21 @@ public abstract class Strman {
             offset = position + 1;
         }
         return countSubstr(value.substring(offset), subStr, allowOverlapping, ++count);
+    }
+
+    /**
+     * Counts the number of occurrences of each character in the string
+     *
+     * @param input The input string
+     * @return A map containing the number of occurrences of each character in the string
+     */
+    public static Map<Character, Long> charsCount(String input) {
+        if (isNullOrEmpty(input)) {
+            return Collections.emptyMap();
+        }
+
+        return input.chars()
+                .mapToObj(c -> (char) c)
+                .collect(groupingBy(identity(), counting()));
     }
 }

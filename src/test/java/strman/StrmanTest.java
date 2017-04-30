@@ -29,8 +29,7 @@ package strman;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Optional;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.*;
@@ -989,5 +988,43 @@ public class StrmanTest {
         assertThat(trimEnd("-_-abc-_-", "_", "-"), is(Optional.of("-_-abc")));
         assertThat(trimEnd("-_-abc!-_-", "_", "-", "!"), is(Optional.of("-_-abc")));
         assertThat(trimEnd("-_-abc#-_-", "_", "-", "!", "#"), is(Optional.of("-_-abc")));
+    }
+
+
+    @Test
+    public void charsCount_shouldReturnEmptyWhenInputStringIsNull(){
+        assertThat(charsCount(null), equalTo(Collections.emptyMap()));
+    }
+
+    @Test
+    public void charsCount_shouldReturnEmptyWhenInputStringIsEmpty(){
+        assertThat(charsCount(""), equalTo(Collections.emptyMap()));
+    }
+
+    @Test
+    public void charsCount_shouldReturnCharsCountWhenInputIsASimpleString(){
+        Map<Character, Long> expectedOutput = new HashMap<Character, Long>(){{
+                put('a',1L);
+                put('b', 1L);
+                put('c', 1L);
+        }};
+
+        assertThat(charsCount("abc"), equalTo(expectedOutput));
+    }
+
+    @Test
+    public void charsCount_shouldReturnCharsCountWhenInputIsAComplexString(){
+        Map<Character, Long> expectedOutput = new HashMap<Character, Long>(){{
+            put('a',1L);
+            put('b', 2L);
+            put('c', 3L);
+
+            put('A',1L);
+            put('B', 2L);
+            put('C', 3L);
+            put('-', 10L);
+        }};
+
+        assertThat(charsCount("-----abbcccCCCBBA-----"), equalTo(expectedOutput));
     }
 }
