@@ -15,7 +15,7 @@ For Apache Maven users, please add following to your pom.xml.
     <dependency>
         <groupId>com.shekhargulati</groupId>
         <artifactId>strman</artifactId>
-        <version>0.2.0</version>
+        <version>0.3.0</version>
     </dependency>
 </dependencies>
 ```
@@ -23,7 +23,7 @@ For Apache Maven users, please add following to your pom.xml.
 Gradle users can add following to their build.gradle file.
 
 ```
-compile(group: 'com.shekhargulati', name: 'strman', version: '0.2.0')
+compile(group: 'com.shekhargulati', name: 'strman', version: '0.3.0')
 ```
 
 ## Available Functions
