@@ -1,7 +1,7 @@
 strman-java [![Build Status](https://travis-ci.org/shekhargulati/strman-java.svg?branch=master)](https://travis-ci.org/shekhargulati/strman-java) [![codecov.io](https://codecov.io/github/shekhargulati/strman-java/coverage.svg?branch=master)](https://codecov.io/github/shekhargulati/strman-java?branch=master) [![License](https://img.shields.io/:license-mit-blue.svg)](./LICENSE.txt)
 ------
 
-A Java 8 library for working with String. It is inspired by [dleitee/strman](https://github.com/dleitee/strman).
+A Java 8 library for working with String. You can refer to Javadocs online [http://shekhargulati.github.io/strman-java/](http://shekhargulati.github.io/strman-java/).
 
 Getting Started
 --------
@@ -617,6 +617,10 @@ Join concatenates all the elements of the strings array into a single String. Th
 join(new String[]{"hello","world","123"}, ";")
 // result => "hello;world;123")
 ```
+
+## Inspiration
+
+This library is inspired by [dleitee/strman](https://github.com/dleitee/strman).
 
 License
 -------
