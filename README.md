@@ -26,6 +26,8 @@ Gradle users can add following to their build.gradle file.
 compile(group: 'com.shekhargulati', name: 'strman', version: '0.3.0')
 ```
 
+To learn what we added in the latest version please refer to `./changelog.md`.
+
 ## Available Functions
 
 These are the available functions in current version of library:
@@ -78,6 +80,16 @@ Returns a String array consisting of the characters in the String.
 import static strman.Strman.chars
 chars("title")
 // result => ["t", "i", "t", "l", "e"]
+```
+
+## charsCount
+
+Counts the number of occurrences of each character in the string
+
+```java
+import static strman.Strman.charsCount
+charsCount("abca")
+// result => Map(("a",2),("b",1),("c",1))
 ```
 
 ## collapseWhitespace
@@ -496,6 +508,17 @@ transliterate("fóõ bár")
 // result => "foo bar"
 ```
 
+## trimEnd
+
+Removes trailing characters from string.
+
+```
+trimEnd("   abc   ")
+// result => Optional("   abc")
+trimEnd("")
+// result Optional.empty()
+```
+
 ## surround
 
 Surrounds a 'value' with the given 'prefix' and 'suffix'.
@@ -557,6 +580,42 @@ Transform to snake_case.
 ```java
 toSnakeCase("hello world")
 // result => "hello_world"
+```
+
+## upperFirst
+
+Converts the first character of string to upper case.
+
+```java
+upperFirst("fred")
+// result => "Fred"
+```
+
+## words
+
+Splits a String to words
+
+```java
+words("This is a string, with words!")
+// result => ["This", "is", "a", "string", "with", "words"]
+```
+
+## isEnclosedBetween
+
+Verifies whether String is enclosed by encloser
+
+```java
+isEnclosedBetween("{{shekhar}}", "{{", "}}")
+// result => true
+```
+
+## join
+
+Join concatenates all the elements of the strings array into a single String. The separator string is placed between elements in the resulting string.
+
+```java
+join(new String[]{"hello","world","123"}, ";")
+// result => "hello;world;123")
 ```
 
 License
