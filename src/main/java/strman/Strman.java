@@ -1290,6 +1290,22 @@ public abstract class Strman {
     }
 
 
+    /**
+     * Counts the number of occurrences of each character in the string
+     *
+     * @param input The input string
+     * @return A map containing the number of occurrences of each character in the string
+     */
+    public static Map<Character, Long> charsCount(String input) {
+        if (isNullOrEmpty(input)) {
+            return Collections.emptyMap();
+        }
+
+        return input.chars()
+                .mapToObj(c -> (char) c)
+                .collect(groupingBy(identity(), counting()));
+    }
+
     private static void validate(String value, Predicate<String> predicate, final Supplier<String> supplier) {
         if (predicate.test(value)) {
             throw new IllegalArgumentException(supplier.get());
@@ -1309,20 +1325,5 @@ public abstract class Strman {
         }
         return countSubstr(value.substring(offset), subStr, allowOverlapping, ++count);
     }
-
-    /**
-     * Counts the number of occurrences of each character in the string
-     *
-     * @param input The input string
-     * @return A map containing the number of occurrences of each character in the string
-     */
-    public static Map<Character, Long> charsCount(String input) {
-        if (isNullOrEmpty(input)) {
-            return Collections.emptyMap();
-        }
-
-        return input.chars()
-                .mapToObj(c -> (char) c)
-                .collect(groupingBy(identity(), counting()));
-    }
 }
+
