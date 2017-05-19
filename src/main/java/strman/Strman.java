@@ -38,9 +38,6 @@ import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.joining;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static strman.Strman.isBlank;
 
 /**
  * A String manipulation library without any dependencies

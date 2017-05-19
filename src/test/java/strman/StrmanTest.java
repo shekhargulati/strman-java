@@ -1027,9 +1027,17 @@ public class StrmanTest {
     }
     
     @Test
-    public void testIsBlank() {
-    	assertTrue(isBlank(""));
+    public void isBlank_shouldReturnTrueIfNull() {
     	assertTrue(isBlank(null));
+    }
+    
+    @Test
+    public void isBlank_shouldReturnTrueIfEmpty() {
+    	assertTrue(isBlank(""));
+    }
+    
+    @Test
+    public void isBlank_shouldReturnFalseIfNotEmpty() {
     	assertFalse(isBlank("ac"));
     }
 }
