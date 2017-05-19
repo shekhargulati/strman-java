@@ -37,8 +37,6 @@ import static org.hamcrest.collection.IsArrayContainingInOrder.arrayContaining;
 import static org.hamcrest.collection.IsArrayWithSize.emptyArray;
 import static org.junit.Assert.*;
 import static strman.Strman.*;
-import static strman.Strman.endsWith;
-import static strman.Strman.format;
 
 public class StrmanTest {
 
@@ -1026,5 +1024,12 @@ public class StrmanTest {
         }};
 
         assertThat(charsCount("-----abbcccCCCBBA-----"), equalTo(expectedOutput));
+    }
+    
+    @Test
+    public void testIsBlank() {
+    	assertTrue(isBlank(""));
+    	assertTrue(isBlank(null));
+    	assertFalse(isBlank("ac"));
     }
 }
