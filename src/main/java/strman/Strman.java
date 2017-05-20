@@ -1,4 +1,3 @@
-
 /*
  *
  *  * The MIT License
@@ -35,9 +34,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import static java.util.function.Function.identity;
-import static java.util.stream.Collectors.counting;
-import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.*;
 
 /**
  * A String manipulation library without any dependencies
@@ -119,7 +116,8 @@ public abstract class Strman {
         validate(end, NULL_STRING_PREDICATE, () -> "'end' should be not null.");
 
         String[] parts = value.split(end);
-        return Arrays.stream(parts).map(subPart -> subPart.substring(subPart.indexOf(start) + start.length())).toArray(String[]::new);
+        return Arrays.stream(parts).map(subPart -> subPart.substring(subPart.indexOf(start) + start.length()))
+                .toArray(String[]::new);
     }
 
     /**
@@ -133,7 +131,6 @@ public abstract class Strman {
         return value.split("");
     }
 
-
     /**
      * Replace consecutive whitespace characters with a single space.
      *
@@ -144,7 +141,6 @@ public abstract class Strman {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return value.trim().replaceAll("\\s\\s+", " ");
     }
-
 
     /**
      * Verifies that the needle is contained in the value. The search is case insensitive
@@ -242,9 +238,11 @@ public abstract class Strman {
      * @param allowOverlapping boolean to take into account overlapping
      * @return count of times substring exists
      */
-    public static long countSubstr(final String value, final String subStr, final boolean caseSensitive, boolean allowOverlapping) {
+    public static long countSubstr(final String value, final String subStr, final boolean caseSensitive,
+                                   boolean allowOverlapping) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        return countSubstr(caseSensitive ? value : value.toLowerCase(), caseSensitive ? subStr : subStr.toLowerCase(), allowOverlapping, 0L);
+        return countSubstr(caseSensitive ? value : value.toLowerCase(), caseSensitive ? subStr : subStr.toLowerCase(),
+                allowOverlapping, 0L);
     }
 
     /**
@@ -281,7 +279,8 @@ public abstract class Strman {
      * @param caseSensitive true or false
      * @return true or false
      */
-    public static boolean endsWith(final String value, final String search, final int position, final boolean caseSensitive) {
+    public static boolean endsWith(final String value, final String search, final int position,
+                                   final boolean caseSensitive) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         int remainingLength = position - search.length();
         if (caseSensitive) {
@@ -640,7 +639,8 @@ public abstract class Strman {
      * @param caseSensitive whether search should be case sensitive
      * @return Return position of the last occurrence of 'needle'.
      */
-    public static int lastIndexOf(final String value, final String needle, final int offset, final boolean caseSensitive) {
+    public static int lastIndexOf(final String value, final String needle, final int offset,
+                                  final boolean caseSensitive) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         validate(needle, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         if (caseSensitive) {
@@ -775,7 +775,8 @@ public abstract class Strman {
     public static String removeRight(final String value, final String suffix, final boolean caseSensitive) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         validate(suffix, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        return endsWith(value, suffix, caseSensitive) ? value.substring(0, value.toLowerCase().lastIndexOf(suffix.toLowerCase())) : value;
+        return endsWith(value, suffix, caseSensitive) ? value
+                .substring(0, value.toLowerCase().lastIndexOf(suffix.toLowerCase())) : value;
     }
 
     /**
@@ -810,13 +811,15 @@ public abstract class Strman {
      * @param caseSensitive whether search should be case sensitive or not
      * @return String replaced with 'newvalue'.
      */
-    public static String replace(final String value, final String search, final String newValue, final boolean caseSensitive) {
+    public static String replace(final String value, final String search, final String newValue,
+                                 final boolean caseSensitive) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         validate(search, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         if (caseSensitive) {
             return value.replace(search, newValue);
         }
-        return Pattern.compile(search, Pattern.CASE_INSENSITIVE).matcher(value).replaceAll(Matcher.quoteReplacement(newValue));
+        return Pattern.compile(search, Pattern.CASE_INSENSITIVE).matcher(value)
+                .replaceAll(Matcher.quoteReplacement(newValue));
     }
 
     /**
@@ -950,11 +953,8 @@ public abstract class Strman {
      */
     public static String htmlEncode(final String html) {
         validate(html, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        return html
-                .chars()
-                .mapToObj(c -> "\\u" + String.format("%04x", c).toUpperCase())
-                .map(HtmlEntities.encodedEntities::get)
-                .collect(joining());
+        return html.chars().mapToObj(c -> "\\u" + String.format("%04x", c).toUpperCase())
+                .map(HtmlEntities.encodedEntities::get).collect(joining());
     }
 
     /**
@@ -1019,7 +1019,6 @@ public abstract class Strman {
         return result;
     }
 
-
     /**
      * Surrounds a 'value' with the given 'prefix' and 'suffix'.
      *
@@ -1055,10 +1054,7 @@ public abstract class Strman {
     public static String toStudlyCase(final String value) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         String[] words = collapseWhitespace(value.trim()).split("\\s*(_|-|\\s)\\s*");
-        return Arrays.stream(words)
-                .filter(w -> !w.trim().isEmpty())
-                .map(Strman::upperFirst)
-                .collect(joining());
+        return Arrays.stream(words).filter(w -> !w.trim().isEmpty()).map(Strman::upperFirst).collect(joining());
     }
 
     /**
@@ -1106,8 +1102,7 @@ public abstract class Strman {
 
     public static String decode(final String value, final int digits, final int radix) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        return Arrays
-                .stream(value.split("(?<=\\G.{" + digits + "})"))
+        return Arrays.stream(value.split("(?<=\\G.{" + digits + "})"))
                 .map(data -> String.valueOf(Character.toChars(Integer.parseInt(data, radix))))
                 .collect(joining());
     }
@@ -1116,7 +1111,6 @@ public abstract class Strman {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         return value.chars().mapToObj(ch -> leftPad(Integer.toString(ch, radix), "0", digits)).collect(joining());
     }
-
 
     /**
      * Join concatenates all the elements of the strings array into a single String. The separator string is placed between elements in the resulting string.
@@ -1152,11 +1146,7 @@ public abstract class Strman {
         if (input.length() == 0) {
             return "";
         }
-        return head(input)
-                .map(String::toUpperCase)
-                .map(h ->
-                        tail(input).map(t -> h + t.toLowerCase()).orElse(h))
-                .get();
+        return head(input).map(String::toUpperCase).map(h -> tail(input).map(t -> h + t.toLowerCase()).orElse(h)).get();
     }
 
     /**
@@ -1174,11 +1164,7 @@ public abstract class Strman {
             return "";
         }
 
-        return head(input)
-                .map(String::toLowerCase)
-                .map(h ->
-                        tail(input).map(t -> h + t).orElse(h))
-                .get();
+        return head(input).map(String::toLowerCase).map(h -> tail(input).map(t -> h + t).orElse(h)).get();
     }
 
     /**
@@ -1223,10 +1209,7 @@ public abstract class Strman {
         if (input == null) {
             throw new IllegalArgumentException("input can't be null");
         }
-        return head(input)
-                .map(String::toUpperCase)
-                .map(h -> tail(input).map(t -> h + t).orElse(h))
-                .get();
+        return head(input).map(String::toUpperCase).map(h -> tail(input).map(t -> h + t).orElse(h)).get();
     }
 
     /**
@@ -1236,27 +1219,21 @@ public abstract class Strman {
      * @return Returns the trimmed string.
      */
     public static Optional<String> trimStart(final String input) {
-        return Optional.ofNullable(input)
-                .filter(v -> !v.isEmpty())
-                .map(Strman::leftTrim);
+        return Optional.ofNullable(input).filter(v -> !v.isEmpty()).map(Strman::leftTrim);
     }
-
 
     /**
      * Removes leading characters from string.
      *
      * @param input The string to trim.
      * @param chars The characters to trim.
-     *
      * @return Returns the trimmed string.
      */
     public static Optional<String> trimStart(final String input, String... chars) {
-        return Optional.ofNullable(input)
-                .filter(v -> !v.isEmpty())
-                .map(v -> {
-                    String pattern = String.format("^[%s]+", join(chars, "\\"));
-                    return v.replaceAll(pattern, "");
-                });
+        return Optional.ofNullable(input).filter(v -> !v.isEmpty()).map(v -> {
+            String pattern = String.format("^[%s]+", join(chars, "\\"));
+            return v.replaceAll(pattern, "");
+        });
     }
 
     /**
@@ -1266,29 +1243,22 @@ public abstract class Strman {
      * @return Returns the trimmed string.
      */
     public static Optional<String> trimEnd(final String input) {
-        return Optional.ofNullable(input)
-                .filter(v -> !v.isEmpty())
-                .map(Strman::rightTrim);
+        return Optional.ofNullable(input).filter(v -> !v.isEmpty()).map(Strman::rightTrim);
     }
-
 
     /**
      * Removes trailing characters from string.
      *
      * @param input The string to trim.
      * @param chars The characters to trim.
-     *
      * @return Returns the trimmed string.
      */
     public static Optional<String> trimEnd(final String input, String... chars) {
-        return Optional.ofNullable(input)
-                .filter(v -> !v.isEmpty())
-                .map(v -> {
-                    String pattern = String.format("[%s]+$", join(chars, "\\"));
-                    return v.replaceAll(pattern, "");
-                });
+        return Optional.ofNullable(input).filter(v -> !v.isEmpty()).map(v -> {
+            String pattern = String.format("[%s]+$", join(chars, "\\"));
+            return v.replaceAll(pattern, "");
+        });
     }
-
 
     /**
      * Counts the number of occurrences of each character in the string
@@ -1301,20 +1271,18 @@ public abstract class Strman {
             return Collections.emptyMap();
         }
 
-        return input.chars()
-                .mapToObj(c -> (char) c)
-                .collect(groupingBy(identity(), counting()));
+        return input.chars().mapToObj(c -> (char) c).collect(groupingBy(identity(), counting()));
     }
-    
+
     /**
      * Checks if string is empty.  This is a null safe check and will return true when string is null.
      *
      * @param input The input string
      * @return true if input string is null or empty
      */
-	public static boolean isBlank(String input) {
-		return input == null || input.isEmpty();
-	}
+    public static boolean isBlank(String input) {
+        return input == null || input.isEmpty();
+    }
 
     /**
      * Changes passed in string to all lower case and adds underscore between words.
@@ -1322,26 +1290,30 @@ public abstract class Strman {
      * @param input The input string
      * @return the input string in all lower case with underscores between words
      */
-	public static String underscored(String input) {
-		String result = null;
-		if (input != null) {
-			StringBuffer resultBuffer = new StringBuffer();
-			char[] inputArray = input.toCharArray();
-			for(int i = 0; i < inputArray.length; i++) {
-				char nextChar = inputArray[i];
-				if (Character.isUpperCase(nextChar)) {
-					//start new word
-					if (resultBuffer.length() != 0) {
-						resultBuffer.append("_");
-					}
-				}
-				resultBuffer.append(nextChar);
-			}
-			result = resultBuffer.toString().toLowerCase();
-		}
-		return result;
-	}
-	
+    public static String underscored(final String input) {
+        if (input == null) {
+            return null;
+        }
+        StringBuilder builder = new StringBuilder();
+        char[] chars = collapseWhitespace(input).toCharArray();
+        for (int index = 0; index < chars.length; index++) {
+            char ch = chars[index];
+            if (index > 0) {
+                if (ch == '-' || Character.isWhitespace(ch)) {
+                    builder.append("_");
+                } else if (Character.isUpperCase(ch)) {
+                    builder.append("_");
+                    builder.append(ch);
+                } else {
+                    builder.append(ch);
+                }
+            } else {
+                builder.append(ch);
+            }
+        }
+        return builder.toString().toLowerCase();
+    }
+
     private static void validate(String value, Predicate<String> predicate, final Supplier<String> supplier) {
         if (predicate.test(value)) {
             throw new IllegalArgumentException(supplier.get());
@@ -1361,6 +1333,6 @@ public abstract class Strman {
         }
         return countSubstr(value.substring(offset), subStr, allowOverlapping, ++count);
     }
-    
+
 }
 

@@ -633,8 +633,7 @@ isBlank("test")
 
 ## underscored
 
-underscored returns a string that represents the passed in string in all lowercase and underscores
-between words.
+`underscored` function converts a camel or dashed string into an underscored one
 
 ```java
 underscored("MozTransform")
