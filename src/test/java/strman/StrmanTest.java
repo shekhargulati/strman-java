@@ -1040,4 +1040,20 @@ public class StrmanTest {
     public void isBlank_shouldReturnFalseIfNotEmpty() {
     	assertFalse(isBlank("ac"));
     }
+    
+    @Test
+    public void underscored_shouldReturnUnderscoredString() {
+    	assertThat(underscored("MozTransform"), equalTo("moz_transform"));
+    }
+    
+    @Test
+    public void underscored_shouldReturnEmptyStringIfEmptyStringPassedIn() {
+    	assertThat(underscored(""), equalTo(""));
+    }
+    
+    @Test
+    public void underscored_shouldReturnNullIfNullPassedIn() {
+    	assertThat(underscored(null), equalTo(null));
+    }
+
 }

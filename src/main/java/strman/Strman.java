@@ -1310,12 +1310,38 @@ public abstract class Strman {
      * Checks if string is empty.  This is a null safe check and will return true when string is null.
      *
      * @param input The input string
-     * @return true if string is null or empty
+     * @return true if input string is null or empty
      */
 	public static boolean isBlank(String input) {
 		return input == null || input.isEmpty();
 	}
 
+    /**
+     * Changes passed in string to all lower case and adds underscore between words.
+     *
+     * @param input The input string
+     * @return the input string in all lower case with underscores between words
+     */
+	public static String underscored(String input) {
+		String result = null;
+		if (input != null) {
+			StringBuffer resultBuffer = new StringBuffer();
+			char[] inputArray = input.toCharArray();
+			for(int i = 0; i < inputArray.length; i++) {
+				char nextChar = inputArray[i];
+				if (Character.isUpperCase(nextChar)) {
+					//start new word
+					if (resultBuffer.length() != 0) {
+						resultBuffer.append("_");
+					}
+				}
+				resultBuffer.append(nextChar);
+			}
+			result = resultBuffer.toString().toLowerCase();
+		}
+		return result;
+	}
+	
     private static void validate(String value, Predicate<String> predicate, final Supplier<String> supplier) {
         if (predicate.test(value)) {
             throw new IllegalArgumentException(supplier.get());

@@ -631,6 +631,16 @@ isBlank("test")
 // result => false)
 ```
 
+## underscored
+
+underscored returns a string that represents the passed in string in all lowercase and underscores
+between words.
+
+```java
+underscored("MozTransform")
+// result => "moz_transform")
+```
+
 ## Inspiration
 
 This library is inspired by [dleitee/strman](https://github.com/dleitee/strman).
