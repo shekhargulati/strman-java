@@ -1305,6 +1305,16 @@ public abstract class Strman {
                 .mapToObj(c -> (char) c)
                 .collect(groupingBy(identity(), counting()));
     }
+    
+    /**
+     * Checks if string is empty.  This is a null safe check and will return true when string is null.
+     *
+     * @param input The input string
+     * @return true if string is null or empty
+     */
+	public static boolean isBlank(String input) {
+		return input == null || input.isEmpty();
+	}
 
     private static void validate(String value, Predicate<String> predicate, final Supplier<String> supplier) {
         if (predicate.test(value)) {
@@ -1325,5 +1335,6 @@ public abstract class Strman {
         }
         return countSubstr(value.substring(offset), subStr, allowOverlapping, ++count);
     }
+    
 }
 

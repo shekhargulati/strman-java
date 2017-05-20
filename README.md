@@ -618,6 +618,19 @@ join(new String[]{"hello","world","123"}, ";")
 // result => "hello;world;123")
 ```
 
+## isBlank
+
+isEmpty returns true if a string is blank or null and false otherwise.
+
+```java
+isBlank("")
+// result => true)
+isBlank(null)
+// result => true)
+isBlank("test")
+// result => false)
+```
+
 ## Inspiration
 
 This library is inspired by [dleitee/strman](https://github.com/dleitee/strman).
