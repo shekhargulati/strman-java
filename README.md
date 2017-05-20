@@ -631,6 +631,15 @@ isBlank("test")
 // result => false)
 ```
 
+## underscored
+
+`underscored` function converts a camel or dashed string into an underscored one
+
+```java
+underscored("MozTransform")
+// result => "moz_transform")
+```
+
 ## Inspiration
 
 This library is inspired by [dleitee/strman](https://github.com/dleitee/strman).

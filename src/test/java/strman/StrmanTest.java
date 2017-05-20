@@ -37,6 +37,7 @@ import static org.hamcrest.collection.IsArrayContainingInOrder.arrayContaining;
 import static org.hamcrest.collection.IsArrayWithSize.emptyArray;
 import static org.junit.Assert.*;
 import static strman.Strman.*;
+import static strman.Strman.endsWith;
 
 public class StrmanTest {
 
@@ -990,34 +991,34 @@ public class StrmanTest {
 
 
     @Test
-    public void charsCount_shouldReturnEmptyWhenInputStringIsNull(){
+    public void charsCount_shouldReturnEmptyWhenInputStringIsNull() {
         assertThat(charsCount(null), equalTo(Collections.emptyMap()));
     }
 
     @Test
-    public void charsCount_shouldReturnEmptyWhenInputStringIsEmpty(){
+    public void charsCount_shouldReturnEmptyWhenInputStringIsEmpty() {
         assertThat(charsCount(""), equalTo(Collections.emptyMap()));
     }
 
     @Test
-    public void charsCount_shouldReturnCharsCountWhenInputIsASimpleString(){
-        Map<Character, Long> expectedOutput = new HashMap<Character, Long>(){{
-                put('a',1L);
-                put('b', 1L);
-                put('c', 1L);
+    public void charsCount_shouldReturnCharsCountWhenInputIsASimpleString() {
+        Map<Character, Long> expectedOutput = new HashMap<Character, Long>() {{
+            put('a', 1L);
+            put('b', 1L);
+            put('c', 1L);
         }};
 
         assertThat(charsCount("abc"), equalTo(expectedOutput));
     }
 
     @Test
-    public void charsCount_shouldReturnCharsCountWhenInputIsAComplexString(){
-        Map<Character, Long> expectedOutput = new HashMap<Character, Long>(){{
-            put('a',1L);
+    public void charsCount_shouldReturnCharsCountWhenInputIsAComplexString() {
+        Map<Character, Long> expectedOutput = new HashMap<Character, Long>() {{
+            put('a', 1L);
             put('b', 2L);
             put('c', 3L);
 
-            put('A',1L);
+            put('A', 1L);
             put('B', 2L);
             put('C', 3L);
             put('-', 10L);
@@ -1025,19 +1026,42 @@ public class StrmanTest {
 
         assertThat(charsCount("-----abbcccCCCBBA-----"), equalTo(expectedOutput));
     }
-    
+
     @Test
     public void isBlank_shouldReturnTrueIfNull() {
-    	assertTrue(isBlank(null));
+        assertTrue(isBlank(null));
     }
-    
+
     @Test
     public void isBlank_shouldReturnTrueIfEmpty() {
-    	assertTrue(isBlank(""));
+        assertTrue(isBlank(""));
     }
-    
+
     @Test
     public void isBlank_shouldReturnFalseIfNotEmpty() {
-    	assertFalse(isBlank("ac"));
+        assertFalse(isBlank("ac"));
+    }
+
+    @Test
+    public void underscored_shouldReturnUnderscoredString() {
+        assertThat(underscored("MozTransform"), equalTo("moz_transform"));
+    }
+
+    @Test
+    public void underscored_shouldReturnEmptyStringIfEmptyStringPassedIn() {
+        assertThat(underscored(""), equalTo(""));
+    }
+
+    @Test
+    public void underscored_shouldReturnNullIfNullPassedIn() {
+        assertThat(underscored(null), equalTo(null));
+    }
+
+    @Test
+    public void underscored_shouldUnderscoreInputString() throws Exception {
+        assertThat(underscored("foo-bar-baz"), equalTo("foo_bar_baz"));
+        assertThat(underscored("fooBarBaz"), equalTo("foo_bar_baz"));
+        assertThat(underscored("FooBarBaz"), equalTo("foo_bar_baz"));
+        assertThat(underscored(" foo   bar baz  "), equalTo("foo_bar_baz"));
     }
 }
