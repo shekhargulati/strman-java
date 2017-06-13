@@ -1087,7 +1087,7 @@ public class StrmanTest {
     }
 
     @Test
-    public void zip_shouldReturnListOfPairs_whenFirtInputIsBiggerThanSecond(){
+    public void zip_shouldReturnListOfPairs_whenFirstInputIsBiggerThanSecond(){
         assertThat(zip("abc", "d"), equalTo(asList("ad")));
         assertThat(zip("ABCDE", "FGH"), equalTo(asList("AF", "BG", "CH")));
     }
