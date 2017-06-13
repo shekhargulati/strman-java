@@ -1346,6 +1346,7 @@ public abstract class Strman {
                 String pair = String.format("%c%c", a.charAt(index), b.charAt(index));
                 zipped.add(pair);
             }
+
             return zipped;
         }
     }

@@ -1081,19 +1081,19 @@ public class StrmanTest {
     }
 
     @Test
-    public void zip_shouldReturnListOfPairs_whenBothInputHaveSameSize() {
+    public void zip_shouldReturnExpectedListOfPairs_whenBothInputsHaveSameSize() {
         assertThat(zip("abc", "def"), equalTo(asList("ad", "be", "cf")));
         assertThat(zip("ABC", "DEF"), equalTo(asList("AD", "BE", "CF")));
     }
 
     @Test
-    public void zip_shouldReturnListOfPairs_whenFirstInputIsBiggerThanSecond() {
+    public void zip_shouldReturnExpectedListOfPairs_whenFirstInputIsBiggerThanSecond() {
         assertThat(zip("abc", "d"), equalTo(asList("ad")));
         assertThat(zip("ABCDE", "FGH"), equalTo(asList("AF", "BG", "CH")));
     }
 
     @Test
-    public void zip_shouldReturnListOfPairs_whenSecondInputIsBiggerThanFirst() {
+    public void zip_shouldReturnExpectedListOfPairs_whenSecondInputIsBiggerThanFirst() {
         assertThat(zip("d", "abc"), equalTo(asList("da")));
         assertThat(zip("FGH", "ABCDE"), equalTo(asList("FA", "GB", "HC")));
     }
