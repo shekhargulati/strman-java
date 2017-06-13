@@ -1336,19 +1336,31 @@ public abstract class Strman {
         return countSubstr(value.substring(offset), subStr, allowOverlapping, ++count);
     }
 
-    public static List<String> zip(String a, String b) {
-        if (isNullOrEmpty(a) || isNullOrEmpty(b)) {
-            return emptyList();
-        } else {
-            int minLength = min(a.length(), b.length());
-            List<String> zipped = new ArrayList<>(minLength);
-            for (int index = 0; index < minLength; ++index) {
-                String pair = String.format("%c%c", a.charAt(index), b.charAt(index));
-                zipped.add(pair);
+    public static List<String> zip(String... inputs) {
+
+        int minLength = Integer.MAX_VALUE;
+
+        for (String input : inputs) {
+            if (isNullOrEmpty(input)) {
+                return emptyList();
+            }
+            minLength = min(minLength, input.length());
+        }
+
+        List<String> zipped = new ArrayList<>(minLength);
+
+        for (int elementIndex = 0; elementIndex < minLength; ++elementIndex) {
+
+            StringBuilder element = new StringBuilder();
+
+            for (int inputIndex = 0; inputIndex < inputs.length; ++inputIndex) {
+                element.append(inputs[inputIndex].charAt(elementIndex));
             }
 
-            return zipped;
+            zipped.add(element.toString());
         }
+
+        return zipped;
     }
 }
 
