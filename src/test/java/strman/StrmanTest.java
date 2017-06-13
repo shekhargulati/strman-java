@@ -1110,7 +1110,12 @@ public class StrmanTest {
 
     @Test
     public void zip_shouldReturnEmptyList_whenNotEnoughInputs() {
-        assertThat(zip("abc"), is(empty()));
         assertThat(zip(), is(empty()));
+    }
+
+    @Test
+    public void zip_shouldReturnInputInListForm_whenOnlyOneInput() {
+        assertThat(zip("zip"), is(equalTo(asList("z", "i", "p"))));
+        assertThat(zip("z"), is(equalTo(asList("z"))));
     }
 }

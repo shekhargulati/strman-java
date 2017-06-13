@@ -1340,21 +1340,21 @@ public abstract class Strman {
      * Aggregates the contents of n strings into a single list of tuples.
      *
      * @param inputs A list of strings.
-     * @return A list of strings if there are enough elements in the input and none of them is null or empty.
+     * @return A list of strings if none of the strings in the input is null or empty.
      * An empty list otherwise.
      */
     public static List<String> zip(String... inputs) {
-        if (inputs.length < 2) {
-            return emptyList();
+        if (inputs.length == 1) {
+            return inputs[0].codePoints()
+                    .mapToObj(Character::toChars)
+                    .map(String::new)
+                    .collect(toList());
         }
 
-        int minLength = Integer.MAX_VALUE;
+        int minLength = calculateMinLength(inputs);
 
-        for (String input : inputs) {
-            if (isNullOrEmpty(input)) {
-                return emptyList();
-            }
-            minLength = min(minLength, input.length());
+        if (minLength == -1) {
+            return emptyList();
         }
 
         List<String> zipped = new ArrayList<>(minLength);
@@ -1370,6 +1370,23 @@ public abstract class Strman {
         }
 
         return zipped;
+    }
+
+    private static int calculateMinLength(String[] inputs) {
+        if (inputs.length == 0) {
+            return -1;
+        }
+
+        int minLength = Integer.MAX_VALUE;
+
+        for (String input : inputs) {
+            if (isNullOrEmpty(input)) {
+                return -1;
+            }
+            minLength = min(minLength, input.length());
+        }
+
+        return minLength;
     }
 }
 
