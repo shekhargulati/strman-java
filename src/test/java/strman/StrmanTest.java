@@ -1076,8 +1076,8 @@ public class StrmanTest {
     }
 
     @Test
-    public void zip_shouldReturnInputAsList_forSimplestValidInput() {
-        assertThat(zip("a", "b"), equalTo(asList("a", "b")));
+    public void zip_shouldListOfOneElement_forSimplestValidInput() {
+        assertThat(zip("a", "b"), equalTo(asList("ab")));
     }
 
     @Test

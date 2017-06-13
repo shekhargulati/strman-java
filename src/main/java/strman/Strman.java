@@ -1339,16 +1339,12 @@ public abstract class Strman {
         if (isNullOrEmpty(a) || isNullOrEmpty(b)) {
             return emptyList();
         } else if (a.length() == b.length()) {
-            if (a.length() == 1) {
-                return Arrays.asList(a, b);
-            } else {
-                List<String> zipped = new ArrayList<>(a.length());
-                for (int index = 0; index < a.length(); ++index) {
-                    String pair = String.format("%c%c", a.charAt(index), b.charAt(index));
-                    zipped.add(pair);
-                }
-                return zipped;
+            List<String> zipped = new ArrayList<>(a.length());
+            for (int index = 0; index < a.length(); ++index) {
+                String pair = String.format("%c%c", a.charAt(index), b.charAt(index));
+                zipped.add(pair);
             }
+            return zipped;
         } else {
             return null;
         }
