@@ -1097,4 +1097,20 @@ public class StrmanTest {
         assertThat(zip("d", "abc"), equalTo(asList("da")));
         assertThat(zip("FGH", "ABCDE"), equalTo(asList("FA", "GB", "HC")));
     }
+
+    @Test
+    public void zip_shouldReturnExpectedListOfTriplets_whenThreeInputs() {
+        assertThat(zip("abc", "def", "ghi"), equalTo(asList("adg", "beh", "cfi")));
+    }
+
+    @Test
+    public void zip_shouldReturnExpectedListOfTuples_whenMoreThanThreeInputs() {
+        assertThat(zip("abc", "def", "ghi", "123"), equalTo(asList("adg1", "beh2", "cfi3")));
+    }
+
+    @Test
+    public void zip_shouldReturnEmptyList_whenNotEnoughInputs() {
+        assertThat(zip("abc"), is(empty()));
+        assertThat(zip(), is(empty()));
+    }
 }

@@ -1336,7 +1336,17 @@ public abstract class Strman {
         return countSubstr(value.substring(offset), subStr, allowOverlapping, ++count);
     }
 
+    /**
+     * Aggregates the contents of n strings into a single list of tuples.
+     *
+     * @param inputs A list of strings.
+     * @return A list of strings if there are enough elements in the input and none of them is null or empty.
+     * An empty list otherwise.
+     */
     public static List<String> zip(String... inputs) {
+        if (inputs.length < 2) {
+            return emptyList();
+        }
 
         int minLength = Integer.MAX_VALUE;
 
@@ -1350,14 +1360,13 @@ public abstract class Strman {
         List<String> zipped = new ArrayList<>(minLength);
 
         for (int elementIndex = 0; elementIndex < minLength; ++elementIndex) {
-
-            StringBuilder element = new StringBuilder();
+            StringBuilder tuple = new StringBuilder();
 
             for (int inputIndex = 0; inputIndex < inputs.length; ++inputIndex) {
-                element.append(inputs[inputIndex].charAt(elementIndex));
+                tuple.append(inputs[inputIndex].charAt(elementIndex));
             }
 
-            zipped.add(element.toString());
+            zipped.add(tuple.toString());
         }
 
         return zipped;
