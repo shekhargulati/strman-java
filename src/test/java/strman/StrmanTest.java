@@ -1079,4 +1079,9 @@ public class StrmanTest {
     public void zip_shouldReturnInputAsList_forSimplestValidInput() {
         assertThat(zip("a", "b"), equalTo(asList("a", "b")));
     }
+
+    @Test
+    public void zip_shouldReturnListOfPairs_whenBothInputHaveSameSize(){
+        assertThat(zip("abc", "def"), equalTo(asList("ad", "be", "cf")));
+    }
 }
