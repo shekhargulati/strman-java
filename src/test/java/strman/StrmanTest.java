@@ -33,6 +33,7 @@ import org.junit.Test;
 
 import java.util.*;
 
+import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.collection.IsArrayContainingInOrder.arrayContaining;
@@ -1069,8 +1070,13 @@ public class StrmanTest {
     }
 
     @Test
-    public void zip_returnsEmptyList_whenNullOrEmptyIsPassedIn() {
+    public void zip_shouldReturnEmptyList_whenNullOrEmptyIsPassedIn() {
         assertThat(zip("a", null), is(empty()));
         assertThat(zip("", "a"), is(empty()));
+    }
+
+    @Test
+    public void zip_shouldReturnInputAsList_forSimplestValidInput() {
+        assertThat(zip("a", "b"), equalTo(asList("a", "b")));
     }
 }

@@ -1336,7 +1336,10 @@ public abstract class Strman {
     }
 
     public static List<String> zip(String a, String b) {
-        return emptyList();
+        if (isNullOrEmpty(a) || isNullOrEmpty(b)) {
+            return emptyList();
+        }
+        return Arrays.asList(a,b);
     }
 }
 
