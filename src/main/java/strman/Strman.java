@@ -33,6 +33,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import static java.lang.Math.min;
 import static java.util.Collections.emptyList;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.*;
@@ -1338,15 +1339,14 @@ public abstract class Strman {
     public static List<String> zip(String a, String b) {
         if (isNullOrEmpty(a) || isNullOrEmpty(b)) {
             return emptyList();
-        } else if (a.length() == b.length()) {
-            List<String> zipped = new ArrayList<>(a.length());
-            for (int index = 0; index < a.length(); ++index) {
+        } else {
+            int minLength = min(a.length(), b.length());
+            List<String> zipped = new ArrayList<>(minLength);
+            for (int index = 0; index < minLength; ++index) {
                 String pair = String.format("%c%c", a.charAt(index), b.charAt(index));
                 zipped.add(pair);
             }
             return zipped;
-        } else {
-            return null;
         }
     }
 }

@@ -1085,4 +1085,10 @@ public class StrmanTest {
         assertThat(zip("abc", "def"), equalTo(asList("ad", "be", "cf")));
         assertThat(zip("ABC", "DEF"), equalTo(asList("AD", "BE", "CF")));
     }
+
+    @Test
+    public void zip_shouldReturnListOfPairs_whenFirtInputIsBiggerThanSecond(){
+        assertThat(zip("abc", "d"), equalTo(asList("ad")));
+        assertThat(zip("ABCDE", "FGH"), equalTo(asList("AF", "BG", "CH")));
+    }
 }
