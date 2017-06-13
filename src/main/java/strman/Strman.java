@@ -33,6 +33,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import static java.util.Collections.emptyList;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.*;
 
@@ -1334,5 +1335,8 @@ public abstract class Strman {
         return countSubstr(value.substring(offset), subStr, allowOverlapping, ++count);
     }
 
+    public static List<String> zip(String a, String b) {
+        return emptyList();
+    }
 }
 

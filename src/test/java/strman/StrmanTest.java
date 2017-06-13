@@ -26,6 +26,8 @@
 
 package strman;
 
+import org.hamcrest.collection.IsCollectionWithSize;
+import org.hamcrest.collection.IsEmptyCollection;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -35,6 +37,7 @@ import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.collection.IsArrayContainingInOrder.arrayContaining;
 import static org.hamcrest.collection.IsArrayWithSize.emptyArray;
+import static org.hamcrest.collection.IsEmptyCollection.empty;
 import static org.junit.Assert.*;
 import static strman.Strman.*;
 import static strman.Strman.endsWith;
@@ -1063,5 +1066,11 @@ public class StrmanTest {
         assertThat(underscored("fooBarBaz"), equalTo("foo_bar_baz"));
         assertThat(underscored("FooBarBaz"), equalTo("foo_bar_baz"));
         assertThat(underscored(" foo   bar baz  "), equalTo("foo_bar_baz"));
+    }
+
+    @Test
+    public void zip_returnsEmptyList_whenNullOrEmptyIsPassedIn() {
+        assertThat(zip("a", null), is(empty()));
+        assertThat(zip("", "a"), is(empty()));
     }
 }
