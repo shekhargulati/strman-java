@@ -26,15 +26,19 @@
 
 package strman;
 
+import org.hamcrest.collection.IsCollectionWithSize;
+import org.hamcrest.collection.IsEmptyCollection;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.*;
 
+import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.collection.IsArrayContainingInOrder.arrayContaining;
 import static org.hamcrest.collection.IsArrayWithSize.emptyArray;
+import static org.hamcrest.collection.IsEmptyCollection.empty;
 import static org.junit.Assert.*;
 import static strman.Strman.*;
 import static strman.Strman.endsWith;
@@ -1063,5 +1067,55 @@ public class StrmanTest {
         assertThat(underscored("fooBarBaz"), equalTo("foo_bar_baz"));
         assertThat(underscored("FooBarBaz"), equalTo("foo_bar_baz"));
         assertThat(underscored(" foo   bar baz  "), equalTo("foo_bar_baz"));
+    }
+
+    @Test
+    public void zip_shouldReturnEmptyList_whenNullOrEmptyIsPassedIn() {
+        assertThat(zip("a", null), is(empty()));
+        assertThat(zip("", "a"), is(empty()));
+    }
+
+    @Test
+    public void zip_shouldReturnListOfOneElement_forSimplestValidInput() {
+        assertThat(zip("a", "b"), equalTo(asList("ab")));
+    }
+
+    @Test
+    public void zip_shouldReturnExpectedListOfPairs_whenBothInputsHaveSameSize() {
+        assertThat(zip("abc", "def"), equalTo(asList("ad", "be", "cf")));
+        assertThat(zip("ABC", "DEF"), equalTo(asList("AD", "BE", "CF")));
+    }
+
+    @Test
+    public void zip_shouldReturnExpectedListOfPairs_whenFirstInputIsBiggerThanSecond() {
+        assertThat(zip("abc", "d"), equalTo(asList("ad")));
+        assertThat(zip("ABCDE", "FGH"), equalTo(asList("AF", "BG", "CH")));
+    }
+
+    @Test
+    public void zip_shouldReturnExpectedListOfPairs_whenSecondInputIsBiggerThanFirst() {
+        assertThat(zip("d", "abc"), equalTo(asList("da")));
+        assertThat(zip("FGH", "ABCDE"), equalTo(asList("FA", "GB", "HC")));
+    }
+
+    @Test
+    public void zip_shouldReturnExpectedListOfTriplets_whenThreeInputs() {
+        assertThat(zip("abc", "def", "ghi"), equalTo(asList("adg", "beh", "cfi")));
+    }
+
+    @Test
+    public void zip_shouldReturnExpectedListOfTuples_whenMoreThanThreeInputs() {
+        assertThat(zip("abc", "def", "ghi", "123"), equalTo(asList("adg1", "beh2", "cfi3")));
+    }
+
+    @Test
+    public void zip_shouldReturnEmptyList_whenNotEnoughInputs() {
+        assertThat(zip(), is(empty()));
+    }
+
+    @Test
+    public void zip_shouldReturnInputInListForm_whenOnlyOneInput() {
+        assertThat(zip("zip"), is(equalTo(asList("z", "i", "p"))));
+        assertThat(zip("z"), is(equalTo(asList("z"))));
     }
 }
