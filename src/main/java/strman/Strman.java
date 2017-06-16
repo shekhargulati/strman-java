@@ -909,9 +909,21 @@ public abstract class Strman {
      * @return Words Array
      */
     public static String[] words(final String value) {
-        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        return value.split("\\W+");
+        return words(value, "\\s+");
     }
+
+    /**
+     * Splits a String to words by delimiter, \s+ by default
+     *
+     * @param value     The input String
+     * @param delimiter delimiter for splitting input String
+     * @return words array
+     */
+    public static String[] words(final String value, final String delimiter) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return value.split(delimiter);
+    }
+
 
     /**
      * Truncate the unsecured form string, cutting the independent string of required position.
@@ -997,7 +1009,7 @@ public abstract class Strman {
     public static String slugify(final String value) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
         String transliterated = transliterate(collapseWhitespace(value.trim().toLowerCase()));
-        return Arrays.stream(words(transliterated.replace("&", "-and-"))).collect(joining("-"));
+        return Arrays.stream(words(transliterated.replace("&", "-and-"), "\\W+")).collect(joining("-"));
     }
 
     /**

@@ -949,7 +949,7 @@ public class StrmanTests {
     @Test
     public void words_shouldConvertTextToWords() throws Exception {
         final String line = "This is a string, with words!";
-        assertThat(words(line), is(new String[]{"This", "is", "a", "string", "with", "words"}));
+        assertThat(words(line), arrayContaining("This", "is", "a", "string,", "with", "words!"));
     }
 
     @Test
