@@ -42,8 +42,9 @@ import static java.util.stream.Collectors.*;
  */
 public abstract class Strman {
 
-    private static final Predicate<String> NULL_STRING_PREDICATE = str -> str == null;
+    private static final Predicate<String> NULL_STRING_PREDICATE = Objects::isNull;
     private static final Supplier<String> NULL_STRING_MSG_SUPPLIER = () -> "'value' should be not null.";
+    private static final String[] EMPTY_ARRAY = new String[0];
 
     private Strman() {
     }
@@ -1331,6 +1332,19 @@ public abstract class Strman {
                         .map(input -> String.valueOf(input.charAt(elementIndex)))
                         .collect(joining()))
                 .collect(toList());
+    }
+
+    /**
+     * Split lines to an array
+     *
+     * @param input The input String
+     * @return lines in an array
+     */
+    public static String[] lines(String input) {
+        if (input == null) {
+            return EMPTY_ARRAY;
+        }
+        return input.split("\r\n?|\n");
     }
 
     private static void validate(String value, Predicate<String> predicate, final Supplier<String> supplier) {

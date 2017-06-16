@@ -32,9 +32,12 @@ import org.junit.Test;
 import java.util.*;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.collection.IsArrayContaining.hasItemInArray;
 import static org.hamcrest.collection.IsArrayContainingInOrder.arrayContaining;
+import static org.hamcrest.collection.IsArrayWithSize.arrayWithSize;
 import static org.hamcrest.collection.IsArrayWithSize.emptyArray;
 import static org.hamcrest.collection.IsEmptyCollection.empty;
 import static org.junit.Assert.*;
@@ -1114,6 +1117,27 @@ public class StrmanTests {
     @Test
     public void zip_shouldReturnInputInListForm_whenOnlyOneInput() {
         assertThat(zip("zip"), is(equalTo(asList("z", "i", "p"))));
-        assertThat(zip("z"), is(equalTo(asList("z"))));
+        assertThat(zip("z"), is(equalTo(singletonList("z"))));
+    }
+
+    @Test
+    public void lines_shouldReturnEmptyArrayWhenInputIsNull() throws Exception {
+        assertThat(lines(null), emptyArray());
+    }
+
+    @Test
+    public void lines_shouldReturnArrayWithOneEmptyElementWhenInputIsEmptyString() throws Exception {
+        assertThat(lines(""), arrayWithSize(1));
+        assertThat(lines(""), hasItemInArray(""));
+    }
+
+    @Test
+    public void lines_shouldSplitToLines() throws Exception {
+        assertThat(lines("Hello\r\nWorld").length, equalTo(2));
+        assertThat(lines("Hello\rWorld").length, equalTo(2));
+        assertThat(lines("Hello World").length, equalTo(1));
+        assertThat(lines("\r\n\n\r ").length, equalTo(4));
+        assertThat(lines("Hello\r\r\nWorld").length, equalTo(3));
+        assertThat(lines("Hello\r\rWorld").length, equalTo(3));
     }
 }
