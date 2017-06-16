@@ -26,6 +26,7 @@
 
 package strman;
 
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -324,7 +325,7 @@ public abstract class Strman {
      */
     public static String base64Decode(final String value) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        return new String(Base64.getDecoder().decode(value));
+        return new String(Base64.getDecoder().decode(value), StandardCharsets.UTF_8);
     }
 
     /**
@@ -335,7 +336,7 @@ public abstract class Strman {
      */
     public static String base64Encode(final String value) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        return Base64.getEncoder().encodeToString(value.getBytes());
+        return Base64.getEncoder().encodeToString(value.getBytes(StandardCharsets.UTF_8));
     }
 
     /**

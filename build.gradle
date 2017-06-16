@@ -1,5 +1,6 @@
 plugins {
     id 'net.researchgate.release' version '2.3.3'
+    id "net.ltgt.errorprone" version "0.0.10"
 }
 
 group 'com.shekhargulati'
@@ -10,6 +11,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'signing'
 apply plugin: "jacoco"
 apply from: rootProject.file('gradle/checkstyle.gradle')
+apply plugin: "net.ltgt.errorprone"
 
 sourceCompatibility = 1.8
 
