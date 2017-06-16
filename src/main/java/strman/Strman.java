@@ -433,7 +433,7 @@ public abstract class Strman {
      */
     public static String format(final String value, String... params) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
-        Pattern p = Pattern.compile("\\{(\\w+)\\}");
+        Pattern p = Pattern.compile("\\{(\\w+)}");
         Matcher m = p.matcher(value);
         String result = value;
         while (m.find()) {
@@ -1301,27 +1301,11 @@ public abstract class Strman {
      * @return the input string in all lower case with underscores between words
      */
     public static String underscored(final String input) {
-        if (input == null) {
-            return null;
+        if (input == null || input.length() == 0) {
+            return "";
         }
-        StringBuilder builder = new StringBuilder();
-        char[] chars = collapseWhitespace(input).toCharArray();
-        for (int index = 0; index < chars.length; index++) {
-            char ch = chars[index];
-            if (index > 0) {
-                if (ch == '-' || Character.isWhitespace(ch)) {
-                    builder.append("_");
-                } else if (Character.isUpperCase(ch)) {
-                    builder.append("_");
-                    builder.append(ch);
-                } else {
-                    builder.append(ch);
-                }
-            } else {
-                builder.append(ch);
-            }
-        }
-        return builder.toString().toLowerCase();
+
+        return input.trim().replaceAll("([a-z\\d])([A-Z]+)", "$1_$2").replaceAll("[-\\s]+", "_").toLowerCase();
     }
 
     /**
@@ -1357,6 +1341,20 @@ public abstract class Strman {
             return EMPTY_ARRAY;
         }
         return input.split("\r\n?|\n");
+    }
+
+
+    /**
+     * Converts an underscored, camelized, or dasherized string into a humanized one. Also removes beginning and ending whitespace.
+     *
+     * @param input The input String
+     * @return humanized version of String
+     */
+    public static String humanize(final String input) {
+        if (input == null || input.length() == 0) {
+            return "";
+        }
+        return upperFirst(underscored(input).replaceAll("_", " "));
     }
 
     private static void validate(String value, Predicate<String> predicate, final Supplier<String> supplier) {
