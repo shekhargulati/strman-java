@@ -1152,7 +1152,6 @@ public abstract class Strman {
      *
      * @param input The string to convert
      * @return The converted string
-     * @throws IllegalArgumentException
      */
     public static String lowerFirst(final String input) throws IllegalArgumentException {
         if (input == null) {

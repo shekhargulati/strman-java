@@ -1,0 +1,10 @@
+apply plugin: 'checkstyle'
+
+checkstyle {
+    configFile rootProject.file('etc/checkstyle.xml')
+    showViolations true
+}
+
+dependencies {
+    checkstyle 'com.puppycrawl.tools:checkstyle:7.7'
+}

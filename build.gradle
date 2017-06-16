@@ -9,6 +9,7 @@ apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 apply plugin: "jacoco"
+apply from: rootProject.file('gradle/checkstyle.gradle')
 
 sourceCompatibility = 1.8
 

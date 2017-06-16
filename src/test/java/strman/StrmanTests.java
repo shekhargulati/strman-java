@@ -26,10 +26,10 @@
 
 package strman;
 
+import java.util.*;
+
 import org.junit.Ignore;
 import org.junit.Test;
-
-import java.util.*;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
