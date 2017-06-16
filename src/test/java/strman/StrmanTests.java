@@ -26,8 +26,6 @@
 
 package strman;
 
-import org.hamcrest.collection.IsCollectionWithSize;
-import org.hamcrest.collection.IsEmptyCollection;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -43,7 +41,7 @@ import static org.junit.Assert.*;
 import static strman.Strman.*;
 import static strman.Strman.endsWith;
 
-public class StrmanTest {
+public class StrmanTests {
 
     @Test
     public void append_shouldAppendStringsToEndOfValue() throws Exception {

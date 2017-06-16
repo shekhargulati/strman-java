@@ -31,10 +31,9 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static java.lang.Math.min;
-import static java.util.Collections.emptyList;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.*;
 
@@ -97,10 +96,6 @@ public abstract class Strman {
             index = length + index;
         }
         return (index < length && index >= 0) ? Optional.of(String.valueOf(value.charAt(index))) : Optional.empty();
-    }
-
-    private static boolean isNullOrEmpty(String input) {
-        return input == null || input.isEmpty();
     }
 
     /**
@@ -1316,6 +1311,28 @@ public abstract class Strman {
         return builder.toString().toLowerCase();
     }
 
+    /**
+     * Aggregates the contents of n strings into a single list of tuples.
+     *
+     * @param inputs A list of strings.
+     * @return A list of strings if none of the strings in the input is null or empty.
+     * An empty list otherwise.
+     */
+    public static List<String> zip(String... inputs) {
+        if (inputs.length == 0) {
+            return Collections.emptyList();
+        }
+        OptionalInt min = Arrays.stream(inputs).mapToInt(str -> str == null ? 0 : str.length()).min();
+        if (!min.isPresent()) {
+            return Collections.emptyList();
+        }
+        return IntStream.range(0, min.getAsInt())
+                .mapToObj(elementIndex -> Arrays.stream(inputs)
+                        .map(input -> String.valueOf(input.charAt(elementIndex)))
+                        .collect(joining()))
+                .collect(toList());
+    }
+
     private static void validate(String value, Predicate<String> predicate, final Supplier<String> supplier) {
         if (predicate.test(value)) {
             throw new IllegalArgumentException(supplier.get());
@@ -1336,57 +1353,8 @@ public abstract class Strman {
         return countSubstr(value.substring(offset), subStr, allowOverlapping, ++count);
     }
 
-    /**
-     * Aggregates the contents of n strings into a single list of tuples.
-     *
-     * @param inputs A list of strings.
-     * @return A list of strings if none of the strings in the input is null or empty.
-     * An empty list otherwise.
-     */
-    public static List<String> zip(String... inputs) {
-        if (inputs.length == 1) {
-            return inputs[0].codePoints()
-                    .mapToObj(Character::toChars)
-                    .map(String::new)
-                    .collect(toList());
-        }
-
-        int minLength = calculateMinLength(inputs);
-
-        if (minLength == -1) {
-            return emptyList();
-        }
-
-        List<String> zipped = new ArrayList<>(minLength);
-
-        for (int elementIndex = 0; elementIndex < minLength; ++elementIndex) {
-            StringBuilder tuple = new StringBuilder();
-
-            for (int inputIndex = 0; inputIndex < inputs.length; ++inputIndex) {
-                tuple.append(inputs[inputIndex].charAt(elementIndex));
-            }
-
-            zipped.add(tuple.toString());
-        }
-
-        return zipped;
-    }
-
-    private static int calculateMinLength(String[] inputs) {
-        if (inputs.length == 0) {
-            return -1;
-        }
-
-        int minLength = Integer.MAX_VALUE;
-
-        for (String input : inputs) {
-            if (isNullOrEmpty(input)) {
-                return -1;
-            }
-            minLength = min(minLength, input.length());
-        }
-
-        return minLength;
+    private static boolean isNullOrEmpty(String input) {
+        return input == null || input.isEmpty();
     }
 }
 
