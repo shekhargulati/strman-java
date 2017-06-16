@@ -1051,7 +1051,9 @@ public abstract class Strman {
      * @return String in camelCase.
      */
     public static String toCamelCase(final String value) {
-        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        if (value == null || value.length() == 0) {
+            return "";
+        }
         String str = toStudlyCase(value);
         return str.substring(0, 1).toLowerCase() + str.substring(1);
     }
@@ -1343,6 +1345,15 @@ public abstract class Strman {
         return input.split("\r\n?|\n");
     }
 
+    /**
+     * Converts a underscored or camelized string into an dasherized one.
+     *
+     * @param input The input String
+     * @return dasherized String.
+     */
+    public static String dasherize(String input) {
+        return toKebabCase(input);
+    }
 
     /**
      * Converts an underscored, camelized, or dasherized string into a humanized one. Also removes beginning and ending whitespace.

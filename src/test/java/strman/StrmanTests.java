@@ -1153,4 +1153,19 @@ public class StrmanTests {
         assertThat(humanize(""), equalTo(""));
         assertThat(humanize(null), equalTo(""));
     }
+
+    @Test
+    public void dasherize_shouldDasherizeInputString() throws Exception {
+        assertThat(dasherize("the_dasherize_string_method"), equalTo("the-dasherize-string-method"));
+        assertThat(dasherize("TheDasherizeStringMethod"), equalTo("the-dasherize-string-method"));
+        assertThat(dasherize("thisIsATest"), equalTo("this-is-a-test"));
+        assertThat(dasherize("this Is A Test"), equalTo("this-is-a-test"));
+        assertThat(dasherize("thisIsATest123"), equalTo("this-is-a-test123"));
+        assertThat(dasherize("123thisIsATest"), equalTo("123this-is-a-test"));
+        assertThat(dasherize("the dasherize string method"), equalTo("the-dasherize-string-method"));
+        assertThat(dasherize("the  dasherize string method  "), equalTo("the-dasherize-string-method"));
+        assertThat(dasherize("input with a-dash"), equalTo("input-with-a-dash"));
+        assertThat(dasherize(""), equalTo(""));
+        assertThat(dasherize(null), equalTo(""));
+    }
 }
