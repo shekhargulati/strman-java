@@ -1368,6 +1368,27 @@ public abstract class Strman {
         return upperFirst(underscored(input).replaceAll("_", " "));
     }
 
+    /**
+     * Returns a copy of the string in which all the case-based characters have had their case swapped.
+     *
+     * @param input Input string
+     * @return String with all the case swapped
+     */
+    public static String swapCase(String input) {
+        if (input == null || input.length() == 0) {
+            return "";
+        }
+        StringBuilder resultBuilder = new StringBuilder();
+        for (char ch : input.toCharArray()) {
+            if (Character.isUpperCase(ch)) {
+                resultBuilder.append(Character.toLowerCase(ch));
+            } else {
+                resultBuilder.append(Character.toUpperCase(ch));
+            }
+        }
+        return resultBuilder.toString();
+    }
+
     private static void validate(String value, Predicate<String> predicate, final Supplier<String> supplier) {
         if (predicate.test(value)) {
             throw new IllegalArgumentException(supplier.get());
@@ -1391,5 +1412,6 @@ public abstract class Strman {
     private static boolean isNullOrEmpty(String input) {
         return input == null || input.isEmpty();
     }
+
 }
 

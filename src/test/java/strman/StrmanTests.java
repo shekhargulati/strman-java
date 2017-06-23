@@ -1168,4 +1168,12 @@ public class StrmanTests {
         assertThat(dasherize(""), equalTo(""));
         assertThat(dasherize(null), equalTo(""));
     }
+
+    @Test
+    public void swapCase_shouldSwapCaseOfCharacters() throws Exception {
+        assertThat(swapCase("AaBbCcDdEe"), equalTo("aAbBcCdDeE"));
+        assertThat(swapCase("Hello World"), equalTo("hELLO wORLD"));
+        assertThat(swapCase(""), equalTo(""));
+        assertThat(swapCase(null), equalTo(""));
+    }
 }
