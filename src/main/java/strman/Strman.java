@@ -1389,6 +1389,21 @@ public abstract class Strman {
         return resultBuilder.toString();
     }
 
+    public static String[] chop(String input, int step) {
+        if (input == null || input.length() == 0) {
+            return EMPTY_ARRAY;
+        }
+        if (step == 0) {
+            return new String[]{input};
+        }
+        int strLength = input.length();
+        int iterations = strLength % step == 0 ? strLength / step : strLength / step + 1;
+        return IntStream.iterate(0, i -> i + step)
+                .limit(iterations)
+                .mapToObj(i -> input.substring(i, (i + step) < strLength ? i + step : strLength))
+                .toArray(String[]::new);
+    }
+
     private static void validate(String value, Predicate<String> predicate, final Supplier<String> supplier) {
         if (predicate.test(value)) {
             throw new IllegalArgumentException(supplier.get());

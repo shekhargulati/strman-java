@@ -1176,4 +1176,12 @@ public class StrmanTests {
         assertThat(swapCase(""), equalTo(""));
         assertThat(swapCase(null), equalTo(""));
     }
+
+    @Test
+    public void chop_shouldChopStringByStep() throws Exception {
+        assertThat(chop(null, 2).length, equalTo(0));
+        assertThat(chop("whitespace", 2).length, equalTo(5));
+        assertThat(chop("whitespace", 3).length, equalTo(4));
+        assertThat(chop("whitespace", 0)[0].length(), equalTo(10));
+    }
 }
