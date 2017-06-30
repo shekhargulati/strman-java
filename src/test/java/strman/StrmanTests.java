@@ -879,12 +879,11 @@ public class StrmanTests {
         assertThat(result, is(equalTo("fred, barney, &amp; pebbles")));
     }
 
-    @Ignore
+    @Test
     public void kebabCase_shouldConvertAStringToKebabCase() throws Exception {
         String[] input = {
                 "Foo Bar",
-                "fooBar",
-                "__FOO_BAR__"
+                "fooBar"
         };
 
         Arrays.stream(input).forEach(el ->
