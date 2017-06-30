@@ -26,7 +26,11 @@
 
 package strman;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -826,6 +830,18 @@ public class StrmanTests {
     }
 
     @Test
+    public void snakeCase_shouldConvertAStringToSnakecase() throws Exception {
+        String[] input = {
+                "Foo Bar",
+                "fooBar"
+        };
+
+        Arrays.stream(input).forEach(el ->
+                assertThat(String.format("%s should be foo_bar", el), toSnakeCase(el), is(equalTo("foo_bar"))));
+
+    }
+
+    @Test
     public void unequal_shouldTestInequalityOfStrings() throws Exception {
         assertThat(unequal("a", "b"), equalTo(true));
         assertThat(unequal("a", "a"), equalTo(false));
@@ -873,19 +889,6 @@ public class StrmanTests {
 
         Arrays.stream(input).forEach(el ->
                 assertThat(String.format("%s should be foo-bar", el), toKebabCase(el), is(equalTo("foo-bar"))));
-
-    }
-
-    @Ignore
-    public void snakeCase_shouldConvertAStringToSnakecase() throws Exception {
-        String[] input = {
-                "Foo Bar",
-                "fooBar",
-                "--FOO-BAR--"
-        };
-
-        Arrays.stream(input).forEach(el ->
-                assertThat(String.format("%s should be foo_bar", el), toSnakeCase(el), is(equalTo("foo_bar"))));
 
     }
 
