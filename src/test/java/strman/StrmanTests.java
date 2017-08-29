@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import CS342Final.strman.NumberFormatOptions;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -372,6 +373,91 @@ public class StrmanTests {
         assertThat(format("{0} {1}", "foo", "bar"), equalTo("foo bar"));
         assertThat(format("{1} {0}", "bar", "foo"), equalTo("foo bar"));
     }
+
+
+    @Test
+    //@Author Jake Arcivar Frank Lubek
+    public void formatNumber_noParams1() throws Exception {
+        double input = 1000;
+        String correctOutput = "1,000";
+        assertThat(formatNumber(input), equalTo(correctOutput));
+    }
+
+
+    @Test
+    //@Author Jake Arcivar Frank Lubek
+    public void formatNumber_noParams2() throws Exception {
+        double input = 500000;
+        String correctOutput = "500,000";
+        assertThat(formatNumber(input), equalTo(correctOutput));
+    }
+
+
+    @Test
+    //@Author Jake Arcivar Frank Lubek
+    public void formatNumber_noParams3() throws Exception {
+        double input = 1234567;
+        String correctOutput = "1,234,567";
+        assertThat(formatNumber(input), equalTo(correctOutput));
+    }
+
+
+
+    @Test
+    //@Author Jake Arcivar Frank Lubek
+    public void formatNumber_2spacesAfterDecimal1() throws Exception {
+        double input = 1000;
+        String correctOutput = "1,000.00";
+        assertThat(formatNumber(input, new NumberFormatOptions(2)), equalTo(correctOutput));
+    }
+
+
+    @Test
+    //@Author Jake Arcivar Frank Lubek
+    public void formatNumber_2spacesAfterDecimal2() throws Exception {
+        double input = 500000;
+        String correctOutput = "500,000.00";
+        assertThat(formatNumber(input, new NumberFormatOptions(2)), equalTo(correctOutput));
+    }
+
+
+
+    @Test
+    //@Author Jake Arcivar Frank Lubek
+    public void formatNumber_2spacesAfterDecimal3() throws Exception {
+        double input = 123456789;
+        String correctOutput = "123,456,789.00";
+        assertThat(formatNumber(input, new NumberFormatOptions(2)), equalTo(correctOutput));
+    }
+
+
+
+    @Test
+    //@Author Jake Arcivar Frank Lubek
+    public void formatNumber_rounding1() throws Exception {
+        double input = 1000.754;
+        String correctOutput = "1.001";
+        assertThat(formatNumber(input, new NumberFormatOptions(0, ",", ".")), equalTo(correctOutput));
+    }
+
+
+    @Test
+    //@Author Jake Arcivar Frank Lubek
+    public void formatNumber_rounding2() throws Exception {
+        double input = 1000000.754;
+        String correctOutput = "1.000.000,75";
+        assertThat(formatNumber(input, new NumberFormatOptions(2, ",", ".")), equalTo(correctOutput));
+    }
+
+
+    @Test
+    //@Author Jake Arcivar Frank Lubek
+    public void formatNumber_rounding3() throws Exception {
+        double input = 1234.56789;
+        String correctOutput = "1.234,5679";
+        assertThat(formatNumber(input, new NumberFormatOptions(4, ",", ".")), equalTo(correctOutput));
+    }
+
 
     @Test(expected = IllegalArgumentException.class)
     public void format_shouldThrowExceptionWhenValueDoesNotExist() throws Exception {
