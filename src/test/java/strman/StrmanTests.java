@@ -1186,4 +1186,22 @@ public class StrmanTests {
         assertThat(chop("whitespace", 3).length, equalTo(4));
         assertThat(chop("whitespace", 0)[0].length(), equalTo(10));
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void startCase_shouldThrowException() throws Exception {
+        startCase(null);
+    }
+
+    @Test
+    public void startCase_shouldStartCaseInputString() throws Exception {
+        assertThat(startCase(""), equalTo(""));
+        assertThat(startCase("ALL CAPS"), equalTo("All Caps"));
+        assertThat(startCase("camelCase"), equalTo("Camel Case"));
+        assertThat(startCase("kebab-case"), equalTo("Kebab Case"));
+        assertThat(startCase("Snake_case"), equalTo("Snake Case"));
+        assertThat(startCase("  spaces  "), equalTo("Spaces"));
+        assertThat(startCase("spaces    between    words"), equalTo("Spaces Between Words"));
+        assertThat(startCase("--dashes--"), equalTo("Dashes"));
+        assertThat(startCase("dashes----between----words"), equalTo("Dashes Between Words"));
+    }
 }
