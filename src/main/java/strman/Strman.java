@@ -1419,6 +1419,11 @@ public abstract class Strman {
             .map(w -> upperFirst(w.toLowerCase())).collect(joining(" "));
     }
 
+    public static String escapeRegExp(final String input) {
+        validate(input, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        return input.replaceAll("[\\\\\\^\\$\\*\\+\\-\\?\\.\\|\\(\\)\\{\\}\\[\\]]", "\\\\$0");
+    }
+
     private static void validate(String value, Predicate<String> predicate, final Supplier<String> supplier) {
         if (predicate.test(value)) {
             throw new IllegalArgumentException(supplier.get());

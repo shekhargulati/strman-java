@@ -1204,4 +1204,30 @@ public class StrmanTests {
         assertThat(startCase("--dashes--"), equalTo("Dashes"));
         assertThat(startCase("dashes----between----words"), equalTo("Dashes Between Words"));
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void escapeRegExp_shouldThrowException() throws Exception {
+        escapeRegExp(null);
+    }
+
+    @Test
+    public void escapeRegExp_shouldEscapeRegExp() throws Exception {
+        assertThat(escapeRegExp("\\"), equalTo("\\\\"));
+        assertThat(escapeRegExp("^"), equalTo("\\^"));
+        assertThat(escapeRegExp("$"), equalTo("\\$"));
+        assertThat(escapeRegExp("*"), equalTo("\\*"));
+        assertThat(escapeRegExp("+"), equalTo("\\+"));
+        assertThat(escapeRegExp("-"), equalTo("\\-"));
+        assertThat(escapeRegExp("?"), equalTo("\\?"));
+        assertThat(escapeRegExp("."), equalTo("\\."));
+        assertThat(escapeRegExp("|"), equalTo("\\|"));
+        assertThat(escapeRegExp("("), equalTo("\\("));
+        assertThat(escapeRegExp(")"), equalTo("\\)"));
+        assertThat(escapeRegExp("{"), equalTo("\\{"));
+        assertThat(escapeRegExp("}"), equalTo("\\}"));
+        assertThat(escapeRegExp("["), equalTo("\\["));
+        assertThat(escapeRegExp("]"), equalTo("\\]"));
+        assertThat(escapeRegExp("How much is (2+3)? 5"), equalTo("How much is \\(2\\+3\\)\\? 5"));
+        assertThat(escapeRegExp("\\s|_|-|(?<=[a-z])(?=[A-Z])"), equalTo("\\\\s\\|_\\|\\-\\|\\(\\?<=\\[a\\-z\\]\\)\\(\\?=\\[A\\-Z\\]\\)"));
+    }
 }
