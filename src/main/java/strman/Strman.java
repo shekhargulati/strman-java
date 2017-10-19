@@ -1389,6 +1389,29 @@ public abstract class Strman {
         return resultBuilder.toString();
     }
 
+    /**
+     * Returns a string representation of the number passed in where groups of three digits are delimited by comma
+     *
+     * @param number Input number
+     * @return formatted String
+     */
+    public static String formatNumber(long number) {
+        String stringRepresentation = Long.toString(number);
+        StringBuilder sb = new StringBuilder();
+        int bound = stringRepresentation.length() - 1;
+        String delimiter = ",";
+        int counter = 0;
+        for (int i = bound; i >= 0; i--) {
+            char c = stringRepresentation.charAt(i);
+            if (i != bound && counter % 3 == 0) {
+                sb.append(delimiter);
+            }
+            sb.append(c);
+            counter++;
+        }
+        return sb.reverse().toString();
+    }
+
     public static String[] chop(String input, int step) {
         if (input == null || input.length() == 0) {
             return EMPTY_ARRAY;
