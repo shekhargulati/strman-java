@@ -1404,6 +1404,21 @@ public abstract class Strman {
                 .toArray(String[]::new);
     }
 
+    /**
+     * Converts a String into its Start Case version
+     * https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage
+     *
+     * @param input The input String
+     * @return Start Case String
+     */
+    public static String startCase(final String input) {
+        validate(input, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        // split into a word when we encounter a space, or an underscore, or a dash, or a switch from lower to upper case
+        String[] words = words(input, "\\s|_|-|(?<=[a-z])(?=[A-Z])");
+        return Arrays.stream(words).filter(w -> !w.trim().isEmpty())
+            .map(w -> upperFirst(w.toLowerCase())).collect(joining(" "));
+    }
+
     private static void validate(String value, Predicate<String> predicate, final Supplier<String> supplier) {
         if (predicate.test(value)) {
             throw new IllegalArgumentException(supplier.get());
