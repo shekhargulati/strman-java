@@ -1194,7 +1194,7 @@ public class StrmanTests {
         assertThat(formatNumber(10000000), equalTo("10,000,000"));
         assertThat(formatNumber(100000000), equalTo("100,000,000"));
     }
-  
+
     @Test(expected = IllegalArgumentException.class)
     public void startCase_shouldThrowException() throws Exception {
         startCase(null);
