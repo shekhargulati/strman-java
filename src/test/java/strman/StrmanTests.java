@@ -1187,6 +1187,14 @@ public class StrmanTests {
         assertThat(chop("whitespace", 0)[0].length(), equalTo(10));
     }
 
+    @Test
+    public void formatNumber_shouldFormatNumberWithCommaDelimiter() throws Exception {
+        assertThat(formatNumber(1000), equalTo("1,000"));
+        assertThat(formatNumber(100000), equalTo("100,000"));
+        assertThat(formatNumber(10000000), equalTo("10,000,000"));
+        assertThat(formatNumber(100000000), equalTo("100,000,000"));
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void startCase_shouldThrowException() throws Exception {
         startCase(null);
