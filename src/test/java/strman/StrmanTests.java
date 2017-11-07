@@ -89,8 +89,8 @@ public class StrmanTests {
 
     @Test
     public void between_shouldReturnEmptyArrayWhenStartAndEndDoesNotExist() throws Exception {
-        assertThat(between("[abc][def]", "{", "}").length, is(0));
-        assertThat(between("", "{", "}").length, is(0));
+        assertThat(between("[abc][def]", "{", "}").length, equalTo(0));
+        assertThat(between("", "{", "}").length, equalTo(0));
     }
 
     @Test
