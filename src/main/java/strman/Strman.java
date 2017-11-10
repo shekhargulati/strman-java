@@ -115,7 +115,9 @@ public abstract class Strman {
         validate(end, NULL_STRING_PREDICATE, () -> "'end' should be not null.");
 
         String[] parts = value.split(end);
-        return Arrays.stream(parts).map(subPart -> subPart.substring(subPart.indexOf(start) + start.length()))
+        return Arrays.stream(parts)
+                .filter(subPart -> subPart.contains(start))
+                .map(subPart -> subPart.substring(subPart.indexOf(start) + start.length()))
                 .toArray(String[]::new);
     }
 
