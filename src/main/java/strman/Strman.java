@@ -842,6 +842,7 @@ public abstract class Strman {
      */
     public static String rightPad(final String value, String pad, final int length) {
         validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        validate(pad, v -> v.length() != 1, () -> "'pad' should be only ONE charater");
         if (value.length() > length) {
             return value;
         }
