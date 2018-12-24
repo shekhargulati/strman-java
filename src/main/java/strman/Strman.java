@@ -1457,6 +1457,13 @@ public abstract class Strman {
 
     private static long countSubstr(String value, String subStr, boolean allowOverlapping, long count) {
         int position = value.indexOf(subStr);
+        
+		// There would be one empty sub-string in every string
+		// Ex: "str".indexOf("") is 0. Also, "str".substring(3) is ""
+		if (subStr.isEmpty()) {
+			return ++count;
+		}
+		
         if (position == -1) {
             return count;
         }

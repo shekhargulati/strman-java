@@ -231,6 +231,16 @@ public class StrmanTests {
     public void countSubstrTestFixture_caseSensitiveTrueAndOverlappingTrue() throws Exception {
         assertThat(countSubstr("aaa", "aa", true, true), equalTo(2L));
     }
+    
+	@Test
+	public void countSubstr_shouldCountSubStrWithEmptySubStr() throws Exception {
+		assertThat(countSubstr("aaa", "", true, true), equalTo(1L));
+	}
+
+	@Test
+	public void countSubstr_shouldCountSubStrWithEmptyValueAndEmptySubStr() throws Exception {
+		assertThat(countSubstr("", "", true, true), equalTo(1L));
+	}
 
     @Test
     public void endsWith_caseSensitive_ShouldBeTrueWhenStringEndsWithSearchStr() throws Exception {
