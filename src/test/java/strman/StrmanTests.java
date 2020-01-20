@@ -1238,4 +1238,11 @@ public class StrmanTests {
         assertThat(escapeRegExp("How much is (2+3)? 5"), equalTo("How much is \\(2\\+3\\)\\? 5"));
         assertThat(escapeRegExp("\\s|_|-|(?<=[a-z])(?=[A-Z])"), equalTo("\\\\s\\|_\\|\\-\\|\\(\\?<=\\[a\\-z\\]\\)\\(\\?=\\[A\\-Z\\]\\)"));
     }
+
+    @Test
+    public void replace_shouldMultipleTargetValueReplacedToOne() throws Exception {
+        assertThat(replace("Hello, my name is john and I'm 7 year old", "Baru Baru", "my", "is", "I'm"), equalTo("Hello, Baru Baru name Baru Baru john and Baru Baru 7 year old"));
+        assertThat(replace("A dog is running and a fox is sleeing and other dogs is eating", "animal", "dog", "fox", "dog"), equalTo("A animal is running and a animal is sleeing and other animals is eating"));
+        assertThat(replace("USA enter world war II in 1941, Before them United State didn't enter", "American", "USA", "United State"), equalTo("American enter world war II in 1941, Before them American didn't enter"));
+    }
 }

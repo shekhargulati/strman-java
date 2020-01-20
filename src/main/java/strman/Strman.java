@@ -1473,5 +1473,21 @@ public abstract class Strman {
         return input == null || input.isEmpty();
     }
 
+    /**
+     * Replace multiple value
+     *
+     * @param input   The Input String value
+     * @param select  The values to replacement
+     * @param replace The value to replace with
+     * @return String value
+     */
+    public static String replace(String input, String replace, String... select) {
+        validate(input, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        validate(replace, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        for (String s : select)
+            input = input.replaceAll(s, replace);
+        return input;
+    }
+
 }
 
