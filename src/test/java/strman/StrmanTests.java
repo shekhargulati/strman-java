@@ -1245,4 +1245,11 @@ public class StrmanTests {
         assertThat(replace("A dog is running and a fox is sleeing and other dogs is eating", "animal", "dog", "fox", "dog"), equalTo("A animal is running and a animal is sleeing and other animals is eating"));
         assertThat(replace("USA enter world war II in 1941, Before them United State didn't enter", "American", "USA", "United State"), equalTo("American enter world war II in 1941, Before them American didn't enter"));
     }
+
+    @Test
+    public void wordCount_shouldReturnRightNumberOfWord() throws  Exception{
+        assertThat(wordCount("Don’t cry because it’s over, smile because it happened."), equalTo(9));
+        assertThat(wordCount("No one can make you feel inferior without your consent."),equalTo(10));
+        assertThat(wordCount("The only way of finding the limits of the possible is by going beyond them into the impossible.”"),equalTo(18));
+    }
 }
