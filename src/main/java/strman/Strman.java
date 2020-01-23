@@ -1441,7 +1441,7 @@ public abstract class Strman {
         // split into a word when we encounter a space, or an underscore, or a dash, or a switch from lower to upper case
         String[] words = words(input, "\\s|_|-|(?<=[a-z])(?=[A-Z])");
         return Arrays.stream(words).filter(w -> !w.trim().isEmpty())
-            .map(w -> upperFirst(w.toLowerCase())).collect(joining(" "));
+                .map(w -> upperFirst(w.toLowerCase())).collect(joining(" "));
     }
 
     public static String escapeRegExp(final String input) {
@@ -1491,7 +1491,8 @@ public abstract class Strman {
 
     /**
      * Get Number of Word in String
-     * @param input   The Input String value
+     *
+     * @param input The Input String value
      * @return int value
      */
     public static int wordCount(String input) {
@@ -1503,6 +1504,38 @@ public abstract class Strman {
                 count++;
         }
         return count;
+
+
+    }
+
+
+    /**
+     * Get Number of Specific Word in String
+     *
+     * @param input  The Input String value
+     * @param search The Keyword String
+     * @return int count value
+     */
+    public static int wordCount(String input, String search) {
+        int index = 0;
+        int count = 0;
+        while (true) {
+            index = input.indexOf(search, index + 1);
+            if (index == -1)
+                break;
+            count++;
+        }
+        return count;
+    }
+
+    /**
+     * Get Number of Specific Word in String Ignore Case
+     * @param input   The Input String value
+     * @param search The Keyword String
+     * @return int count value
+     */
+    public static int wordCountIgnoreCase(String input, String search) {
+        return wordCount(input.toUpperCase(), search.toUpperCase());
     }
 
 

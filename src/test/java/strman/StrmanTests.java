@@ -1252,4 +1252,11 @@ public class StrmanTests {
         assertThat(wordCount("No one can make you feel inferior without your consent."),equalTo(10));
         assertThat(wordCount("The only way of finding the limits of the possible is by going beyond them into the impossible.”"),equalTo(18));
     }
+
+    @Test
+    public void spceificWordCount_shouldReturnRightNumberOfWord() throws  Exception{
+        assertThat(wordCount("Nory was a Catholic because her mother was a Catholic, and Nory’s mother was a Catholic because her father was a Catholic, and her father was a Catholic because his mother was a Catholic, or had been.","Catholic"), equalTo(6));
+        assertThat(wordCountIgnoreCase("Nory was a catholic because her mother was a Catholic, and Nory’s mother was a catholic because her father was a Catholic, and her father was a Catholic because his mother was a catholic, or had been.","catholic"),equalTo(6));
+        assertThat(wordCount("I felt happy because I saw the others were happy and because I knew I should feel happy, but I wasn’t really happy.","happy"),equalTo(4));
+    }
 }
