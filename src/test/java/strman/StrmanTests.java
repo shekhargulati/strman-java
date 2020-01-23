@@ -1259,4 +1259,23 @@ public class StrmanTests {
         assertThat(wordCountIgnoreCase("Nory was a catholic because her mother was a Catholic, and Nory’s mother was a catholic because her father was a Catholic, and her father was a Catholic because his mother was a catholic, or had been.","catholic"),equalTo(6));
         assertThat(wordCount("I felt happy because I saw the others were happy and because I knew I should feel happy, but I wasn’t really happy.","happy"),equalTo(4));
     }
+
+    @Test
+    public void templateBuilder_shouldBuldCorrectly() throws  Exception{
+        TemplateBulider template = new TemplateBulider("Hello, my name is <=name>, <=age> years old.");
+        template.add("name", "John");
+        template.add("age", 24);
+        assertThat(template.execute(),equalTo("Hello, my name is John, 24 years old."));
+    }
+
+    @Test(expected = RuntimeException.class)
+    public  void templateBuilder_shouldExceptionOnDuplicateValueDefinition(){
+        new TemplateBulider("Hello, my name is <=name>, <=age> years old. I'm <=name>");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public  void templateBuilder_shouldExceptionNoValueDefinition(){
+        TemplateBulider template = new TemplateBulider("Hello, my name is <=name>, <=age> years old.");
+        template.add("address", "Yangon");
+    }
 }
