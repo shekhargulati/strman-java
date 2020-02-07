@@ -1537,7 +1537,42 @@ public abstract class Strman {
     public static int wordCountIgnoreCase(String input, String search) {
         return wordCount(input.toUpperCase(), search.toUpperCase());
     }
+    /**
+     * Get Number of sentence in String
+     *
+     * @param input The Input String value
+     * @return int value
+     */
+    public static int sentenceCount(String input) {
+        String delimiters = "?!.";
+        int result = 0;
+        for (int i = 0; i < input.length(); i++) {
+            if (delimiters.indexOf(input.charAt(i)) != -1) {
+                result++;
+            }
+        }
+        return result;
+    }
 
+    /**
+     * Get Title version of string
+     *
+     * @param input The Input String value
+     * @return String value
+     */
+    public static String title(String input) {
+        char output[] = new char[input.length()];
+        char ch[] = new char[input.length()];
+        for (int i = 0; i < (input.length()-1); i++) {
+            ch[i] = input.charAt(i);
+            if (((i > 0) && (ch[i] != ' ') && (ch[i - 1] == ' ')) || ((ch[0] != ' ') && (i == 0)))
+                output[i] = Character.toUpperCase(ch[i]);
+            else
+                output[i] = ch[i];
+
+        }
+        return new String(output).trim();
+    }
 
 }
 

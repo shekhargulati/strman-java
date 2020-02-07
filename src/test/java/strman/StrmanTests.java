@@ -1278,4 +1278,16 @@ public class StrmanTests {
         TemplateBulider template = new TemplateBulider("Hello, my name is <=name>, <=age> years old.");
         template.add("address", "Yangon");
     }
+
+    @Test
+    public void sentenceCount_shouldReturnRightNumberofSentence() {
+        assertThat(sentenceCount("This's a car. Isn't it? I thougt it! I know it."), equalTo(4));
+        assertThat(sentenceCount("Use short sentences to create punch and make a point. Use phrases and even words as sentences. Really. Do not use too many sentences -- about three or four is usually enough. Use a short sentence as a summary after a longer description."), equalTo(5));
+    }
+
+    @Test
+    public void title_shouldBeCapitalizeTheSentence(){
+        assertThat(title("computer programming "),equalTo("Computer Programming"));
+        assertThat(title("software development life cycle "),equalTo("Software Development Life Cycle"));
+    }
 }
