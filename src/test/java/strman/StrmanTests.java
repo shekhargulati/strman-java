@@ -1238,4 +1238,56 @@ public class StrmanTests {
         assertThat(escapeRegExp("How much is (2+3)? 5"), equalTo("How much is \\(2\\+3\\)\\? 5"));
         assertThat(escapeRegExp("\\s|_|-|(?<=[a-z])(?=[A-Z])"), equalTo("\\\\s\\|_\\|\\-\\|\\(\\?<=\\[a\\-z\\]\\)\\(\\?=\\[A\\-Z\\]\\)"));
     }
+
+    @Test
+    public void replace_shouldMultipleTargetValueReplacedToOne() throws Exception {
+        assertThat(replace("Hello, my name is john and I'm 7 year old", "Baru Baru", "my", "is", "I'm"), equalTo("Hello, Baru Baru name Baru Baru john and Baru Baru 7 year old"));
+        assertThat(replace("A dog is running and a fox is sleeing and other dogs is eating", "animal", "dog", "fox", "dog"), equalTo("A animal is running and a animal is sleeing and other animals is eating"));
+        assertThat(replace("USA enter world war II in 1941, Before them United State didn't enter", "American", "USA", "United State"), equalTo("American enter world war II in 1941, Before them American didn't enter"));
+    }
+
+    @Test
+    public void wordCount_shouldReturnRightNumberOfWord() throws  Exception{
+        assertThat(wordCount("Don’t cry because it’s over, smile because it happened."), equalTo(9));
+        assertThat(wordCount("No one can make you feel inferior without your consent."),equalTo(10));
+        assertThat(wordCount("The only way of finding the limits of the possible is by going beyond them into the impossible.”"),equalTo(18));
+    }
+
+    @Test
+    public void spceificWordCount_shouldReturnRightNumberOfWord() throws  Exception{
+        assertThat(wordCount("Nory was a Catholic because her mother was a Catholic, and Nory’s mother was a Catholic because her father was a Catholic, and her father was a Catholic because his mother was a Catholic, or had been.","Catholic"), equalTo(6));
+        assertThat(wordCountIgnoreCase("Nory was a catholic because her mother was a Catholic, and Nory’s mother was a catholic because her father was a Catholic, and her father was a Catholic because his mother was a catholic, or had been.","catholic"),equalTo(6));
+        assertThat(wordCount("I felt happy because I saw the others were happy and because I knew I should feel happy, but I wasn’t really happy.","happy"),equalTo(4));
+    }
+
+    @Test
+    public void templateBuilder_shouldBuldCorrectly() throws  Exception{
+        TemplateBulider template = new TemplateBulider("Hello, my name is <=name>, <=age> years old.");
+        template.add("name", "John");
+        template.add("age", 24);
+        assertThat(template.execute(),equalTo("Hello, my name is John, 24 years old."));
+    }
+
+    @Test(expected = RuntimeException.class)
+    public  void templateBuilder_shouldExceptionOnDuplicateValueDefinition(){
+        new TemplateBulider("Hello, my name is <=name>, <=age> years old. I'm <=name>");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public  void templateBuilder_shouldExceptionNoValueDefinition(){
+        TemplateBulider template = new TemplateBulider("Hello, my name is <=name>, <=age> years old.");
+        template.add("address", "Yangon");
+    }
+
+    @Test
+    public void sentenceCount_shouldReturnRightNumberofSentence() {
+        assertThat(sentenceCount("This's a car. Isn't it? I thougt it! I know it."), equalTo(4));
+        assertThat(sentenceCount("Use short sentences to create punch and make a point. Use phrases and even words as sentences. Really. Do not use too many sentences -- about three or four is usually enough. Use a short sentence as a summary after a longer description."), equalTo(5));
+    }
+
+    @Test
+    public void title_shouldBeCapitalizeTheSentence(){
+        assertThat(title("computer programming "),equalTo("Computer Programming"));
+        assertThat(title("software development life cycle "),equalTo("Software Development Life Cycle"));
+    }
 }
